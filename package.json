@@ -1,7 +1,7 @@
 {
-  "name": "reason-react",
+  "name": "rescript-react",
   "version": "0.9.1",
-  "description": "React bindings for Reason",
+  "description": "React bindings for ReScript",
   "files": [
     "README.md",
     "Changes.md",
