@@ -3,11 +3,7 @@ This module is kept for ReScript react-jsx v3 compatibility
 We removed all functionality that is not needed for JSX usage
 **/
 
-type props = ReactDOM.Props.props
-type domProps = ReactDOM.Props.domProps
-
-let props = ReactDOM.Props.props
-let domProps = ReactDOM.Props.domProps
+include ReactDOM.Props
 
 @bs.splice @bs.module("react")
 external createDOMElementVariadic: (
