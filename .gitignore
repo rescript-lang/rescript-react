@@ -9,7 +9,7 @@ finalOutput/*.js
 /docs/
 *.log
 .bsb.lock
-/src/*.js
+/src/**/*.js
 _esy
 _build
 *.install
