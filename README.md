@@ -7,22 +7,22 @@
 
 **v0.10 tasks:**
 
-[x] - Port to ReScript syntax
-[x] - Align naming / terminologies
-[x] - Remove legacy code (see Changes.md for details)
-[x] - Upgrade to bs-platform@8.4
-[ ] - Align upcoming docs for `rescript-react@0.10`
-[ ] - Write migration-guide for `reason-react@0.9` -> `rescript-react@0.10`
-[ ] - Try `rescript-react` in existing codebases before official release
-[ ] - Release `rescript-react@0.10` (which should be easy to migrate to)
-[ ] - Add a note on `reason-react` for new users
+- [x] Port to ReScript syntax
+- [x] Align naming / terminologies
+- [x] Remove legacy code (see Changes.md for details)
+- [x] Upgrade to bs-platform@8.4
+- [ ] Align upcoming docs for `rescript-react@0.10`
+- [ ] Write migration-guide for `reason-react@0.9` -> `rescript-react@0.10`
+- [ ] Try `rescript-react` in existing codebases before official release
+- [ ] Release `rescript-react@0.10` (which should be easy to migrate to)
+- [ ] Add a note on `reason-react` for new users
 
 **v1.0 tasks:**
 
 The `v1.0` release will introduce more potential breaking changes, due to a new ppx release.
 
-[ ] - Discuss upcoming changes / upgrade strategy (blog post / forum)
-[ ] - add more actionables as plans are discussed
+- [ ] Discuss upcoming changes / upgrade strategy (blog post / forum)
+- [ ] add more actionables as plans are discussed
 
 
 ```
