@@ -1,5 +1,5 @@
 open TestFramework
-open ReasonReactRouter
+open RescriptReactRouter
 
 describe("it allows to create url from string", ({test}) => {
   test("it supports basic paths", ({expect}) => {

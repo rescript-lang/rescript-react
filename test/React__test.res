@@ -462,7 +462,7 @@ describe("React", ({test, beforeEach, afterEach}) => {
 
     act(() =>
       ReactDOM.render(
-        <ReasonReactErrorBoundary
+        <RescriptReactErrorBoundary
           fallback={({error, info}) => {
             switch error {
             | ComponentThatThrows.TestError => ()
@@ -473,7 +473,7 @@ describe("React", ({test, beforeEach, afterEach}) => {
             <strong> {"An error occured"->React.string} </strong>
           }}>
           <ComponentThatThrows value=1 />
-        </ReasonReactErrorBoundary>,
+        </RescriptReactErrorBoundary>,
         container,
       )
     )

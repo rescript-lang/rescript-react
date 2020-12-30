@@ -43,7 +43,7 @@ let safeMakeEvent = eventName =>
     event
   }
 
-/* This is copied from array.ml. We want to cut dependencies for ReasonReact so
+/* This is copied from array.ml. We want to cut dependencies for rescript-react so
  that it's friendlier to use in size-constrained codebases */
 let arrayToList = a => {
   let rec tolist = (i, res) =>
