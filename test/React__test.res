@@ -2,6 +2,22 @@ open TestFramework
 open ReactTestUtils
 open Belt
 
+module Console = {
+  type fn
+  let disableError: unit => fn = %raw(`
+  function() {
+    var fn = console.error
+    console.error = () => {}
+  }
+  `)
+
+  let restoreError: fn => unit = %raw(`
+  function(fn){
+    console.error = fn
+  }
+  `)
+}
+
 module DummyStatefulComponent = {
   @react.component
   let make = (~initialValue=0, ()) => {
@@ -440,11 +456,19 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("ErrorBoundary", ({expect}) => {
     let container = getContainer(container)
 
+    // We need to disable error temporarily due to React always
+    // printing errors / warnings
+    let consoleFn = Console.disableError()
+
     act(() =>
       ReactDOM.render(
         <ReasonReactErrorBoundary
           fallback={({error, info}) => {
-            expect.value(error).toEqual(ComponentThatThrows.TestError)
+            switch error {
+            | ComponentThatThrows.TestError => ()
+            | _ => Js.Exn.raiseError("TestError exn should have been captured by fallback")
+            }
+            Console.restoreError(consoleFn)
             expect.bool(info.componentStack->Js.String2.includes("ComponentThatThrows")).toBeTrue()
             <strong> {"An error occured"->React.string} </strong>
           }}>
