@@ -28,6 +28,7 @@
   "homepage": "https://rescript-lang.org/docs/latest/react/",
   "devDependencies": {
     "bs-platform": "8.4.2",
+    "esm": "^3.2.25",
     "jest": "^26.0.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",

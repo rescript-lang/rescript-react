@@ -3,9 +3,9 @@
   "reason": { "react-jsx": 3 },
   "sources": [
     {"dir": "src", "subdirs": true},
-    { "dir": "test", "type": "dev" }
+    { "dir": "test", "subdirs": true, "type": "dev" }
   ],
-  "package-specs": [{ "module": "commonjs", "in-source": true }],
+  "package-specs": [{ "module": "es6", "in-source": true }],
   "suffix": ".bs.js",
   "bs-dev-dependencies": ["reason-test-framework"],
   "bsc-flags": ["-bs-no-version-header"]
