@@ -6,31 +6,31 @@
  calls and add the appropriate `require("react-dom")` in the file calling this `render` */
 
 // Helper so that ReactDOM itself doesn't bring any runtime
-@bs.val @bs.return(nullable)
+@val @return(nullable)
 external querySelector: string => option<Dom.element> = "document.querySelector"
 
-@bs.module("react-dom")
+@module("react-dom")
 external render: (React.element, Dom.element) => unit = "render"
 
 module Experimental = {
   type root
 
-  @bs.module("react-dom")
+  @module("react-dom")
   external createRoot: Dom.element => root = "createRoot"
 
-  @bs.module("react-dom")
+  @module("react-dom")
   external createBlockingRoot: Dom.element => root = "createBlockingRoot"
 
-  @bs.send external render: (root, React.element) => unit = "render"
+  @send external render: (root, React.element) => unit = "render"
 }
 
-@bs.module("react-dom")
+@module("react-dom")
 external hydrate: (React.element, Dom.element) => unit = "hydrate"
 
-@bs.module("react-dom")
+@module("react-dom")
 external createPortal: (React.element, Dom.element) => React.element = "createPortal"
 
-@bs.module("react-dom")
+@module("react-dom")
 external unmountComponentAtNode: Dom.element => unit = "unmountComponentAtNode"
 
 external domElementToObj: Dom.element => {..} = "%identity"
@@ -54,1023 +54,1023 @@ module Props = {
    * Watch out! There are two props types and the only difference is the type of ref.
    * Please keep in sync.
    */
-  @bs.deriving(abstract)
+  @deriving(abstract)
   type domProps = {
-    @bs.optional
+    @optional
     key: string,
-    @bs.optional
+    @optional
     ref: domRef,
     /* accessibility */
     /* https://www.w3.org/TR/wai-aria-1.1/ */
     /* https://accessibilityresources.org/<aria-tag> is a great resource for these */
-    /* [@bs.optional] [@bs.as "aria-current"] ariaCurrent: page|step|location|date|time|true|false, */
-    @bs.optional @bs.as("aria-details")
+    /* [@optional] [@as "aria-current"] ariaCurrent: page|step|location|date|time|true|false, */
+    @optional @as("aria-details")
     ariaDetails: string,
-    @bs.optional @bs.as("aria-disabled")
+    @optional @as("aria-disabled")
     ariaDisabled: bool,
-    @bs.optional @bs.as("aria-hidden")
+    @optional @as("aria-hidden")
     ariaHidden: bool,
-    /* [@bs.optional] [@bs.as "aria-invalid"] ariaInvalid: grammar|false|spelling|true, */
-    @bs.optional @bs.as("aria-keyshortcuts")
+    /* [@optional] [@as "aria-invalid"] ariaInvalid: grammar|false|spelling|true, */
+    @optional @as("aria-keyshortcuts")
     ariaKeyshortcuts: string,
-    @bs.optional @bs.as("aria-label")
+    @optional @as("aria-label")
     ariaLabel: string,
-    @bs.optional @bs.as("aria-roledescription")
+    @optional @as("aria-roledescription")
     ariaRoledescription: string,
     /* Widget Attributes */
-    /* [@bs.optional] [@bs.as "aria-autocomplete"] ariaAutocomplete: inline|list|both|none, */
-    /* [@bs.optional] [@bs.as "aria-checked"] ariaChecked: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
-    @bs.optional @bs.as("aria-expanded")
+    /* [@optional] [@as "aria-autocomplete"] ariaAutocomplete: inline|list|both|none, */
+    /* [@optional] [@as "aria-checked"] ariaChecked: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-expanded")
     ariaExpanded: bool,
-    /* [@bs.optional] [@bs.as "aria-haspopup"] ariaHaspopup: false|true|menu|listbox|tree|grid|dialog, */
-    @bs.optional @bs.as("aria-level")
+    /* [@optional] [@as "aria-haspopup"] ariaHaspopup: false|true|menu|listbox|tree|grid|dialog, */
+    @optional @as("aria-level")
     ariaLevel: int,
-    @bs.optional @bs.as("aria-modal")
+    @optional @as("aria-modal")
     ariaModal: bool,
-    @bs.optional @bs.as("aria-multiline")
+    @optional @as("aria-multiline")
     ariaMultiline: bool,
-    @bs.optional @bs.as("aria-multiselectable")
+    @optional @as("aria-multiselectable")
     ariaMultiselectable: bool,
-    /* [@bs.optional] [@bs.as "aria-orientation"] ariaOrientation: horizontal|vertical|undefined, */
-    @bs.optional @bs.as("aria-placeholder")
+    /* [@optional] [@as "aria-orientation"] ariaOrientation: horizontal|vertical|undefined, */
+    @optional @as("aria-placeholder")
     ariaPlaceholder: string,
-    /* [@bs.optional] [@bs.as "aria-pressed"] ariaPressed: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
-    @bs.optional @bs.as("aria-readonly")
+    /* [@optional] [@as "aria-pressed"] ariaPressed: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-readonly")
     ariaReadonly: bool,
-    @bs.optional @bs.as("aria-required")
+    @optional @as("aria-required")
     ariaRequired: bool,
-    @bs.optional @bs.as("aria-selected")
+    @optional @as("aria-selected")
     ariaSelected: bool,
-    @bs.optional @bs.as("aria-sort")
+    @optional @as("aria-sort")
     ariaSort: string,
-    @bs.optional @bs.as("aria-valuemax")
+    @optional @as("aria-valuemax")
     ariaValuemax: float,
-    @bs.optional @bs.as("aria-valuemin")
+    @optional @as("aria-valuemin")
     ariaValuemin: float,
-    @bs.optional @bs.as("aria-valuenow")
+    @optional @as("aria-valuenow")
     ariaValuenow: float,
-    @bs.optional @bs.as("aria-valuetext")
+    @optional @as("aria-valuetext")
     ariaValuetext: string,
     /* Live Region Attributes */
-    @bs.optional @bs.as("aria-atomic")
+    @optional @as("aria-atomic")
     ariaAtomic: bool,
-    @bs.optional @bs.as("aria-busy")
+    @optional @as("aria-busy")
     ariaBusy: bool,
-    /* [@bs.optional] [@bs.as "aria-live"] ariaLive: off|polite|assertive|rude, */
-    @bs.optional @bs.as("aria-relevant")
+    /* [@optional] [@as "aria-live"] ariaLive: off|polite|assertive|rude, */
+    @optional @as("aria-relevant")
     ariaRelevant: string,
     /* Drag-and-Drop Attributes */
-    /* [@bs.optional] [@bs.as "aria-dropeffect"] ariaDropeffect: copy|move|link|execute|popup|none, */
-    @bs.optional @bs.as("aria-grabbed")
+    /* [@optional] [@as "aria-dropeffect"] ariaDropeffect: copy|move|link|execute|popup|none, */
+    @optional @as("aria-grabbed")
     ariaGrabbed: bool,
     /* Relationship Attributes */
-    @bs.optional @bs.as("aria-activedescendant")
+    @optional @as("aria-activedescendant")
     ariaActivedescendant: string,
-    @bs.optional @bs.as("aria-colcount")
+    @optional @as("aria-colcount")
     ariaColcount: int,
-    @bs.optional @bs.as("aria-colindex")
+    @optional @as("aria-colindex")
     ariaColindex: int,
-    @bs.optional @bs.as("aria-colspan")
+    @optional @as("aria-colspan")
     ariaColspan: int,
-    @bs.optional @bs.as("aria-controls")
+    @optional @as("aria-controls")
     ariaControls: string,
-    @bs.optional @bs.as("aria-describedby")
+    @optional @as("aria-describedby")
     ariaDescribedby: string,
-    @bs.optional @bs.as("aria-errormessage")
+    @optional @as("aria-errormessage")
     ariaErrormessage: string,
-    @bs.optional @bs.as("aria-flowto")
+    @optional @as("aria-flowto")
     ariaFlowto: string,
-    @bs.optional @bs.as("aria-labelledby")
+    @optional @as("aria-labelledby")
     ariaLabelledby: string,
-    @bs.optional @bs.as("aria-owns")
+    @optional @as("aria-owns")
     ariaOwns: string,
-    @bs.optional @bs.as("aria-posinset")
+    @optional @as("aria-posinset")
     ariaPosinset: int,
-    @bs.optional @bs.as("aria-rowcount")
+    @optional @as("aria-rowcount")
     ariaRowcount: int,
-    @bs.optional @bs.as("aria-rowindex")
+    @optional @as("aria-rowindex")
     ariaRowindex: int,
-    @bs.optional @bs.as("aria-rowspan")
+    @optional @as("aria-rowspan")
     ariaRowspan: int,
-    @bs.optional @bs.as("aria-setsize")
+    @optional @as("aria-setsize")
     ariaSetsize: int,
     /* react textarea/input */
-    @bs.optional
+    @optional
     defaultChecked: bool,
-    @bs.optional
+    @optional
     defaultValue: string,
     /* global html attributes */
-    @bs.optional
+    @optional
     accessKey: string,
-    @bs.optional
+    @optional
     className: string /* substitute for "class" */,
-    @bs.optional
+    @optional
     contentEditable: bool,
-    @bs.optional
+    @optional
     contextMenu: string,
-    @bs.optional
+    @optional
     dir: string /* "ltr", "rtl" or "auto" */,
-    @bs.optional
+    @optional
     draggable: bool,
-    @bs.optional
+    @optional
     hidden: bool,
-    @bs.optional
+    @optional
     id: string,
-    @bs.optional
+    @optional
     lang: string,
-    @bs.optional
+    @optional
     role: string /* ARIA role */,
-    @bs.optional
+    @optional
     style: style,
-    @bs.optional
+    @optional
     spellCheck: bool,
-    @bs.optional
+    @optional
     tabIndex: int,
-    @bs.optional
+    @optional
     title: string,
     /* html5 microdata */
-    @bs.optional
+    @optional
     itemID: string,
-    @bs.optional
+    @optional
     itemProp: string,
-    @bs.optional
+    @optional
     itemRef: string,
-    @bs.optional
+    @optional
     itemScope: bool,
-    @bs.optional
+    @optional
     itemType: string /* uri */,
     /* tag-specific html attributes */
-    @bs.optional
+    @optional
     accept: string,
-    @bs.optional
+    @optional
     acceptCharset: string,
-    @bs.optional
+    @optional
     action: string /* uri */,
-    @bs.optional
+    @optional
     allowFullScreen: bool,
-    @bs.optional
+    @optional
     alt: string,
-    @bs.optional
+    @optional
     async: bool,
-    @bs.optional
+    @optional
     autoComplete: string /* has a fixed, but large-ish, set of possible values */,
-    @bs.optional
+    @optional
     autoCapitalize: string /* Mobile Safari specific */,
-    @bs.optional
+    @optional
     autoFocus: bool,
-    @bs.optional
+    @optional
     autoPlay: bool,
-    @bs.optional
+    @optional
     challenge: string,
-    @bs.optional
+    @optional
     charSet: string,
-    @bs.optional
+    @optional
     checked: bool,
-    @bs.optional
+    @optional
     cite: string /* uri */,
-    @bs.optional
+    @optional
     crossOrigin: string /* anonymous, use-credentials */,
-    @bs.optional
+    @optional
     cols: int,
-    @bs.optional
+    @optional
     colSpan: int,
-    @bs.optional
+    @optional
     content: string,
-    @bs.optional
+    @optional
     controls: bool,
-    @bs.optional
+    @optional
     coords: string /* set of values specifying the coordinates of a region */,
-    @bs.optional
+    @optional
     data: string /* uri */,
-    @bs.optional
+    @optional
     dateTime: string /* "valid date string with optional time" */,
-    @bs.optional
+    @optional
     default: bool,
-    @bs.optional
+    @optional
     defer: bool,
-    @bs.optional
+    @optional
     disabled: bool,
-    @bs.optional
+    @optional
     download: string /* should really be either a boolean, signifying presence, or a string */,
-    @bs.optional
+    @optional
     encType: string /* "application/x-www-form-urlencoded", "multipart/form-data" or "text/plain" */,
-    @bs.optional
+    @optional
     form: string,
-    @bs.optional
+    @optional
     formAction: string /* uri */,
-    @bs.optional
+    @optional
     formTarget: string /* "_blank", "_self", etc. */,
-    @bs.optional
+    @optional
     formMethod: string /* "post", "get", "put" */,
-    @bs.optional
+    @optional
     headers: string,
-    @bs.optional
+    @optional
     height: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
-    @bs.optional
+    @optional
     high: int,
-    @bs.optional
+    @optional
     href: string /* uri */,
-    @bs.optional
+    @optional
     hrefLang: string,
-    @bs.optional
+    @optional
     htmlFor: string /* substitute for "for" */,
-    @bs.optional
+    @optional
     httpEquiv: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     icon: string /* uri? */,
-    @bs.optional
+    @optional
     inputMode: string /* "verbatim", "latin", "numeric", etc. */,
-    @bs.optional
+    @optional
     integrity: string,
-    @bs.optional
+    @optional
     keyType: string,
-    @bs.optional
+    @optional
     kind: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     label: string,
-    @bs.optional
+    @optional
     list: string,
-    @bs.optional
+    @optional
     loop: bool,
-    @bs.optional
+    @optional
     low: int,
-    @bs.optional
+    @optional
     manifest: string /* uri */,
-    @bs.optional
+    @optional
     max: string /* should be int or Js.Date.t */,
-    @bs.optional
+    @optional
     maxLength: int,
-    @bs.optional
+    @optional
     media: string /* a valid media query */,
-    @bs.optional
+    @optional
     mediaGroup: string,
-    @bs.optional
+    @optional
     method: string /* "post" or "get" */,
-    @bs.optional
+    @optional
     min: string,
-    @bs.optional
+    @optional
     minLength: int,
-    @bs.optional
+    @optional
     multiple: bool,
-    @bs.optional
+    @optional
     muted: bool,
-    @bs.optional
+    @optional
     name: string,
-    @bs.optional
+    @optional
     nonce: string,
-    @bs.optional
+    @optional
     noValidate: bool,
-    @bs.optional @bs.as("open")
+    @optional @as("open")
     open_: bool /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     optimum: int,
-    @bs.optional
+    @optional
     pattern: string /* valid Js RegExp */,
-    @bs.optional
+    @optional
     placeholder: string,
-    @bs.optional
+    @optional
     playsInline: bool,
-    @bs.optional
+    @optional
     poster: string /* uri */,
-    @bs.optional
+    @optional
     preload: string /* "none", "metadata" or "auto" (and "" as a synonym for "auto") */,
-    @bs.optional
+    @optional
     radioGroup: string,
-    @bs.optional
+    @optional
     readOnly: bool,
-    @bs.optional
+    @optional
     rel: string /* a space- or comma-separated (depending on the element) list of a fixed set of "link types" */,
-    @bs.optional
+    @optional
     required: bool,
-    @bs.optional
+    @optional
     reversed: bool,
-    @bs.optional
+    @optional
     rows: int,
-    @bs.optional
+    @optional
     rowSpan: int,
-    @bs.optional
+    @optional
     sandbox: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     scope: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     scoped: bool,
-    @bs.optional
+    @optional
     scrolling: string /* html4 only, "auto", "yes" or "no" */,
     /* seamless - supported by React, but removed from the html5 spec */
-    @bs.optional
+    @optional
     selected: bool,
-    @bs.optional
+    @optional
     shape: string,
-    @bs.optional
+    @optional
     size: int,
-    @bs.optional
+    @optional
     sizes: string,
-    @bs.optional
+    @optional
     span: int,
-    @bs.optional
+    @optional
     src: string /* uri */,
-    @bs.optional
+    @optional
     srcDoc: string,
-    @bs.optional
+    @optional
     srcLang: string,
-    @bs.optional
+    @optional
     srcSet: string,
-    @bs.optional
+    @optional
     start: int,
-    @bs.optional
+    @optional
     step: float,
-    @bs.optional
+    @optional
     summary: string /* deprecated */,
-    @bs.optional
+    @optional
     target: string,
-    @bs.optional @bs.as("type")
+    @optional @as("type")
     type_: string /* has a fixed but large-ish set of possible values */ /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     useMap: string,
-    @bs.optional
+    @optional
     value: string,
-    @bs.optional
+    @optional
     width: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
-    @bs.optional
+    @optional
     wrap: string /* "hard" or "soft" */,
     /* Clipboard events */
-    @bs.optional
+    @optional
     onCopy: ReactEvent.Clipboard.t => unit,
-    @bs.optional
+    @optional
     onCut: ReactEvent.Clipboard.t => unit,
-    @bs.optional
+    @optional
     onPaste: ReactEvent.Clipboard.t => unit,
     /* Composition events */
-    @bs.optional
+    @optional
     onCompositionEnd: ReactEvent.Composition.t => unit,
-    @bs.optional
+    @optional
     onCompositionStart: ReactEvent.Composition.t => unit,
-    @bs.optional
+    @optional
     onCompositionUpdate: ReactEvent.Composition.t => unit,
     /* Keyboard events */
-    @bs.optional
+    @optional
     onKeyDown: ReactEvent.Keyboard.t => unit,
-    @bs.optional
+    @optional
     onKeyPress: ReactEvent.Keyboard.t => unit,
-    @bs.optional
+    @optional
     onKeyUp: ReactEvent.Keyboard.t => unit,
     /* Focus events */
-    @bs.optional
+    @optional
     onFocus: ReactEvent.Focus.t => unit,
-    @bs.optional
+    @optional
     onBlur: ReactEvent.Focus.t => unit,
     /* Form events */
-    @bs.optional
+    @optional
     onChange: ReactEvent.Form.t => unit,
-    @bs.optional
+    @optional
     onInput: ReactEvent.Form.t => unit,
-    @bs.optional
+    @optional
     onSubmit: ReactEvent.Form.t => unit,
-    @bs.optional
+    @optional
     onInvalid: ReactEvent.Form.t => unit,
     /* Mouse events */
-    @bs.optional
+    @optional
     onClick: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onContextMenu: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDoubleClick: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDrag: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragEnd: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragEnter: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragExit: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragLeave: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragOver: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragStart: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDrop: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseDown: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseEnter: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseLeave: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseMove: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseOut: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseOver: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseUp: ReactEvent.Mouse.t => unit,
     /* Selection events */
-    @bs.optional
+    @optional
     onSelect: ReactEvent.Selection.t => unit,
     /* Touch events */
-    @bs.optional
+    @optional
     onTouchCancel: ReactEvent.Touch.t => unit,
-    @bs.optional
+    @optional
     onTouchEnd: ReactEvent.Touch.t => unit,
-    @bs.optional
+    @optional
     onTouchMove: ReactEvent.Touch.t => unit,
-    @bs.optional
+    @optional
     onTouchStart: ReactEvent.Touch.t => unit,
     // Pointer events
-    @bs.optional
+    @optional
     onPointerOver: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerEnter: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerDown: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerMove: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerUp: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerCancel: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerOut: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerLeave: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onGotPointerCapture: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onLostPointerCapture: ReactEvent.Pointer.t => unit,
     /* UI events */
-    @bs.optional
+    @optional
     onScroll: ReactEvent.UI.t => unit,
     /* Wheel events */
-    @bs.optional
+    @optional
     onWheel: ReactEvent.Wheel.t => unit,
     /* Media events */
-    @bs.optional
+    @optional
     onAbort: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onCanPlay: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onCanPlayThrough: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onDurationChange: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onEmptied: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onEncrypetd: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onEnded: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onError: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onLoadedData: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onLoadedMetadata: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onLoadStart: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onPause: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onPlay: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onPlaying: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onProgress: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onRateChange: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onSeeked: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onSeeking: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onStalled: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onSuspend: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onTimeUpdate: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onVolumeChange: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onWaiting: ReactEvent.Media.t => unit,
     /* Image events */
-    @bs.optional
+    @optional
     onLoad: ReactEvent.Image.t => unit /* duplicate */ /* ~onError: ReactEvent.Image.t => unit=?, */,
     /* Animation events */
-    @bs.optional
+    @optional
     onAnimationStart: ReactEvent.Animation.t => unit,
-    @bs.optional
+    @optional
     onAnimationEnd: ReactEvent.Animation.t => unit,
-    @bs.optional
+    @optional
     onAnimationIteration: ReactEvent.Animation.t => unit,
     /* Transition events */
-    @bs.optional
+    @optional
     onTransitionEnd: ReactEvent.Transition.t => unit,
     /* svg */
-    @bs.optional
+    @optional
     accentHeight: string,
-    @bs.optional
+    @optional
     accumulate: string,
-    @bs.optional
+    @optional
     additive: string,
-    @bs.optional
+    @optional
     alignmentBaseline: string,
-    @bs.optional
+    @optional
     allowReorder: string,
-    @bs.optional
+    @optional
     alphabetic: string,
-    @bs.optional
+    @optional
     amplitude: string,
-    @bs.optional
+    @optional
     arabicForm: string,
-    @bs.optional
+    @optional
     ascent: string,
-    @bs.optional
+    @optional
     attributeName: string,
-    @bs.optional
+    @optional
     attributeType: string,
-    @bs.optional
+    @optional
     autoReverse: string,
-    @bs.optional
+    @optional
     azimuth: string,
-    @bs.optional
+    @optional
     baseFrequency: string,
-    @bs.optional
+    @optional
     baseProfile: string,
-    @bs.optional
+    @optional
     baselineShift: string,
-    @bs.optional
+    @optional
     bbox: string,
-    @bs.optional @bs.as("begin")
+    @optional @as("begin")
     begin_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     bias: string,
-    @bs.optional
+    @optional
     by: string,
-    @bs.optional
+    @optional
     calcMode: string,
-    @bs.optional
+    @optional
     capHeight: string,
-    @bs.optional
+    @optional
     clip: string,
-    @bs.optional
+    @optional
     clipPath: string,
-    @bs.optional
+    @optional
     clipPathUnits: string,
-    @bs.optional
+    @optional
     clipRule: string,
-    @bs.optional
+    @optional
     colorInterpolation: string,
-    @bs.optional
+    @optional
     colorInterpolationFilters: string,
-    @bs.optional
+    @optional
     colorProfile: string,
-    @bs.optional
+    @optional
     colorRendering: string,
-    @bs.optional
+    @optional
     contentScriptType: string,
-    @bs.optional
+    @optional
     contentStyleType: string,
-    @bs.optional
+    @optional
     cursor: string,
-    @bs.optional
+    @optional
     cx: string,
-    @bs.optional
+    @optional
     cy: string,
-    @bs.optional
+    @optional
     d: string,
-    @bs.optional
+    @optional
     decelerate: string,
-    @bs.optional
+    @optional
     descent: string,
-    @bs.optional
+    @optional
     diffuseConstant: string,
-    @bs.optional
+    @optional
     direction: string,
-    @bs.optional
+    @optional
     display: string,
-    @bs.optional
+    @optional
     divisor: string,
-    @bs.optional
+    @optional
     dominantBaseline: string,
-    @bs.optional
+    @optional
     dur: string,
-    @bs.optional
+    @optional
     dx: string,
-    @bs.optional
+    @optional
     dy: string,
-    @bs.optional
+    @optional
     edgeMode: string,
-    @bs.optional
+    @optional
     elevation: string,
-    @bs.optional
+    @optional
     enableBackground: string,
-    @bs.optional @bs.as("end")
+    @optional @as("end")
     end_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     exponent: string,
-    @bs.optional
+    @optional
     externalResourcesRequired: string,
-    @bs.optional
+    @optional
     fill: string,
-    @bs.optional
+    @optional
     fillOpacity: string,
-    @bs.optional
+    @optional
     fillRule: string,
-    @bs.optional
+    @optional
     filter: string,
-    @bs.optional
+    @optional
     filterRes: string,
-    @bs.optional
+    @optional
     filterUnits: string,
-    @bs.optional
+    @optional
     floodColor: string,
-    @bs.optional
+    @optional
     floodOpacity: string,
-    @bs.optional
+    @optional
     focusable: string,
-    @bs.optional
+    @optional
     fontFamily: string,
-    @bs.optional
+    @optional
     fontSize: string,
-    @bs.optional
+    @optional
     fontSizeAdjust: string,
-    @bs.optional
+    @optional
     fontStretch: string,
-    @bs.optional
+    @optional
     fontStyle: string,
-    @bs.optional
+    @optional
     fontVariant: string,
-    @bs.optional
+    @optional
     fontWeight: string,
-    @bs.optional
+    @optional
     fomat: string,
-    @bs.optional
+    @optional
     from: string,
-    @bs.optional
+    @optional
     fx: string,
-    @bs.optional
+    @optional
     fy: string,
-    @bs.optional
+    @optional
     g1: string,
-    @bs.optional
+    @optional
     g2: string,
-    @bs.optional
+    @optional
     glyphName: string,
-    @bs.optional
+    @optional
     glyphOrientationHorizontal: string,
-    @bs.optional
+    @optional
     glyphOrientationVertical: string,
-    @bs.optional
+    @optional
     glyphRef: string,
-    @bs.optional
+    @optional
     gradientTransform: string,
-    @bs.optional
+    @optional
     gradientUnits: string,
-    @bs.optional
+    @optional
     hanging: string,
-    @bs.optional
+    @optional
     horizAdvX: string,
-    @bs.optional
+    @optional
     horizOriginX: string,
-    @bs.optional
+    @optional
     ideographic: string,
-    @bs.optional
+    @optional
     imageRendering: string,
-    @bs.optional @bs.as("in")
+    @optional @as("in")
     in_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     in2: string,
-    @bs.optional
+    @optional
     intercept: string,
-    @bs.optional
+    @optional
     k: string,
-    @bs.optional
+    @optional
     k1: string,
-    @bs.optional
+    @optional
     k2: string,
-    @bs.optional
+    @optional
     k3: string,
-    @bs.optional
+    @optional
     k4: string,
-    @bs.optional
+    @optional
     kernelMatrix: string,
-    @bs.optional
+    @optional
     kernelUnitLength: string,
-    @bs.optional
+    @optional
     kerning: string,
-    @bs.optional
+    @optional
     keyPoints: string,
-    @bs.optional
+    @optional
     keySplines: string,
-    @bs.optional
+    @optional
     keyTimes: string,
-    @bs.optional
+    @optional
     lengthAdjust: string,
-    @bs.optional
+    @optional
     letterSpacing: string,
-    @bs.optional
+    @optional
     lightingColor: string,
-    @bs.optional
+    @optional
     limitingConeAngle: string,
-    @bs.optional
+    @optional
     local: string,
-    @bs.optional
+    @optional
     markerEnd: string,
-    @bs.optional
+    @optional
     markerHeight: string,
-    @bs.optional
+    @optional
     markerMid: string,
-    @bs.optional
+    @optional
     markerStart: string,
-    @bs.optional
+    @optional
     markerUnits: string,
-    @bs.optional
+    @optional
     markerWidth: string,
-    @bs.optional
+    @optional
     mask: string,
-    @bs.optional
+    @optional
     maskContentUnits: string,
-    @bs.optional
+    @optional
     maskUnits: string,
-    @bs.optional
+    @optional
     mathematical: string,
-    @bs.optional
+    @optional
     mode: string,
-    @bs.optional
+    @optional
     numOctaves: string,
-    @bs.optional
+    @optional
     offset: string,
-    @bs.optional
+    @optional
     opacity: string,
-    @bs.optional
+    @optional
     operator: string,
-    @bs.optional
+    @optional
     order: string,
-    @bs.optional
+    @optional
     orient: string,
-    @bs.optional
+    @optional
     orientation: string,
-    @bs.optional
+    @optional
     origin: string,
-    @bs.optional
+    @optional
     overflow: string,
-    @bs.optional
+    @optional
     overflowX: string,
-    @bs.optional
+    @optional
     overflowY: string,
-    @bs.optional
+    @optional
     overlinePosition: string,
-    @bs.optional
+    @optional
     overlineThickness: string,
-    @bs.optional
+    @optional
     paintOrder: string,
-    @bs.optional
+    @optional
     panose1: string,
-    @bs.optional
+    @optional
     pathLength: string,
-    @bs.optional
+    @optional
     patternContentUnits: string,
-    @bs.optional
+    @optional
     patternTransform: string,
-    @bs.optional
+    @optional
     patternUnits: string,
-    @bs.optional
+    @optional
     pointerEvents: string,
-    @bs.optional
+    @optional
     points: string,
-    @bs.optional
+    @optional
     pointsAtX: string,
-    @bs.optional
+    @optional
     pointsAtY: string,
-    @bs.optional
+    @optional
     pointsAtZ: string,
-    @bs.optional
+    @optional
     preserveAlpha: string,
-    @bs.optional
+    @optional
     preserveAspectRatio: string,
-    @bs.optional
+    @optional
     primitiveUnits: string,
-    @bs.optional
+    @optional
     r: string,
-    @bs.optional
+    @optional
     radius: string,
-    @bs.optional
+    @optional
     refX: string,
-    @bs.optional
+    @optional
     refY: string,
-    @bs.optional
+    @optional
     renderingIntent: string,
-    @bs.optional
+    @optional
     repeatCount: string,
-    @bs.optional
+    @optional
     repeatDur: string,
-    @bs.optional
+    @optional
     requiredExtensions: string,
-    @bs.optional
+    @optional
     requiredFeatures: string,
-    @bs.optional
+    @optional
     restart: string,
-    @bs.optional
+    @optional
     result: string,
-    @bs.optional
+    @optional
     rotate: string,
-    @bs.optional
+    @optional
     rx: string,
-    @bs.optional
+    @optional
     ry: string,
-    @bs.optional
+    @optional
     scale: string,
-    @bs.optional
+    @optional
     seed: string,
-    @bs.optional
+    @optional
     shapeRendering: string,
-    @bs.optional
+    @optional
     slope: string,
-    @bs.optional
+    @optional
     spacing: string,
-    @bs.optional
+    @optional
     specularConstant: string,
-    @bs.optional
+    @optional
     specularExponent: string,
-    @bs.optional
+    @optional
     speed: string,
-    @bs.optional
+    @optional
     spreadMethod: string,
-    @bs.optional
+    @optional
     startOffset: string,
-    @bs.optional
+    @optional
     stdDeviation: string,
-    @bs.optional
+    @optional
     stemh: string,
-    @bs.optional
+    @optional
     stemv: string,
-    @bs.optional
+    @optional
     stitchTiles: string,
-    @bs.optional
+    @optional
     stopColor: string,
-    @bs.optional
+    @optional
     stopOpacity: string,
-    @bs.optional
+    @optional
     strikethroughPosition: string,
-    @bs.optional
+    @optional
     strikethroughThickness: string,
-    @bs.optional
+    @optional
     string: string,
-    @bs.optional
+    @optional
     stroke: string,
-    @bs.optional
+    @optional
     strokeDasharray: string,
-    @bs.optional
+    @optional
     strokeDashoffset: string,
-    @bs.optional
+    @optional
     strokeLinecap: string,
-    @bs.optional
+    @optional
     strokeLinejoin: string,
-    @bs.optional
+    @optional
     strokeMiterlimit: string,
-    @bs.optional
+    @optional
     strokeOpacity: string,
-    @bs.optional
+    @optional
     strokeWidth: string,
-    @bs.optional
+    @optional
     surfaceScale: string,
-    @bs.optional
+    @optional
     systemLanguage: string,
-    @bs.optional
+    @optional
     tableValues: string,
-    @bs.optional
+    @optional
     targetX: string,
-    @bs.optional
+    @optional
     targetY: string,
-    @bs.optional
+    @optional
     textAnchor: string,
-    @bs.optional
+    @optional
     textDecoration: string,
-    @bs.optional
+    @optional
     textLength: string,
-    @bs.optional
+    @optional
     textRendering: string,
-    @bs.optional @bs.as("to")
+    @optional @as("to")
     to_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     transform: string,
-    @bs.optional
+    @optional
     u1: string,
-    @bs.optional
+    @optional
     u2: string,
-    @bs.optional
+    @optional
     underlinePosition: string,
-    @bs.optional
+    @optional
     underlineThickness: string,
-    @bs.optional
+    @optional
     unicode: string,
-    @bs.optional
+    @optional
     unicodeBidi: string,
-    @bs.optional
+    @optional
     unicodeRange: string,
-    @bs.optional
+    @optional
     unitsPerEm: string,
-    @bs.optional
+    @optional
     vAlphabetic: string,
-    @bs.optional
+    @optional
     vHanging: string,
-    @bs.optional
+    @optional
     vIdeographic: string,
-    @bs.optional
+    @optional
     vMathematical: string,
-    @bs.optional
+    @optional
     values: string,
-    @bs.optional
+    @optional
     vectorEffect: string,
-    @bs.optional
+    @optional
     version: string,
-    @bs.optional
+    @optional
     vertAdvX: string,
-    @bs.optional
+    @optional
     vertAdvY: string,
-    @bs.optional
+    @optional
     vertOriginX: string,
-    @bs.optional
+    @optional
     vertOriginY: string,
-    @bs.optional
+    @optional
     viewBox: string,
-    @bs.optional
+    @optional
     viewTarget: string,
-    @bs.optional
+    @optional
     visibility: string,
     /* width::string? => */
-    @bs.optional
+    @optional
     widths: string,
-    @bs.optional
+    @optional
     wordSpacing: string,
-    @bs.optional
+    @optional
     writingMode: string,
-    @bs.optional
+    @optional
     x: string,
-    @bs.optional
+    @optional
     x1: string,
-    @bs.optional
+    @optional
     x2: string,
-    @bs.optional
+    @optional
     xChannelSelector: string,
-    @bs.optional
+    @optional
     xHeight: string,
-    @bs.optional
+    @optional
     xlinkActuate: string,
-    @bs.optional
+    @optional
     xlinkArcrole: string,
-    @bs.optional
+    @optional
     xlinkHref: string,
-    @bs.optional
+    @optional
     xlinkRole: string,
-    @bs.optional
+    @optional
     xlinkShow: string,
-    @bs.optional
+    @optional
     xlinkTitle: string,
-    @bs.optional
+    @optional
     xlinkType: string,
-    @bs.optional
+    @optional
     xmlns: string,
-    @bs.optional
+    @optional
     xmlnsXlink: string,
-    @bs.optional
+    @optional
     xmlBase: string,
-    @bs.optional
+    @optional
     xmlLang: string,
-    @bs.optional
+    @optional
     xmlSpace: string,
-    @bs.optional
+    @optional
     y: string,
-    @bs.optional
+    @optional
     y1: string,
-    @bs.optional
+    @optional
     y2: string,
-    @bs.optional
+    @optional
     yChannelSelector: string,
-    @bs.optional
+    @optional
     z: string,
-    @bs.optional
+    @optional
     zoomAndPan: string,
     /* RDFa */
-    @bs.optional
+    @optional
     about: string,
-    @bs.optional
+    @optional
     datatype: string,
-    @bs.optional
+    @optional
     inlist: string,
-    @bs.optional
+    @optional
     prefix: string,
-    @bs.optional
+    @optional
     property: string,
-    @bs.optional
+    @optional
     resource: string,
-    @bs.optional
+    @optional
     typeof: string,
-    @bs.optional
+    @optional
     vocab: string,
     /* react-specific */
-    @bs.optional
+    @optional
     dangerouslySetInnerHTML: {"__html": string},
-    @bs.optional
+    @optional
     suppressContentEditableWarning: bool,
   }
 
@@ -1079,1021 +1079,1021 @@ module Props = {
    * Watch out! There are two props types and the only difference is the type of ref.
    * Please keep in sync.
    */
-  @bs.deriving(abstract)
+  @deriving(abstract)
   type props = {
-    @bs.optional
+    @optional
     key: string,
-    @bs.optional
+    @optional
     ref: Js.nullable<Dom.element> => unit,
     /* accessibility */
     /* https://www.w3.org/TR/wai-aria-1.1/ */
     /* https://accessibilityresources.org/<aria-tag> is a great resource for these */
-    /* [@bs.optional] [@bs.as "aria-current"] ariaCurrent: page|step|location|date|time|true|false, */
-    @bs.optional @bs.as("aria-details")
+    /* [@optional] [@as "aria-current"] ariaCurrent: page|step|location|date|time|true|false, */
+    @optional @as("aria-details")
     ariaDetails: string,
-    @bs.optional @bs.as("aria-disabled")
+    @optional @as("aria-disabled")
     ariaDisabled: bool,
-    @bs.optional @bs.as("aria-hidden")
+    @optional @as("aria-hidden")
     ariaHidden: bool,
-    /* [@bs.optional] [@bs.as "aria-invalid"] ariaInvalid: grammar|false|spelling|true, */
-    @bs.optional @bs.as("aria-keyshortcuts")
+    /* [@optional] [@as "aria-invalid"] ariaInvalid: grammar|false|spelling|true, */
+    @optional @as("aria-keyshortcuts")
     ariaKeyshortcuts: string,
-    @bs.optional @bs.as("aria-label")
+    @optional @as("aria-label")
     ariaLabel: string,
-    @bs.optional @bs.as("aria-roledescription")
+    @optional @as("aria-roledescription")
     ariaRoledescription: string,
     /* Widget Attributes */
-    /* [@bs.optional] [@bs.as "aria-autocomplete"] ariaAutocomplete: inline|list|both|none, */
-    /* [@bs.optional] [@bs.as "aria-checked"] ariaChecked: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
-    @bs.optional @bs.as("aria-expanded")
+    /* [@optional] [@as "aria-autocomplete"] ariaAutocomplete: inline|list|both|none, */
+    /* [@optional] [@as "aria-checked"] ariaChecked: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-expanded")
     ariaExpanded: bool,
-    /* [@bs.optional] [@bs.as "aria-haspopup"] ariaHaspopup: false|true|menu|listbox|tree|grid|dialog, */
-    @bs.optional @bs.as("aria-level")
+    /* [@optional] [@as "aria-haspopup"] ariaHaspopup: false|true|menu|listbox|tree|grid|dialog, */
+    @optional @as("aria-level")
     ariaLevel: int,
-    @bs.optional @bs.as("aria-modal")
+    @optional @as("aria-modal")
     ariaModal: bool,
-    @bs.optional @bs.as("aria-multiline")
+    @optional @as("aria-multiline")
     ariaMultiline: bool,
-    @bs.optional @bs.as("aria-multiselectable")
+    @optional @as("aria-multiselectable")
     ariaMultiselectable: bool,
-    /* [@bs.optional] [@bs.as "aria-orientation"] ariaOrientation: horizontal|vertical|undefined, */
-    @bs.optional @bs.as("aria-placeholder")
+    /* [@optional] [@as "aria-orientation"] ariaOrientation: horizontal|vertical|undefined, */
+    @optional @as("aria-placeholder")
     ariaPlaceholder: string,
-    /* [@bs.optional] [@bs.as "aria-pressed"] ariaPressed: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
-    @bs.optional @bs.as("aria-readonly")
+    /* [@optional] [@as "aria-pressed"] ariaPressed: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-readonly")
     ariaReadonly: bool,
-    @bs.optional @bs.as("aria-required")
+    @optional @as("aria-required")
     ariaRequired: bool,
-    @bs.optional @bs.as("aria-selected")
+    @optional @as("aria-selected")
     ariaSelected: bool,
-    @bs.optional @bs.as("aria-sort")
+    @optional @as("aria-sort")
     ariaSort: string,
-    @bs.optional @bs.as("aria-valuemax")
+    @optional @as("aria-valuemax")
     ariaValuemax: float,
-    @bs.optional @bs.as("aria-valuemin")
+    @optional @as("aria-valuemin")
     ariaValuemin: float,
-    @bs.optional @bs.as("aria-valuenow")
+    @optional @as("aria-valuenow")
     ariaValuenow: float,
-    @bs.optional @bs.as("aria-valuetext")
+    @optional @as("aria-valuetext")
     ariaValuetext: string,
     /* Live Region Attributes */
-    @bs.optional @bs.as("aria-atomic")
+    @optional @as("aria-atomic")
     ariaAtomic: bool,
-    @bs.optional @bs.as("aria-busy")
+    @optional @as("aria-busy")
     ariaBusy: bool,
-    /* [@bs.optional] [@bs.as "aria-live"] ariaLive: off|polite|assertive|rude, */
-    @bs.optional @bs.as("aria-relevant")
+    /* [@optional] [@as "aria-live"] ariaLive: off|polite|assertive|rude, */
+    @optional @as("aria-relevant")
     ariaRelevant: string,
     /* Drag-and-Drop Attributes */
-    /* [@bs.optional] [@bs.as "aria-dropeffect"] ariaDropeffect: copy|move|link|execute|popup|none, */
-    @bs.optional @bs.as("aria-grabbed")
+    /* [@optional] [@as "aria-dropeffect"] ariaDropeffect: copy|move|link|execute|popup|none, */
+    @optional @as("aria-grabbed")
     ariaGrabbed: bool,
     /* Relationship Attributes */
-    @bs.optional @bs.as("aria-activedescendant")
+    @optional @as("aria-activedescendant")
     ariaActivedescendant: string,
-    @bs.optional @bs.as("aria-colcount")
+    @optional @as("aria-colcount")
     ariaColcount: int,
-    @bs.optional @bs.as("aria-colindex")
+    @optional @as("aria-colindex")
     ariaColindex: int,
-    @bs.optional @bs.as("aria-colspan")
+    @optional @as("aria-colspan")
     ariaColspan: int,
-    @bs.optional @bs.as("aria-controls")
+    @optional @as("aria-controls")
     ariaControls: string,
-    @bs.optional @bs.as("aria-describedby")
+    @optional @as("aria-describedby")
     ariaDescribedby: string,
-    @bs.optional @bs.as("aria-errormessage")
+    @optional @as("aria-errormessage")
     ariaErrormessage: string,
-    @bs.optional @bs.as("aria-flowto")
+    @optional @as("aria-flowto")
     ariaFlowto: string,
-    @bs.optional @bs.as("aria-labelledby")
+    @optional @as("aria-labelledby")
     ariaLabelledby: string,
-    @bs.optional @bs.as("aria-owns")
+    @optional @as("aria-owns")
     ariaOwns: string,
-    @bs.optional @bs.as("aria-posinset")
+    @optional @as("aria-posinset")
     ariaPosinset: int,
-    @bs.optional @bs.as("aria-rowcount")
+    @optional @as("aria-rowcount")
     ariaRowcount: int,
-    @bs.optional @bs.as("aria-rowindex")
+    @optional @as("aria-rowindex")
     ariaRowindex: int,
-    @bs.optional @bs.as("aria-rowspan")
+    @optional @as("aria-rowspan")
     ariaRowspan: int,
-    @bs.optional @bs.as("aria-setsize")
+    @optional @as("aria-setsize")
     ariaSetsize: int,
     /* react textarea/input */
-    @bs.optional
+    @optional
     defaultChecked: bool,
-    @bs.optional
+    @optional
     defaultValue: string,
     /* global html attributes */
-    @bs.optional
+    @optional
     accessKey: string,
-    @bs.optional
+    @optional
     className: string /* substitute for "class" */,
-    @bs.optional
+    @optional
     contentEditable: bool,
-    @bs.optional
+    @optional
     contextMenu: string,
-    @bs.optional
+    @optional
     dir: string /* "ltr", "rtl" or "auto" */,
-    @bs.optional
+    @optional
     draggable: bool,
-    @bs.optional
+    @optional
     hidden: bool,
-    @bs.optional
+    @optional
     id: string,
-    @bs.optional
+    @optional
     lang: string,
-    @bs.optional
+    @optional
     role: string /* ARIA role */,
-    @bs.optional
+    @optional
     style: style,
-    @bs.optional
+    @optional
     spellCheck: bool,
-    @bs.optional
+    @optional
     tabIndex: int,
-    @bs.optional
+    @optional
     title: string,
     /* html5 microdata */
-    @bs.optional
+    @optional
     itemID: string,
-    @bs.optional
+    @optional
     itemProp: string,
-    @bs.optional
+    @optional
     itemRef: string,
-    @bs.optional
+    @optional
     itemScope: bool,
-    @bs.optional
+    @optional
     itemType: string /* uri */,
     /* tag-specific html attributes */
-    @bs.optional
+    @optional
     accept: string,
-    @bs.optional
+    @optional
     acceptCharset: string,
-    @bs.optional
+    @optional
     action: string /* uri */,
-    @bs.optional
+    @optional
     allowFullScreen: bool,
-    @bs.optional
+    @optional
     alt: string,
-    @bs.optional
+    @optional
     async: bool,
-    @bs.optional
+    @optional
     autoComplete: string /* has a fixed, but large-ish, set of possible values */,
-    @bs.optional
+    @optional
     autoCapitalize: string /* Mobile Safari specific */,
-    @bs.optional
+    @optional
     autoFocus: bool,
-    @bs.optional
+    @optional
     autoPlay: bool,
-    @bs.optional
+    @optional
     challenge: string,
-    @bs.optional
+    @optional
     charSet: string,
-    @bs.optional
+    @optional
     checked: bool,
-    @bs.optional
+    @optional
     cite: string /* uri */,
-    @bs.optional
+    @optional
     crossorigin: bool,
-    @bs.optional
+    @optional
     cols: int,
-    @bs.optional
+    @optional
     colSpan: int,
-    @bs.optional
+    @optional
     content: string,
-    @bs.optional
+    @optional
     controls: bool,
-    @bs.optional
+    @optional
     coords: string /* set of values specifying the coordinates of a region */,
-    @bs.optional
+    @optional
     data: string /* uri */,
-    @bs.optional
+    @optional
     dateTime: string /* "valid date string with optional time" */,
-    @bs.optional
+    @optional
     default: bool,
-    @bs.optional
+    @optional
     defer: bool,
-    @bs.optional
+    @optional
     disabled: bool,
-    @bs.optional
+    @optional
     download: string /* should really be either a boolean, signifying presence, or a string */,
-    @bs.optional
+    @optional
     encType: string /* "application/x-www-form-urlencoded", "multipart/form-data" or "text/plain" */,
-    @bs.optional
+    @optional
     form: string,
-    @bs.optional
+    @optional
     formAction: string /* uri */,
-    @bs.optional
+    @optional
     formTarget: string /* "_blank", "_self", etc. */,
-    @bs.optional
+    @optional
     formMethod: string /* "post", "get", "put" */,
-    @bs.optional
+    @optional
     headers: string,
-    @bs.optional
+    @optional
     height: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
-    @bs.optional
+    @optional
     high: int,
-    @bs.optional
+    @optional
     href: string /* uri */,
-    @bs.optional
+    @optional
     hrefLang: string,
-    @bs.optional
+    @optional
     htmlFor: string /* substitute for "for" */,
-    @bs.optional
+    @optional
     httpEquiv: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     icon: string /* uri? */,
-    @bs.optional
+    @optional
     inputMode: string /* "verbatim", "latin", "numeric", etc. */,
-    @bs.optional
+    @optional
     integrity: string,
-    @bs.optional
+    @optional
     keyType: string,
-    @bs.optional
+    @optional
     kind: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     label: string,
-    @bs.optional
+    @optional
     list: string,
-    @bs.optional
+    @optional
     loop: bool,
-    @bs.optional
+    @optional
     low: int,
-    @bs.optional
+    @optional
     manifest: string /* uri */,
-    @bs.optional
+    @optional
     max: string /* should be int or Js.Date.t */,
-    @bs.optional
+    @optional
     maxLength: int,
-    @bs.optional
+    @optional
     media: string /* a valid media query */,
-    @bs.optional
+    @optional
     mediaGroup: string,
-    @bs.optional
+    @optional
     method: string /* "post" or "get" */,
-    @bs.optional
+    @optional
     min: string,
-    @bs.optional
+    @optional
     minLength: int,
-    @bs.optional
+    @optional
     multiple: bool,
-    @bs.optional
+    @optional
     muted: bool,
-    @bs.optional
+    @optional
     name: string,
-    @bs.optional
+    @optional
     nonce: string,
-    @bs.optional
+    @optional
     noValidate: bool,
-    @bs.optional @bs.as("open")
+    @optional @as("open")
     open_: bool /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     optimum: int,
-    @bs.optional
+    @optional
     pattern: string /* valid Js RegExp */,
-    @bs.optional
+    @optional
     placeholder: string,
-    @bs.optional
+    @optional
     poster: string /* uri */,
-    @bs.optional
+    @optional
     preload: string /* "none", "metadata" or "auto" (and "" as a synonym for "auto") */,
-    @bs.optional
+    @optional
     radioGroup: string,
-    @bs.optional
+    @optional
     readOnly: bool,
-    @bs.optional
+    @optional
     rel: string /* a space- or comma-separated (depending on the element) list of a fixed set of "link types" */,
-    @bs.optional
+    @optional
     required: bool,
-    @bs.optional
+    @optional
     reversed: bool,
-    @bs.optional
+    @optional
     rows: int,
-    @bs.optional
+    @optional
     rowSpan: int,
-    @bs.optional
+    @optional
     sandbox: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     scope: string /* has a fixed set of possible values */,
-    @bs.optional
+    @optional
     scoped: bool,
-    @bs.optional
+    @optional
     scrolling: string /* html4 only, "auto", "yes" or "no" */,
     /* seamless - supported by React, but removed from the html5 spec */
-    @bs.optional
+    @optional
     selected: bool,
-    @bs.optional
+    @optional
     shape: string,
-    @bs.optional
+    @optional
     size: int,
-    @bs.optional
+    @optional
     sizes: string,
-    @bs.optional
+    @optional
     span: int,
-    @bs.optional
+    @optional
     src: string /* uri */,
-    @bs.optional
+    @optional
     srcDoc: string,
-    @bs.optional
+    @optional
     srcLang: string,
-    @bs.optional
+    @optional
     srcSet: string,
-    @bs.optional
+    @optional
     start: int,
-    @bs.optional
+    @optional
     step: float,
-    @bs.optional
+    @optional
     summary: string /* deprecated */,
-    @bs.optional
+    @optional
     target: string,
-    @bs.optional @bs.as("type")
+    @optional @as("type")
     type_: string /* has a fixed but large-ish set of possible values */ /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     useMap: string,
-    @bs.optional
+    @optional
     value: string,
-    @bs.optional
+    @optional
     width: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
-    @bs.optional
+    @optional
     wrap: string /* "hard" or "soft" */,
     /* Clipboard events */
-    @bs.optional
+    @optional
     onCopy: ReactEvent.Clipboard.t => unit,
-    @bs.optional
+    @optional
     onCut: ReactEvent.Clipboard.t => unit,
-    @bs.optional
+    @optional
     onPaste: ReactEvent.Clipboard.t => unit,
     /* Composition events */
-    @bs.optional
+    @optional
     onCompositionEnd: ReactEvent.Composition.t => unit,
-    @bs.optional
+    @optional
     onCompositionStart: ReactEvent.Composition.t => unit,
-    @bs.optional
+    @optional
     onCompositionUpdate: ReactEvent.Composition.t => unit,
     /* Keyboard events */
-    @bs.optional
+    @optional
     onKeyDown: ReactEvent.Keyboard.t => unit,
-    @bs.optional
+    @optional
     onKeyPress: ReactEvent.Keyboard.t => unit,
-    @bs.optional
+    @optional
     onKeyUp: ReactEvent.Keyboard.t => unit,
     /* Focus events */
-    @bs.optional
+    @optional
     onFocus: ReactEvent.Focus.t => unit,
-    @bs.optional
+    @optional
     onBlur: ReactEvent.Focus.t => unit,
     /* Form events */
-    @bs.optional
+    @optional
     onChange: ReactEvent.Form.t => unit,
-    @bs.optional
+    @optional
     onInput: ReactEvent.Form.t => unit,
-    @bs.optional
+    @optional
     onSubmit: ReactEvent.Form.t => unit,
-    @bs.optional
+    @optional
     onInvalid: ReactEvent.Form.t => unit,
     /* Mouse events */
-    @bs.optional
+    @optional
     onClick: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onContextMenu: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDoubleClick: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDrag: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragEnd: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragEnter: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragExit: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragLeave: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragOver: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDragStart: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onDrop: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseDown: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseEnter: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseLeave: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseMove: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseOut: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseOver: ReactEvent.Mouse.t => unit,
-    @bs.optional
+    @optional
     onMouseUp: ReactEvent.Mouse.t => unit,
     /* Selection events */
-    @bs.optional
+    @optional
     onSelect: ReactEvent.Selection.t => unit,
     /* Touch events */
-    @bs.optional
+    @optional
     onTouchCancel: ReactEvent.Touch.t => unit,
-    @bs.optional
+    @optional
     onTouchEnd: ReactEvent.Touch.t => unit,
-    @bs.optional
+    @optional
     onTouchMove: ReactEvent.Touch.t => unit,
-    @bs.optional
+    @optional
     onTouchStart: ReactEvent.Touch.t => unit,
     // Pointer events
-    @bs.optional
+    @optional
     onPointerOver: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerEnter: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerDown: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerMove: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerUp: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerCancel: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerOut: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onPointerLeave: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onGotPointerCapture: ReactEvent.Pointer.t => unit,
-    @bs.optional
+    @optional
     onLostPointerCapture: ReactEvent.Pointer.t => unit,
     /* UI events */
-    @bs.optional
+    @optional
     onScroll: ReactEvent.UI.t => unit,
     /* Wheel events */
-    @bs.optional
+    @optional
     onWheel: ReactEvent.Wheel.t => unit,
     /* Media events */
-    @bs.optional
+    @optional
     onAbort: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onCanPlay: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onCanPlayThrough: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onDurationChange: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onEmptied: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onEncrypetd: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onEnded: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onError: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onLoadedData: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onLoadedMetadata: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onLoadStart: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onPause: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onPlay: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onPlaying: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onProgress: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onRateChange: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onSeeked: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onSeeking: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onStalled: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onSuspend: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onTimeUpdate: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onVolumeChange: ReactEvent.Media.t => unit,
-    @bs.optional
+    @optional
     onWaiting: ReactEvent.Media.t => unit,
     /* Image events */
-    @bs.optional
+    @optional
     onLoad: ReactEvent.Image.t => unit /* duplicate */ /* ~onError: ReactEvent.Image.t => unit=?, */,
     /* Animation events */
-    @bs.optional
+    @optional
     onAnimationStart: ReactEvent.Animation.t => unit,
-    @bs.optional
+    @optional
     onAnimationEnd: ReactEvent.Animation.t => unit,
-    @bs.optional
+    @optional
     onAnimationIteration: ReactEvent.Animation.t => unit,
     /* Transition events */
-    @bs.optional
+    @optional
     onTransitionEnd: ReactEvent.Transition.t => unit,
     /* svg */
-    @bs.optional
+    @optional
     accentHeight: string,
-    @bs.optional
+    @optional
     accumulate: string,
-    @bs.optional
+    @optional
     additive: string,
-    @bs.optional
+    @optional
     alignmentBaseline: string,
-    @bs.optional
+    @optional
     allowReorder: string,
-    @bs.optional
+    @optional
     alphabetic: string,
-    @bs.optional
+    @optional
     amplitude: string,
-    @bs.optional
+    @optional
     arabicForm: string,
-    @bs.optional
+    @optional
     ascent: string,
-    @bs.optional
+    @optional
     attributeName: string,
-    @bs.optional
+    @optional
     attributeType: string,
-    @bs.optional
+    @optional
     autoReverse: string,
-    @bs.optional
+    @optional
     azimuth: string,
-    @bs.optional
+    @optional
     baseFrequency: string,
-    @bs.optional
+    @optional
     baseProfile: string,
-    @bs.optional
+    @optional
     baselineShift: string,
-    @bs.optional
+    @optional
     bbox: string,
-    @bs.optional @bs.as("begin")
+    @optional @as("begin")
     begin_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     bias: string,
-    @bs.optional
+    @optional
     by: string,
-    @bs.optional
+    @optional
     calcMode: string,
-    @bs.optional
+    @optional
     capHeight: string,
-    @bs.optional
+    @optional
     clip: string,
-    @bs.optional
+    @optional
     clipPath: string,
-    @bs.optional
+    @optional
     clipPathUnits: string,
-    @bs.optional
+    @optional
     clipRule: string,
-    @bs.optional
+    @optional
     colorInterpolation: string,
-    @bs.optional
+    @optional
     colorInterpolationFilters: string,
-    @bs.optional
+    @optional
     colorProfile: string,
-    @bs.optional
+    @optional
     colorRendering: string,
-    @bs.optional
+    @optional
     contentScriptType: string,
-    @bs.optional
+    @optional
     contentStyleType: string,
-    @bs.optional
+    @optional
     cursor: string,
-    @bs.optional
+    @optional
     cx: string,
-    @bs.optional
+    @optional
     cy: string,
-    @bs.optional
+    @optional
     d: string,
-    @bs.optional
+    @optional
     decelerate: string,
-    @bs.optional
+    @optional
     descent: string,
-    @bs.optional
+    @optional
     diffuseConstant: string,
-    @bs.optional
+    @optional
     direction: string,
-    @bs.optional
+    @optional
     display: string,
-    @bs.optional
+    @optional
     divisor: string,
-    @bs.optional
+    @optional
     dominantBaseline: string,
-    @bs.optional
+    @optional
     dur: string,
-    @bs.optional
+    @optional
     dx: string,
-    @bs.optional
+    @optional
     dy: string,
-    @bs.optional
+    @optional
     edgeMode: string,
-    @bs.optional
+    @optional
     elevation: string,
-    @bs.optional
+    @optional
     enableBackground: string,
-    @bs.optional @bs.as("end")
+    @optional @as("end")
     end_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     exponent: string,
-    @bs.optional
+    @optional
     externalResourcesRequired: string,
-    @bs.optional
+    @optional
     fill: string,
-    @bs.optional
+    @optional
     fillOpacity: string,
-    @bs.optional
+    @optional
     fillRule: string,
-    @bs.optional
+    @optional
     filter: string,
-    @bs.optional
+    @optional
     filterRes: string,
-    @bs.optional
+    @optional
     filterUnits: string,
-    @bs.optional
+    @optional
     floodColor: string,
-    @bs.optional
+    @optional
     floodOpacity: string,
-    @bs.optional
+    @optional
     focusable: string,
-    @bs.optional
+    @optional
     fontFamily: string,
-    @bs.optional
+    @optional
     fontSize: string,
-    @bs.optional
+    @optional
     fontSizeAdjust: string,
-    @bs.optional
+    @optional
     fontStretch: string,
-    @bs.optional
+    @optional
     fontStyle: string,
-    @bs.optional
+    @optional
     fontVariant: string,
-    @bs.optional
+    @optional
     fontWeight: string,
-    @bs.optional
+    @optional
     fomat: string,
-    @bs.optional
+    @optional
     from: string,
-    @bs.optional
+    @optional
     fx: string,
-    @bs.optional
+    @optional
     fy: string,
-    @bs.optional
+    @optional
     g1: string,
-    @bs.optional
+    @optional
     g2: string,
-    @bs.optional
+    @optional
     glyphName: string,
-    @bs.optional
+    @optional
     glyphOrientationHorizontal: string,
-    @bs.optional
+    @optional
     glyphOrientationVertical: string,
-    @bs.optional
+    @optional
     glyphRef: string,
-    @bs.optional
+    @optional
     gradientTransform: string,
-    @bs.optional
+    @optional
     gradientUnits: string,
-    @bs.optional
+    @optional
     hanging: string,
-    @bs.optional
+    @optional
     horizAdvX: string,
-    @bs.optional
+    @optional
     horizOriginX: string,
-    @bs.optional
+    @optional
     ideographic: string,
-    @bs.optional
+    @optional
     imageRendering: string,
-    @bs.optional @bs.as("in")
+    @optional @as("in")
     in_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     in2: string,
-    @bs.optional
+    @optional
     intercept: string,
-    @bs.optional
+    @optional
     k: string,
-    @bs.optional
+    @optional
     k1: string,
-    @bs.optional
+    @optional
     k2: string,
-    @bs.optional
+    @optional
     k3: string,
-    @bs.optional
+    @optional
     k4: string,
-    @bs.optional
+    @optional
     kernelMatrix: string,
-    @bs.optional
+    @optional
     kernelUnitLength: string,
-    @bs.optional
+    @optional
     kerning: string,
-    @bs.optional
+    @optional
     keyPoints: string,
-    @bs.optional
+    @optional
     keySplines: string,
-    @bs.optional
+    @optional
     keyTimes: string,
-    @bs.optional
+    @optional
     lengthAdjust: string,
-    @bs.optional
+    @optional
     letterSpacing: string,
-    @bs.optional
+    @optional
     lightingColor: string,
-    @bs.optional
+    @optional
     limitingConeAngle: string,
-    @bs.optional
+    @optional
     local: string,
-    @bs.optional
+    @optional
     markerEnd: string,
-    @bs.optional
+    @optional
     markerHeight: string,
-    @bs.optional
+    @optional
     markerMid: string,
-    @bs.optional
+    @optional
     markerStart: string,
-    @bs.optional
+    @optional
     markerUnits: string,
-    @bs.optional
+    @optional
     markerWidth: string,
-    @bs.optional
+    @optional
     mask: string,
-    @bs.optional
+    @optional
     maskContentUnits: string,
-    @bs.optional
+    @optional
     maskUnits: string,
-    @bs.optional
+    @optional
     mathematical: string,
-    @bs.optional
+    @optional
     mode: string,
-    @bs.optional
+    @optional
     numOctaves: string,
-    @bs.optional
+    @optional
     offset: string,
-    @bs.optional
+    @optional
     opacity: string,
-    @bs.optional
+    @optional
     operator: string,
-    @bs.optional
+    @optional
     order: string,
-    @bs.optional
+    @optional
     orient: string,
-    @bs.optional
+    @optional
     orientation: string,
-    @bs.optional
+    @optional
     origin: string,
-    @bs.optional
+    @optional
     overflow: string,
-    @bs.optional
+    @optional
     overflowX: string,
-    @bs.optional
+    @optional
     overflowY: string,
-    @bs.optional
+    @optional
     overlinePosition: string,
-    @bs.optional
+    @optional
     overlineThickness: string,
-    @bs.optional
+    @optional
     paintOrder: string,
-    @bs.optional
+    @optional
     panose1: string,
-    @bs.optional
+    @optional
     pathLength: string,
-    @bs.optional
+    @optional
     patternContentUnits: string,
-    @bs.optional
+    @optional
     patternTransform: string,
-    @bs.optional
+    @optional
     patternUnits: string,
-    @bs.optional
+    @optional
     pointerEvents: string,
-    @bs.optional
+    @optional
     points: string,
-    @bs.optional
+    @optional
     pointsAtX: string,
-    @bs.optional
+    @optional
     pointsAtY: string,
-    @bs.optional
+    @optional
     pointsAtZ: string,
-    @bs.optional
+    @optional
     preserveAlpha: string,
-    @bs.optional
+    @optional
     preserveAspectRatio: string,
-    @bs.optional
+    @optional
     primitiveUnits: string,
-    @bs.optional
+    @optional
     r: string,
-    @bs.optional
+    @optional
     radius: string,
-    @bs.optional
+    @optional
     refX: string,
-    @bs.optional
+    @optional
     refY: string,
-    @bs.optional
+    @optional
     renderingIntent: string,
-    @bs.optional
+    @optional
     repeatCount: string,
-    @bs.optional
+    @optional
     repeatDur: string,
-    @bs.optional
+    @optional
     requiredExtensions: string,
-    @bs.optional
+    @optional
     requiredFeatures: string,
-    @bs.optional
+    @optional
     restart: string,
-    @bs.optional
+    @optional
     result: string,
-    @bs.optional
+    @optional
     rotate: string,
-    @bs.optional
+    @optional
     rx: string,
-    @bs.optional
+    @optional
     ry: string,
-    @bs.optional
+    @optional
     scale: string,
-    @bs.optional
+    @optional
     seed: string,
-    @bs.optional
+    @optional
     shapeRendering: string,
-    @bs.optional
+    @optional
     slope: string,
-    @bs.optional
+    @optional
     spacing: string,
-    @bs.optional
+    @optional
     specularConstant: string,
-    @bs.optional
+    @optional
     specularExponent: string,
-    @bs.optional
+    @optional
     speed: string,
-    @bs.optional
+    @optional
     spreadMethod: string,
-    @bs.optional
+    @optional
     startOffset: string,
-    @bs.optional
+    @optional
     stdDeviation: string,
-    @bs.optional
+    @optional
     stemh: string,
-    @bs.optional
+    @optional
     stemv: string,
-    @bs.optional
+    @optional
     stitchTiles: string,
-    @bs.optional
+    @optional
     stopColor: string,
-    @bs.optional
+    @optional
     stopOpacity: string,
-    @bs.optional
+    @optional
     strikethroughPosition: string,
-    @bs.optional
+    @optional
     strikethroughThickness: string,
-    @bs.optional
+    @optional
     string: string,
-    @bs.optional
+    @optional
     stroke: string,
-    @bs.optional
+    @optional
     strokeDasharray: string,
-    @bs.optional
+    @optional
     strokeDashoffset: string,
-    @bs.optional
+    @optional
     strokeLinecap: string,
-    @bs.optional
+    @optional
     strokeLinejoin: string,
-    @bs.optional
+    @optional
     strokeMiterlimit: string,
-    @bs.optional
+    @optional
     strokeOpacity: string,
-    @bs.optional
+    @optional
     strokeWidth: string,
-    @bs.optional
+    @optional
     surfaceScale: string,
-    @bs.optional
+    @optional
     systemLanguage: string,
-    @bs.optional
+    @optional
     tableValues: string,
-    @bs.optional
+    @optional
     targetX: string,
-    @bs.optional
+    @optional
     targetY: string,
-    @bs.optional
+    @optional
     textAnchor: string,
-    @bs.optional
+    @optional
     textDecoration: string,
-    @bs.optional
+    @optional
     textLength: string,
-    @bs.optional
+    @optional
     textRendering: string,
-    @bs.optional @bs.as("to")
+    @optional @as("to")
     to_: string /* use this one. Previous one is deprecated */,
-    @bs.optional
+    @optional
     transform: string,
-    @bs.optional
+    @optional
     u1: string,
-    @bs.optional
+    @optional
     u2: string,
-    @bs.optional
+    @optional
     underlinePosition: string,
-    @bs.optional
+    @optional
     underlineThickness: string,
-    @bs.optional
+    @optional
     unicode: string,
-    @bs.optional
+    @optional
     unicodeBidi: string,
-    @bs.optional
+    @optional
     unicodeRange: string,
-    @bs.optional
+    @optional
     unitsPerEm: string,
-    @bs.optional
+    @optional
     vAlphabetic: string,
-    @bs.optional
+    @optional
     vHanging: string,
-    @bs.optional
+    @optional
     vIdeographic: string,
-    @bs.optional
+    @optional
     vMathematical: string,
-    @bs.optional
+    @optional
     values: string,
-    @bs.optional
+    @optional
     vectorEffect: string,
-    @bs.optional
+    @optional
     version: string,
-    @bs.optional
+    @optional
     vertAdvX: string,
-    @bs.optional
+    @optional
     vertAdvY: string,
-    @bs.optional
+    @optional
     vertOriginX: string,
-    @bs.optional
+    @optional
     vertOriginY: string,
-    @bs.optional
+    @optional
     viewBox: string,
-    @bs.optional
+    @optional
     viewTarget: string,
-    @bs.optional
+    @optional
     visibility: string,
     /* width::string? => */
-    @bs.optional
+    @optional
     widths: string,
-    @bs.optional
+    @optional
     wordSpacing: string,
-    @bs.optional
+    @optional
     writingMode: string,
-    @bs.optional
+    @optional
     x: string,
-    @bs.optional
+    @optional
     x1: string,
-    @bs.optional
+    @optional
     x2: string,
-    @bs.optional
+    @optional
     xChannelSelector: string,
-    @bs.optional
+    @optional
     xHeight: string,
-    @bs.optional
+    @optional
     xlinkActuate: string,
-    @bs.optional
+    @optional
     xlinkArcrole: string,
-    @bs.optional
+    @optional
     xlinkHref: string,
-    @bs.optional
+    @optional
     xlinkRole: string,
-    @bs.optional
+    @optional
     xlinkShow: string,
-    @bs.optional
+    @optional
     xlinkTitle: string,
-    @bs.optional
+    @optional
     xlinkType: string,
-    @bs.optional
+    @optional
     xmlns: string,
-    @bs.optional
+    @optional
     xmlnsXlink: string,
-    @bs.optional
+    @optional
     xmlBase: string,
-    @bs.optional
+    @optional
     xmlLang: string,
-    @bs.optional
+    @optional
     xmlSpace: string,
-    @bs.optional
+    @optional
     y: string,
-    @bs.optional
+    @optional
     y1: string,
-    @bs.optional
+    @optional
     y2: string,
-    @bs.optional
+    @optional
     yChannelSelector: string,
-    @bs.optional
+    @optional
     z: string,
-    @bs.optional
+    @optional
     zoomAndPan: string,
     /* RDFa */
-    @bs.optional
+    @optional
     about: string,
-    @bs.optional
+    @optional
     datatype: string,
-    @bs.optional
+    @optional
     inlist: string,
-    @bs.optional
+    @optional
     prefix: string,
-    @bs.optional
+    @optional
     property: string,
-    @bs.optional
+    @optional
     resource: string,
-    @bs.optional
+    @optional
     typeof: string,
-    @bs.optional
+    @optional
     vocab: string,
     /* react-specific */
-    @bs.optional
+    @optional
     dangerouslySetInnerHTML: {"__html": string},
-    @bs.optional
+    @optional
     suppressContentEditableWarning: bool,
   }
 }
