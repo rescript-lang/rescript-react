@@ -2129,8 +2129,9 @@ external jsxs: (string, JsxDOM.domProps) => Jsx.element = "jsxs"
 @module("react/jsx-runtime")
 external jsxsKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsxs"
 
-// As we've removed `ReactDOMRe.createElement`, this enables patterns like
-// React.createElement(ReactDOM.stringToComponent(multiline ? "textarea" : "input"), ...)
-external stringToComponent: string => React.component<JsxDOM.domProps> = "%identity"
+// Used by the ppx to generate primitive components like "div".
+// Intentionally unsafe because typechecking is enforced by the ppx.
+@deprecated("Please use JSX syntax directly.")
+external stringToComponent: string => React.component<'a> = "%identity"
 
 module Style = ReactDOMStyle
