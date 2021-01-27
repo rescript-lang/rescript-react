@@ -1,5 +1,5 @@
 {
-  "name": "rescript-react",
+  "name": "@rescript/rescript-react",
   "reason": { "react-jsx": 3 },
   "sources": [
     {"dir": "src", "subdirs": true},
@@ -8,5 +8,5 @@
   "package-specs": [{ "module": "commonjs", "in-source": true }],
   "suffix": ".bs.js",
   "bs-dev-dependencies": ["reason-test-framework"],
-  "bsc-flags": ["-bs-no-version-header"]
+  "bsc-flags": []
 }
