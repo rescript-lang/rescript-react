@@ -1,18 +1,32 @@
 ## rescript-react 
 
 > The Official ReScript Bindings for ReactJS
->
-> **Note:** These bindings are in the publishing phase. Proper npm release will follow soon!
+
+- [Documentation](https://rescript-lang.org/docs/react/latest/introduction)
 
 ### Transition Plan (reason-react -> rescript-react)
 
 - Existing users want to upgrade from `reason-react@0.9` to `rescript-react@0.10` (should be a smooth transition, check out the [Changes.md](./Changes.md) for minor breaking changes)
 - We will soon publish our `v1.0` changes, with a new `react-jsx` version and some other cool features! Check out our [RFC post](https://forum.rescript-lang.org/t/rfc-rescript-react/901) for more infos.
 
+### Installation
+
+```
+npm install @rescript/react --save
+```
+
+In your `bsconfig.json`:
+
+```
+{
+  "reason": { "react-jsx": 3 },
+  "bs-dependencies": ["@rescript/react"]
+}
+```
+
 **Quick Links:**
 
 - [Introduction](https://rescript-lang.org/docs/react/latest/introduction)
-- [Installation](https://rescript-lang.org/docs/react/latest/installation) (Please note that our npm package is not released yet. Coming soon!)
 
 ### Requirements
 
