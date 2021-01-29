@@ -2,7 +2,7 @@ type undefined = Js.undefined<unit>
 
 let undefined: undefined = Js.Undefined.empty
 
-@bs.module("react-dom/test-utils")
+@module("react-dom/test-utils")
 external reactAct: ((. unit) => undefined) => unit = "act"
 
 let act: (unit => unit) => unit = func => {
@@ -13,7 +13,7 @@ let act: (unit => unit) => unit = func => {
   reactAct(reactFunc)
 }
 
-@bs.module("react-dom/test-utils")
+@module("react-dom/test-utils")
 external reactActAsync: ((. unit) => Js.Promise.t<'a>) => Js.Promise.t<unit> = "act"
 
 let actAsync = func => {
@@ -21,32 +21,32 @@ let actAsync = func => {
   reactActAsync(reactFunc)
 }
 
-@bs.module("react-dom/test-utils")
+@module("react-dom/test-utils")
 external isElement: 'element => bool = "isElement"
 
-@bs.module("react-dom/test-utils")
+@module("react-dom/test-utils")
 external isElementOfType: ('element, React.component<'props>) => bool = "isElementOfType"
 
-@bs.module("react-dom/test-utils")
+@module("react-dom/test-utils")
 external isDOMComponent: 'element => bool = "isDOMComponent"
 
-@bs.module("react-dom/test-utils")
+@module("react-dom/test-utils")
 external isCompositeComponent: 'element => bool = "isCompositeComponent"
 
-@bs.module("react-dom/test-utils")
+@module("react-dom/test-utils")
 external isCompositeComponentWithType: ('element, React.component<'props>) => bool =
   "isCompositeComponentWithType"
 
 module Simulate = {
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external click: Dom.element => unit = "click"
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external clickWithEvent: (Dom.element, 'event) => unit = "click"
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external change: Dom.element => unit = "change"
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external blur: Dom.element => unit = "blur"
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external changeWithEvent: (Dom.element, 'event) => unit = "change"
   let changeWithValue = (element, value) => {
     let event = {
@@ -64,31 +64,31 @@ module Simulate = {
     }
     changeWithEvent(element, event)
   }
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external canPlay: Dom.element => unit = "canPlay"
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external timeUpdate: Dom.element => unit = "timeUpdate"
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external ended: Dom.element => unit = "ended"
-  @bs.module("react-dom/test-utils") @bs.scope("Simulate")
+  @module("react-dom/test-utils") @scope("Simulate")
   external focus: Dom.element => unit = "focus"
 }
 
-@bs.val external document: Dom.document = "document"
+@val external document: Dom.document = "document"
 
-@bs.send
+@send
 external querySelector: (Dom.element, string) => option<Dom.element> = "querySelector"
 
-@bs.send
+@send
 external querySelectorAll: (Dom.element, string) => Js.Array.array_like<Dom.element> =
   "querySelectorAll"
 
-@bs.get external textContent: Dom.element => string = "textContent"
-@bs.get external body: Dom.document => option<Dom.element> = "body"
-@bs.send
+@get external textContent: Dom.element => string = "textContent"
+@get external body: Dom.document => option<Dom.element> = "body"
+@send
 external createElement: (Dom.document, string) => Dom.element = "createElement"
-@bs.send external remove: Dom.element => unit = "remove"
-@bs.send
+@send external remove: Dom.element => unit = "remove"
+@send
 external appendChild: (Dom.element, Dom.element) => Dom.element = "appendChild"
 
 let querySelectorAll = (element, string) => Js.Array.from(querySelectorAll(element, string))
@@ -96,7 +96,7 @@ let querySelectorAll = (element, string) => Js.Array.from(querySelectorAll(eleme
 module DOM = {
   open Belt
 
-  @bs.return(nullable) @bs.get
+  @return(nullable) @get
   external value: Dom.element => option<string> = "value"
 
   let findBySelector = (element, selector) => querySelector(element, selector)

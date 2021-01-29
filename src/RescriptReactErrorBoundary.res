@@ -5,7 +5,7 @@
  ")
 type reactComponentClass
 
-@bs.module("react") external component: reactComponentClass = "Component"
+@module("react") external component: reactComponentClass = "Component"
 
 type info = {componentStack: string}
 
@@ -14,7 +14,7 @@ type params<'error> = {
   info: info,
 }
 
-let getErrorBoundary = %bs.raw(`
+let getErrorBoundary = %raw(`
   function (Component) {
     function ErrorBoundary(props) {
       Component.call(this);
@@ -31,7 +31,7 @@ let getErrorBoundary = %bs.raw(`
   }
 `)
 
-@bs.obj
+@obj
 external makeProps: (
   ~children: React.element,
   ~fallback: params<'error> => React.element,

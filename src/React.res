@@ -21,7 +21,7 @@ external createElement: (component<'props>, 'props) => element = "createElement"
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
 
-@splice @module("react")
+@variadic @module("react")
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
 
