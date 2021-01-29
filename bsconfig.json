@@ -1,5 +1,5 @@
 {
-  "name": "@rescript/rescript-react",
+  "name": "@rescript/react",
   "reason": { "react-jsx": 3 },
   "sources": [
     {"dir": "src", "subdirs": true},
