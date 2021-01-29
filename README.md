@@ -30,9 +30,8 @@ In your `bsconfig.json`:
 
 ### Requirements
 
-- bs-platform v8.1+
-- ReactJS v17+
-- ReScript -> react-jsx v4+
+- bs-platform v8.3+
+- ReactJS v16.8.1+
 - **Optimized for ReScript syntax usage**
 
 ### Development

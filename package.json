@@ -28,16 +28,16 @@
   },
   "homepage": "https://rescript-lang.org/docs/latest/react/",
   "devDependencies": {
-    "bs-platform": "8.4.2",
+    "bs-platform": "8.3.0",
     "jest": "^26.0.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "reason-test-framework": "^0.3.2"
   },
   "peerDependencies": {
-    "bs-platform": "^7.1.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "bs-platform": "^8.3.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
   },
   "jest": {
     "moduleDirectories": [
