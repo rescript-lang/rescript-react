@@ -25,16 +25,16 @@ external cloneElement: (element, 'props) => element = "cloneElement"
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
 
-@module("react") @deprecated("Please use JSX syntax directly.")
+@module("react/jsx-runtime")
 external jsxKeyed: (component<'props>, 'props, string) => element = "jsx"
 
-@module("react") @deprecated("Please use JSX syntax directly.")
+@module("react/jsx-runtime")
 external jsx: (component<'props>, 'props) => element = "jsx"
 
-@module("react") @deprecated("Please use JSX syntax directly.")
+@module("react/jsx-runtime")
 external jsxs: (component<'props>, 'props) => element = "jsxs"
 
-@module("react") @deprecated("Please use JSX syntax directly.")
+@module("react/jsx-runtime")
 external jsxsKeyed: (component<'props>, 'props, string) => element = "jsxs"
 
 type ref<'value> = {mutable current: 'value}
