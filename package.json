@@ -26,7 +26,7 @@
     "type": "git",
     "url": "git+https://github.com/rescript-lang/rescript-react.git"
   },
-  "homepage": "https://rescript-lang.org/docs/latest/react/",
+  "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
     "bs-platform": "8.3.0",
     "jest": "^26.0.1",
