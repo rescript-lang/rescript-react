@@ -2,7 +2,7 @@
 
 This is the initial version of `rescript-react`, a port of `reason-react@0.9` that will be almost equivalent, except for a few long needed minor breaking changes.
 
-It is intended to be used with our newest ReScript React-JSX transformations (> JSX v3) and React v17.
+It is intended to be used with our newest ReScript React-JSX transformations (> JSX v3) and React v16.8.
 
 For history on previous evolution of the code, check out the original [reason-react history](https://github.com/reasonml/reason-react/blob/master/HISTORY.md)
 
