@@ -7,7 +7,7 @@
 ### Transition Plan (reason-react -> rescript-react)
 
 - Existing users want to upgrade from `reason-react@0.9` to `rescript-react@0.10` (should be a smooth transition, check out the [Changes.md](./Changes.md) for minor breaking changes)
-- Make sure that all community packages that are still on `reason-react` publish a new `@rescript/react` version as well (for compatibility reasons)
+- Make sure that all community libraries that are still on `reason-react` publish a new `@rescript/react` version as well (for compatibility reasons)
 - We will soon publish our `v1.0` changes, with a new `react-jsx` version and some other cool features! Check out our [RFC post](https://forum.rescript-lang.org/t/rfc-rescript-react/901) for more infos.
 
 ### Installation
