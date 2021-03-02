@@ -63,14 +63,15 @@ module Props = {
     /* accessibility */
     /* https://www.w3.org/TR/wai-aria-1.1/ */
     /* https://accessibilityresources.org/<aria-tag> is a great resource for these */
-    /* [@optional] [@as "aria-current"] ariaCurrent: page|step|location|date|time|true|false, */
+    @optional @as("aria-current")
+    ariaCurrent: [#page | #step | #location | #date | #time | #\"true" | #\"false"],
     @optional @as("aria-details")
     ariaDetails: string,
     @optional @as("aria-disabled")
     ariaDisabled: bool,
     @optional @as("aria-hidden")
     ariaHidden: bool,
-    /* [@optional] [@as "aria-invalid"] ariaInvalid: grammar|false|spelling|true, */
+    @optional @as("aria-invalid") ariaInvalid: [#grammar | #\"false" | #spelling | #\"true"],
     @optional @as("aria-keyshortcuts")
     ariaKeyshortcuts: string,
     @optional @as("aria-label")
@@ -78,11 +79,13 @@ module Props = {
     @optional @as("aria-roledescription")
     ariaRoledescription: string,
     /* Widget Attributes */
-    /* [@optional] [@as "aria-autocomplete"] ariaAutocomplete: inline|list|both|none, */
-    /* [@optional] [@as "aria-checked"] ariaChecked: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-autocomplete") ariaAutocomplete: [#inline | #list | #both | #none],
+    @optional @as("aria-checked")
+    ariaChecked: [#\"true" | #\"false" | #mixed],
     @optional @as("aria-expanded")
-    ariaExpanded: bool,
-    /* [@optional] [@as "aria-haspopup"] ariaHaspopup: false|true|menu|listbox|tree|grid|dialog, */
+    ariaExpanded: [#\"true\" | #\"false" | #undefined],
+    @optional @as("aria-haspopup")
+    ariaHaspopup: [#\"false" | #\"true" | #menu | #listbox | #tree | #grid | #dialog],
     @optional @as("aria-level")
     ariaLevel: int,
     @optional @as("aria-modal")
@@ -91,10 +94,11 @@ module Props = {
     ariaMultiline: bool,
     @optional @as("aria-multiselectable")
     ariaMultiselectable: bool,
-    /* [@optional] [@as "aria-orientation"] ariaOrientation: horizontal|vertical|undefined, */
+    @optional @as("aria-orientation") ariaOrientation: [#horizontal | #vertical | #undefined],
     @optional @as("aria-placeholder")
     ariaPlaceholder: string,
-    /* [@optional] [@as "aria-pressed"] ariaPressed: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-pressed")
+    ariaPressed: [#\"true" | #\"false" | #mixed | #undefined],
     @optional @as("aria-readonly")
     ariaReadonly: bool,
     @optional @as("aria-required")
@@ -116,11 +120,12 @@ module Props = {
     ariaAtomic: bool,
     @optional @as("aria-busy")
     ariaBusy: bool,
-    /* [@optional] [@as "aria-live"] ariaLive: off|polite|assertive|rude, */
+    @optional @as("aria-live") ariaLive: [#off | #polite | #assertive | #rude],
     @optional @as("aria-relevant")
     ariaRelevant: string,
     /* Drag-and-Drop Attributes */
-    /* [@optional] [@as "aria-dropeffect"] ariaDropeffect: copy|move|link|execute|popup|none, */
+    @optional @as("aria-dropeffect")
+    ariaDropeffect: [#copy | #move | #link | #execute | #popup | #none],
     @optional @as("aria-grabbed")
     ariaGrabbed: bool,
     /* Relationship Attributes */
@@ -169,7 +174,7 @@ module Props = {
     @optional
     contextMenu: string,
     @optional
-    dir: string /* "ltr", "rtl" or "auto" */,
+    dir: [#ltr | #rtl | #auto],
     @optional
     draggable: bool,
     @optional
@@ -229,7 +234,7 @@ module Props = {
     @optional
     cite: string /* uri */,
     @optional
-    crossOrigin: string /* anonymous, use-credentials */,
+    crossOrigin: [#anonymous | #\"use-credentials"],
     @optional
     cols: int,
     @optional
@@ -253,7 +258,7 @@ module Props = {
     @optional
     download: string /* should really be either a boolean, signifying presence, or a string */,
     @optional
-    encType: string /* "application/x-www-form-urlencoded", "multipart/form-data" or "text/plain" */,
+    encType: [#\"application/x-www-form-urlencoded" | #\"multipart/form-data" | #\"text/plain"],
     @optional
     form: string,
     @optional
@@ -261,7 +266,7 @@ module Props = {
     @optional
     formTarget: string /* "_blank", "_self", etc. */,
     @optional
-    formMethod: string /* "post", "get", "put" */,
+    formMethod: [#get | #post | #dialog],
     @optional
     headers: string,
     @optional
@@ -275,17 +280,25 @@ module Props = {
     @optional
     htmlFor: string /* substitute for "for" */,
     @optional
-    httpEquiv: string /* has a fixed set of possible values */,
+    httpEquiv: [
+      | #\"content-language"
+      | #\"content-type"
+      | #\"default-style"
+      | #refresh
+      | #\"set-cookie"
+      | #\"x-ua-compatible"
+      | #\"content-security-policy"
+    ],
     @optional
     icon: string /* uri? */,
     @optional
-    inputMode: string /* "verbatim", "latin", "numeric", etc. */,
+    inputMode: [#none | #text | #tel | #url | #email | #numeric | #decimal | #search],
     @optional
     integrity: string,
     @optional
     keyType: string,
     @optional
-    kind: string /* has a fixed set of possible values */,
+    kind: [#subtitles | #captions | #descriptions | #chapters | #metadata],
     @optional
     label: string,
     @optional
@@ -305,7 +318,7 @@ module Props = {
     @optional
     mediaGroup: string,
     @optional
-    method: string /* "post" or "get" */,
+    method: [#get | #post | #dialog],
     @optional
     min: string,
     @optional
@@ -333,7 +346,7 @@ module Props = {
     @optional
     poster: string /* uri */,
     @optional
-    preload: string /* "none", "metadata" or "auto" (and "" as a synonym for "auto") */,
+    preload: [#none | #metadata | #auto],
     @optional
     radioGroup: string,
     @optional
@@ -351,11 +364,11 @@ module Props = {
     @optional
     sandbox: string /* has a fixed set of possible values */,
     @optional
-    scope: string /* has a fixed set of possible values */,
+    scope: [#row | #col | #rowgroup | #colgroup],
     @optional
     scoped: bool,
     @optional
-    scrolling: string /* html4 only, "auto", "yes" or "no" */,
+    scrolling: [#auto | #yes | #no] /* html4 only */,
     /* seamless - supported by React, but removed from the html5 spec */
     @optional
     selected: bool,
@@ -392,7 +405,7 @@ module Props = {
     @optional
     width: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
     @optional
-    wrap: string /* "hard" or "soft" */,
+    wrap: [#hard | #soft],
     /* Clipboard events */
     @optional
     onCopy: ReactEvent.Clipboard.t => unit,
@@ -1088,14 +1101,15 @@ module Props = {
     /* accessibility */
     /* https://www.w3.org/TR/wai-aria-1.1/ */
     /* https://accessibilityresources.org/<aria-tag> is a great resource for these */
-    /* [@optional] [@as "aria-current"] ariaCurrent: page|step|location|date|time|true|false, */
+    @optional @as("aria-current")
+    ariaCurrent: [#page | #step | #location | #date | #time | #\"true" | #\"false"],
     @optional @as("aria-details")
     ariaDetails: string,
     @optional @as("aria-disabled")
     ariaDisabled: bool,
     @optional @as("aria-hidden")
     ariaHidden: bool,
-    /* [@optional] [@as "aria-invalid"] ariaInvalid: grammar|false|spelling|true, */
+    @optional @as("aria-invalid") ariaInvalid: [#grammar | #\"false" | #spelling | #\"true"],
     @optional @as("aria-keyshortcuts")
     ariaKeyshortcuts: string,
     @optional @as("aria-label")
@@ -1103,11 +1117,13 @@ module Props = {
     @optional @as("aria-roledescription")
     ariaRoledescription: string,
     /* Widget Attributes */
-    /* [@optional] [@as "aria-autocomplete"] ariaAutocomplete: inline|list|both|none, */
-    /* [@optional] [@as "aria-checked"] ariaChecked: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-autocomplete") ariaAutocomplete: [#inline | #list | #both | #none],
+    @optional @as("aria-checked")
+    ariaChecked: [#\"true" | #\"false" | #mixed],
     @optional @as("aria-expanded")
-    ariaExpanded: bool,
-    /* [@optional] [@as "aria-haspopup"] ariaHaspopup: false|true|menu|listbox|tree|grid|dialog, */
+    ariaExpanded: [#\"true\" | #\"false" | #undefined],
+    @optional @as("aria-haspopup")
+    ariaHaspopup: [#\"false" | #\"true" | #menu | #listbox | #tree | #grid | #dialog],
     @optional @as("aria-level")
     ariaLevel: int,
     @optional @as("aria-modal")
@@ -1116,10 +1132,11 @@ module Props = {
     ariaMultiline: bool,
     @optional @as("aria-multiselectable")
     ariaMultiselectable: bool,
-    /* [@optional] [@as "aria-orientation"] ariaOrientation: horizontal|vertical|undefined, */
+    @optional @as("aria-orientation") ariaOrientation: [#horizontal | #vertical | #undefined],
     @optional @as("aria-placeholder")
     ariaPlaceholder: string,
-    /* [@optional] [@as "aria-pressed"] ariaPressed: true|false|mixed, /* https://www.w3.org/TR/wai-aria-1.1/#valuetype_tristate */ */
+    @optional @as("aria-pressed")
+    ariaPressed: [#\"true" | #\"false" | #mixed | #undefined],
     @optional @as("aria-readonly")
     ariaReadonly: bool,
     @optional @as("aria-required")
@@ -1141,11 +1158,12 @@ module Props = {
     ariaAtomic: bool,
     @optional @as("aria-busy")
     ariaBusy: bool,
-    /* [@optional] [@as "aria-live"] ariaLive: off|polite|assertive|rude, */
+    @optional @as("aria-live") ariaLive: [#off | #polite | #assertive | #rude],
     @optional @as("aria-relevant")
     ariaRelevant: string,
     /* Drag-and-Drop Attributes */
-    /* [@optional] [@as "aria-dropeffect"] ariaDropeffect: copy|move|link|execute|popup|none, */
+    @optional @as("aria-dropeffect")
+    ariaDropeffect: [#copy | #move | #link | #execute | #popup | #none],
     @optional @as("aria-grabbed")
     ariaGrabbed: bool,
     /* Relationship Attributes */
@@ -1194,7 +1212,7 @@ module Props = {
     @optional
     contextMenu: string,
     @optional
-    dir: string /* "ltr", "rtl" or "auto" */,
+    dir: [#ltr | #rtl | #auto],
     @optional
     draggable: bool,
     @optional
@@ -1254,7 +1272,7 @@ module Props = {
     @optional
     cite: string /* uri */,
     @optional
-    crossorigin: bool,
+    crossorigin: [#anonymous | #\"use-credentials"],
     @optional
     cols: int,
     @optional
@@ -1278,7 +1296,7 @@ module Props = {
     @optional
     download: string /* should really be either a boolean, signifying presence, or a string */,
     @optional
-    encType: string /* "application/x-www-form-urlencoded", "multipart/form-data" or "text/plain" */,
+    encType: [#\"application/x-www-form-urlencoded" | #\"multipart/form-data" | #\"text/plain"],
     @optional
     form: string,
     @optional
@@ -1286,7 +1304,7 @@ module Props = {
     @optional
     formTarget: string /* "_blank", "_self", etc. */,
     @optional
-    formMethod: string /* "post", "get", "put" */,
+    formMethod: [#get | #post | #dialog],
     @optional
     headers: string,
     @optional
@@ -1300,17 +1318,25 @@ module Props = {
     @optional
     htmlFor: string /* substitute for "for" */,
     @optional
-    httpEquiv: string /* has a fixed set of possible values */,
+    httpEquiv: [
+      | #\"content-language"
+      | #\"content-type"
+      | #\"default-style"
+      | #refresh
+      | #\"set-cookie"
+      | #\"x-ua-compatible"
+      | #\"content-security-policy"
+    ],
     @optional
     icon: string /* uri? */,
     @optional
-    inputMode: string /* "verbatim", "latin", "numeric", etc. */,
+    inputMode: [#none | #text | #tel | #url | #email | #numeric | #decimal | #search],
     @optional
     integrity: string,
     @optional
     keyType: string,
     @optional
-    kind: string /* has a fixed set of possible values */,
+    kind: [#subtitles | #captions | #descriptions | #chapters | #metadata],
     @optional
     label: string,
     @optional
@@ -1330,7 +1356,7 @@ module Props = {
     @optional
     mediaGroup: string,
     @optional
-    method: string /* "post" or "get" */,
+    method: [#get | #post | #dialog],
     @optional
     min: string,
     @optional
@@ -1356,7 +1382,7 @@ module Props = {
     @optional
     poster: string /* uri */,
     @optional
-    preload: string /* "none", "metadata" or "auto" (and "" as a synonym for "auto") */,
+    preload: [#none | #metadata | #auto],
     @optional
     radioGroup: string,
     @optional
@@ -1374,11 +1400,11 @@ module Props = {
     @optional
     sandbox: string /* has a fixed set of possible values */,
     @optional
-    scope: string /* has a fixed set of possible values */,
+    scope: [#row | #col | #rowgroup | #colgroup],
     @optional
     scoped: bool,
     @optional
-    scrolling: string /* html4 only, "auto", "yes" or "no" */,
+    scrolling: [#auto | #yes | #no] /* html4 only */,
     /* seamless - supported by React, but removed from the html5 spec */
     @optional
     selected: bool,
@@ -1415,7 +1441,7 @@ module Props = {
     @optional
     width: string /* in html5 this can only be a number, but in html4 it can ba a percentage as well */,
     @optional
-    wrap: string /* "hard" or "soft" */,
+    wrap: [#hard | #soft],
     /* Clipboard events */
     @optional
     onCopy: ReactEvent.Clipboard.t => unit,
