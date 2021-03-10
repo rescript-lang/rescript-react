@@ -14,7 +14,7 @@
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "retest --with-dom test/*.mjs"
+    "test": "retest --with-dom test/*.bs.js"
   },
   "keywords": [
     "rescript",
@@ -28,28 +28,14 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
-    "bs-platform": "^9.0.0",
+    "bs-platform": "^8.4.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "rescript-test": "^2.0.2"
+    "rescript-test": "^2.0.5"
   },
   "peerDependencies": {
     "bs-platform": ">=8.3.0",
     "react": ">=16.8.1",
     "react-dom": ">=16.8.1"
-  },
-  "jest": {
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "roots": [
-      "test"
-    ],
-    "testMatch": [
-      "**/*__test.bs.js"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(bs-platform|reason-react|reason-react-compat|reason-react-update|bs-webapi|bs-css|bs-css-emotion|reason-test-framework)/)"
-    ]
   }
 }
