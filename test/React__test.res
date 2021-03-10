@@ -1,6 +1,96 @@
-open TestFramework
+open Test
 open ReactTestUtils
 open Belt
+
+@val external document: {..} = "document"
+@send external remove: Dom.element => unit = "remove"
+
+let createContainer = () => {
+  let containerElement: Dom.element = document["createElement"]("div")
+  let _ = document["body"]["appendChild"](containerElement)
+  containerElement
+}
+
+let cleanupContainer = container => {
+  ReactDOM.unmountComponentAtNode(container)
+  remove(container)
+}
+
+let testWithReact = testWith(~setup=createContainer, ~teardown=cleanupContainer)
+
+@send
+external querySelectorAll: (Dom.element, string) => Js.Array.array_like<Dom.element> =
+  "querySelectorAll"
+
+@returns(nullable) @send
+external querySelector: (Dom.element, string) => option<Dom.element> = "querySelector"
+
+@get external textContent: Dom.element => string = "textContent"
+
+let querySelectorAll = (element, string) => Js.Array.from(querySelectorAll(element, string))
+
+let containsElementWithText = (~message=?, element: Dom.element, selector: string, text: string) =>
+  assertion(
+    ~message?,
+    ~operator="containsElementWithText",
+    (a, b) => a === b,
+    element->querySelectorAll(selector)->Js.Array2.some(node => node->textContent === text),
+    true,
+  )
+
+let doesNotContainElementWithText = (
+  ~message=?,
+  element: Dom.element,
+  selector: string,
+  text: string,
+) =>
+  assertion(
+    ~message?,
+    ~operator="containsElementWithText",
+    (a, b) => a === b,
+    element->querySelectorAll(selector)->Js.Array2.some(node => node->textContent === text),
+    false,
+  )
+
+let containsElementWithPartialText = (
+  ~message=?,
+  element: Dom.element,
+  selector: string,
+  text: string,
+) =>
+  assertion(
+    ~message?,
+    ~operator="containsElementWithPartialText",
+    (a, b) => a === b,
+    element
+    ->querySelectorAll(selector)
+    ->Js.Array2.some(node => node->textContent->Js.String2.includes(text)),
+    true,
+  )
+
+let intArrayEquals = (~message=?, a: array<int>, b: array<int>) =>
+  assertion(
+    ~message?,
+    ~operator="intArrayEquals",
+    (a, b) => Belt.Array.eq(a, b, (a, b) => a === b),
+    a,
+    b,
+  )
+
+let stringEquals = (~message=?, a: string, b: string) =>
+  assertion(~message?, ~operator="stringEquals", (a, b) => a === b, a, b)
+
+let stringContains = (~message=?, a: string, b: string) =>
+  assertion(~message?, ~operator="stringContains", (a, b) => a->Js.String2.includes(b), a, b)
+
+let intOptionEquals = (~message=?, a: option<int>, b: option<int>) =>
+  assertion(
+    ~message?,
+    ~operator="intOptionEquals",
+    (a, b) => Belt.Option.eq(a, b, (a, b) => a === b),
+    a,
+    b,
+  )
 
 module Console = {
   type fn
@@ -8,6 +98,7 @@ module Console = {
   function() {
     var fn = console.error
     console.error = () => {}
+    return fn
   }
   `)
 
@@ -42,8 +133,12 @@ module DummyReducerComponent = {
 
     <>
       <div className="value"> {state->React.int} </div>
-      <button onClick={_ => send(Increment)}> {"Increment"->React.string} </button>
-      <button onClick={_ => send(Decrement)}> {"Decrement"->React.string} </button>
+      <button onClick={_ => send(Increment)} className="increment">
+        {"Increment"->React.string}
+      </button>
+      <button onClick={_ => send(Decrement)} className="decrement">
+        {"Decrement"->React.string}
+      </button>
     </>
   }
 }
@@ -66,8 +161,12 @@ module DummyReducerWithMapStateComponent = {
 
     <>
       <div className="value"> {state->React.int} </div>
-      <button onClick={_ => send(Increment)}> {"Increment"->React.string} </button>
-      <button onClick={_ => send(Decrement)}> {"Decrement"->React.string} </button>
+      <button onClick={_ => send(Increment)} className="increment">
+        {"Increment"->React.string}
+      </button>
+      <button onClick={_ => send(Decrement)} className="decrement">
+        {"Decrement"->React.string}
+      </button>
     </>
   }
 }
@@ -146,340 +245,228 @@ module ComponentThatThrows = {
   }
 }
 
-describe("React", ({test, beforeEach, afterEach}) => {
-  let container = ref(None)
+testWithReact("React can render DOM elements", container => {
+  act(() => ReactDOM.render(<div> {"Hello world!"->React.string} </div>, container))
+  containsElementWithText(container, "div", "Hello world!")
+})
 
-  beforeEach(prepareContainer(container))
-  afterEach(cleanupContainer(container))
+testWithReact("React can render null elements", container => {
+  act(() => ReactDOM.render(<div> React.null </div>, container))
+  containsElementWithText(container, "div", "")
+})
 
-  test("can render DOM elements", ({expect}) => {
-    let container = getContainer(container)
+testWithReact("React can render string elements", container => {
+  act(() => ReactDOM.render(<div> {"Hello"->React.string} </div>, container))
+  containsElementWithText(container, "div", "Hello")
+})
 
-    act(() => ReactDOM.render(<div> {"Hello world!"->React.string} </div>, container))
+testWithReact("React can render int elements", container => {
+  act(() => ReactDOM.render(<div> {12345->React.int} </div>, container))
+  containsElementWithText(container, "div", "12345")
+})
 
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent("div", "Hello world!")->Option.isSome,
-    ).toBeTrue()
-  })
+testWithReact("React can render float elements", container => {
+  act(() => ReactDOM.render(<div> {12.345->React.float} </div>, container))
+  containsElementWithText(container, "div", "12.345")
+})
 
-  test("can render null elements", ({expect}) => {
-    let container = getContainer(container)
+testWithReact("React can render array of elements", container => {
+  let array = [1, 2, 3]->Array.map(item => <div key=j`$item`> {item->React.int} </div>)
 
-    act(() => ReactDOM.render(<div> React.null </div>, container))
+  act(() => ReactDOM.render(<div> {array->React.array} </div>, container))
 
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "")->Option.isSome,
-    ).toBeTrue()
-  })
+  containsElementWithText(container, "div", "1")
+  containsElementWithText(container, "div", "2")
+  containsElementWithText(container, "div", "3")
+})
 
-  test("can render string elements", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() => ReactDOM.render(<div> {"Hello"->React.string} </div>, container))
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "Hello")->Option.isSome,
-    ).toBeTrue()
-  })
-
-  test("can render int elements", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() => ReactDOM.render(<div> {12345->React.int} </div>, container))
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "12345")->Option.isSome,
-    ).toBeTrue()
-  })
-
-  test("can render float elements", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() => ReactDOM.render(<div> {12.345->React.float} </div>, container))
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "12.345")->Option.isSome,
-    ).toBeTrue()
-  })
-
-  test("can render array of elements", ({expect}) => {
-    let container = getContainer(container)
-    let array = [1, 2, 3]->Array.map(item => <div key=j`$item`> {item->React.int} </div>)
-
-    act(() => ReactDOM.render(<div> {array->React.array} </div>, container))
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "1")->Option.isSome,
-    ).toBeTrue()
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "2")->Option.isSome,
-    ).toBeTrue()
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "3")->Option.isSome,
-    ).toBeTrue()
-  })
-
-  test("can clone an element", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() =>
-      ReactDOM.render(
-        React.cloneElement(<div> {"Hello"->React.string} </div>, {"data-name": "World"}),
-        container,
-      )
+testWithReact("React can clone an element", container => {
+  act(() =>
+    ReactDOM.render(
+      React.cloneElement(<div> {"Hello"->React.string} </div>, {"data-name": "World"}),
+      container,
     )
+  )
 
-    expect.bool(
-      container
-      ->DOM.findBySelectorAndPartialTextContent("div[data-name='World']", "Hello")
-      ->Option.isSome,
-    ).toBeTrue()
-  })
+  containsElementWithText(container, "div[data-name='World']", "Hello")
+})
 
-  test("can render react components", ({expect}) => {
-    let container = getContainer(container)
+testWithReact("React can render react components", container => {
+  act(() => ReactDOM.render(<DummyStatefulComponent />, container))
+  containsElementWithText(container, "button", "0")
 
-    act(() => ReactDOM.render(<DummyStatefulComponent />, container))
+  let button = container->querySelector("button")
 
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent("button", "0")->Option.isSome,
-    ).toBeTrue()
-
-    let button = container->DOM.findBySelector("button")
-
-    act(() =>
-      switch button {
-      | Some(button) => Simulate.click(button)
-      | None => ()
-      }
-    )
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent("button", "0")->Option.isSome,
-    ).toBeFalse()
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent("button", "1")->Option.isSome,
-    ).toBeTrue()
-  })
-
-  test("can render react components with reducers", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() => ReactDOM.render(<DummyReducerComponent />, container))
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "0")->Option.isSome,
-    ).toBeTrue()
-
-    let button = container->DOM.findBySelectorAndPartialTextContent("button", "Increment")
-
-    act(() =>
-      switch button {
-      | Some(button) => Simulate.click(button)
-      | None => ()
-      }
-    )
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "0")->Option.isSome,
-    ).toBeFalse()
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "1")->Option.isSome,
-    ).toBeTrue()
-
-    let button = container->DOM.findBySelectorAndPartialTextContent("button", "Decrement")
-
-    act(() =>
-      switch button {
-      | Some(button) => Simulate.click(button)
-      | None => ()
-      }
-    )
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "0")->Option.isSome,
-    ).toBeTrue()
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "1")->Option.isSome,
-    ).toBeFalse()
-  })
-
-  test("can render react components with reducers (map state)", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() => ReactDOM.render(<DummyReducerWithMapStateComponent />, container))
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "1")->Option.isSome,
-    ).toBeTrue()
-
-    let button = container->DOM.findBySelectorAndPartialTextContent("button", "Increment")
-
-    act(() =>
-      switch button {
-      | Some(button) => Simulate.click(button)
-      | None => ()
-      }
-    )
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "1")->Option.isSome,
-    ).toBeFalse()
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "2")->Option.isSome,
-    ).toBeTrue()
-
-    let button = container->DOM.findBySelectorAndPartialTextContent("button", "Decrement")
-
-    act(() =>
-      switch button {
-      | Some(button) => Simulate.click(button)
-      | None => ()
-      }
-    )
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "1")->Option.isSome,
-    ).toBeTrue()
-
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent(".value", "2")->Option.isSome,
-    ).toBeFalse()
-  })
-
-  test("can render react components with effects", ({expect}) => {
-    let container = getContainer(container)
-    let callback = Mock.fn()
-
-    act(() => ReactDOM.render(<DummyComponentWithEffect value=0 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithEffect value=1 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithEffect value=1 callback />, container))
-
-    expect.value(callback->Mock.getMock->Mock.calls).toEqual([[0], [1]])
-  })
-
-  test("can render react components with layout effects", ({expect}) => {
-    let container = getContainer(container)
-    let callback = Mock.fn()
-
-    act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=0 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=1 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=1 callback />, container))
-
-    expect.value(callback->Mock.getMock->Mock.calls).toEqual([[0], [1]])
-  })
-
-  test("can work with React refs", ({expect}) => {
-    let reactRef = React.createRef()
-    expect.value(reactRef.current).toEqual(Js.Nullable.null)
-    reactRef.current = Js.Nullable.return(1)
-    expect.value(reactRef.current).toEqual(Js.Nullable.return(1))
-  })
-
-  test("can work with useRef", ({expect}) => {
-    let container = getContainer(container)
-    let myRef = ref(None)
-    let callback = reactRef => myRef := Some(reactRef)
-
-    act(() => ReactDOM.render(<DummyComponentWithRefAndEffect callback />, container))
-
-    expect.value(myRef.contents->Option.map(item => item.current)).toEqual(Some(2))
-  })
-
-  test("Children", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() =>
-      ReactDOM.render(
-        <DummyComponentThatMapsChildren>
-          <div> {1->React.int} </div> <div> {2->React.int} </div> <div> {3->React.int} </div>
-        </DummyComponentThatMapsChildren>,
-        container,
-      )
-    )
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div[data-index='0']", "1")->Option.isSome,
-    ).toBeTrue()
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div[data-index='1']", "2")->Option.isSome,
-    ).toBeTrue()
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div[data-index='2']", "3")->Option.isSome,
-    ).toBeTrue()
-  })
-
-  test("Context", ({expect}) => {
-    let container = getContainer(container)
-
-    act(() =>
-      ReactDOM.render(
-        <DummyContext.Provider value=10> <DummyContext.Consumer /> </DummyContext.Provider>,
-        container,
-      )
-    )
-
-    expect.bool(
-      container->DOM.findBySelectorAndPartialTextContent("div", "10")->Option.isSome,
-    ).toBeTrue()
-  })
-
-  test("Events", ({expect}) => {
-    let container = getContainer(container)
-    let value = ref("")
-
-    act(() =>
-      ReactDOM.render(
-        <input
-          name="test-input" onChange={event => value := (event->ReactEvent.Form.target)["value"]}
-        />,
-        container,
-      )
-    )
-
-    switch container->DOM.findBySelector("input[name='test-input']") {
-    | Some(input) => input->Simulate.changeWithValue("My value")
+  act(() =>
+    switch button {
+    | Some(button) => Simulate.click(button)
     | None => ()
     }
+  )
 
-    expect.string(value.contents).toEqual("My value")
-  })
+  doesNotContainElementWithText(container, "button", "0")
+  containsElementWithText(container, "button", "1")
+})
 
-  test("ErrorBoundary", ({expect}) => {
-    let container = getContainer(container)
+testWithReact("React can render react components with reducers", container => {
+  act(() => ReactDOM.render(<DummyReducerComponent />, container))
+  containsElementWithText(container, ".value", "0")
 
-    // We need to disable error temporarily due to React always
-    // printing errors / warnings
-    let consoleFn = Console.disableError()
+  let button = container->querySelector(".increment")
 
-    act(() =>
-      ReactDOM.render(
-        <RescriptReactErrorBoundary
-          fallback={({error, info}) => {
-            switch error {
-            | ComponentThatThrows.TestError => ()
-            | _ => Js.Exn.raiseError("TestError exn should have been captured by fallback")
-            }
-            Console.restoreError(consoleFn)
-            expect.bool(info.componentStack->Js.String2.includes("ComponentThatThrows")).toBeTrue()
-            <strong> {"An error occured"->React.string} </strong>
-          }}>
-          <ComponentThatThrows value=1 />
-        </RescriptReactErrorBoundary>,
-        container,
-      )
+  act(() =>
+    switch button {
+    | Some(button) => Simulate.click(button)
+    | None => ()
+    }
+  )
+
+  doesNotContainElementWithText(container, ".value", "0")
+  containsElementWithText(container, ".value", "1")
+
+  let button = container->querySelector(".decrement")
+
+  act(() =>
+    switch button {
+    | Some(button) => Simulate.click(button)
+    | None => ()
+    }
+  )
+
+  doesNotContainElementWithText(container, ".value", "1")
+  containsElementWithText(container, ".value", "0")
+})
+
+testWithReact("React can render react components with reducers (map state)", container => {
+  act(() => ReactDOM.render(<DummyReducerWithMapStateComponent />, container))
+  containsElementWithText(container, ".value", "1")
+
+  let button = container->querySelector(".increment")
+
+  act(() =>
+    switch button {
+    | Some(button) => Simulate.click(button)
+    | None => ()
+    }
+  )
+
+  doesNotContainElementWithText(container, ".value", "1")
+  containsElementWithText(container, ".value", "2")
+
+  let button = container->querySelector(".decrement")
+
+  act(() =>
+    switch button {
+    | Some(button) => Simulate.click(button)
+    | None => ()
+    }
+  )
+
+  doesNotContainElementWithText(container, ".value", "2")
+  containsElementWithText(container, ".value", "1")
+})
+
+testWithReact("React can render react components with effects", container => {
+  let calls = []
+  let callback = value => calls->Js.Array2.push(value)->ignore
+
+  act(() => ReactDOM.render(<DummyComponentWithEffect value=0 callback />, container))
+  act(() => ReactDOM.render(<DummyComponentWithEffect value=1 callback />, container))
+  act(() => ReactDOM.render(<DummyComponentWithEffect value=1 callback />, container))
+
+  intArrayEquals(calls, [0, 1])
+})
+
+testWithReact("React can render react components with layout effects", container => {
+  let calls = []
+  let callback = value => calls->Js.Array2.push(value)->ignore
+
+  act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=0 callback />, container))
+  act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=1 callback />, container))
+  act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=1 callback />, container))
+
+  intArrayEquals(calls, [0, 1])
+})
+
+testWithReact("React can work with useRef", container => {
+  let myRef = ref(None)
+  let callback = reactRef => myRef := Some(reactRef)
+
+  act(() => ReactDOM.render(<DummyComponentWithRefAndEffect callback />, container))
+
+  intOptionEquals(myRef.contents->Option.map(item => item.current), Some(2))
+})
+
+testWithReact("Children", container => {
+  act(() =>
+    ReactDOM.render(
+      <DummyComponentThatMapsChildren>
+        <div> {1->React.int} </div> <div> {2->React.int} </div> <div> {3->React.int} </div>
+      </DummyComponentThatMapsChildren>,
+      container,
     )
+  )
 
-    expect.bool(
-      container->DOM.findBySelectorAndTextContent("strong", "An error occured")->Option.isSome,
-    ).toBeTrue()
+  containsElementWithText(container, "div[data-index='0']", "1")
+  containsElementWithText(container, "div[data-index='1']", "2")
+  containsElementWithText(container, "div[data-index='2']", "3")
+})
+
+testWithReact("Context", container => {
+  act(() =>
+    ReactDOM.render(
+      <DummyContext.Provider value=10> <DummyContext.Consumer /> </DummyContext.Provider>,
+      container,
+    )
+  )
+
+  containsElementWithText(container, "div", "10")
+})
+
+testWithReact("Events", container => {
+  let value = ref("")
+
+  act(() =>
+    ReactDOM.render(
+      <input
+        name="test-input" onChange={event => value := (event->ReactEvent.Form.target)["value"]}
+      />,
+      container,
+    )
+  )
+
+  act(() => {
+    switch container->querySelector("input[name='test-input']") {
+    | Some(input) => input->Simulate.changeWithEvent({"target": {"value": "My value"}})
+    | None => ()
+    }
   })
+
+  stringEquals(value.contents, "My value")
+})
+
+testWithReact("ErrorBoundary", container => {
+  // We need to disable error temporarily due to React always
+  // printing errors / warnings
+  let consoleFn = Console.disableError()
+
+  act(() =>
+    ReactDOM.render(
+      <RescriptReactErrorBoundary
+        fallback={({error, info}) => {
+          switch error {
+          | ComponentThatThrows.TestError => ()
+          | _ => Js.Exn.raiseError("TestError exn should have been captured by fallback")
+          }
+          Console.restoreError(consoleFn)
+          stringContains(info.componentStack, "ComponentThatThrows")
+          <strong> {"An error occured"->React.string} </strong>
+        }}>
+        <ComponentThatThrows value=1 />
+      </RescriptReactErrorBoundary>,
+      container,
+    )
+  )
+
+  containsElementWithText(container, "strong", "An error occured")
 })
