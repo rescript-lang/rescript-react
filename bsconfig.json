@@ -2,11 +2,11 @@
   "name": "@rescript/react",
   "reason": { "react-jsx": 3 },
   "sources": [
-    {"dir": "src", "subdirs": true},
+    { "dir": "src", "subdirs": true },
     { "dir": "test", "type": "dev" }
   ],
-  "package-specs": [{ "module": "commonjs", "in-source": true }],
-  "suffix": ".bs.js",
-  "bs-dev-dependencies": ["reason-test-framework"],
+  "package-specs": [{ "module": "es6", "in-source": true }],
+  "suffix": ".mjs",
+  "bs-dev-dependencies": ["rescript-test"],
   "bsc-flags": []
 }

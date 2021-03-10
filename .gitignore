@@ -13,7 +13,7 @@ finalOutput/*.js
 _esy
 _build
 *.install
-*.bs.js
+*.mjs
 
 # Editor
 /.idea/
