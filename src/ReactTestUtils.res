@@ -2,7 +2,7 @@ type undefined = Js.undefined<unit>
 
 let undefined: undefined = Js.Undefined.empty
 
-@module("react-dom/test-utils")
+@module("react-dom/test-utils.js")
 external reactAct: ((. unit) => undefined) => unit = "act"
 
 let act: (unit => unit) => unit = func => {
@@ -13,7 +13,7 @@ let act: (unit => unit) => unit = func => {
   reactAct(reactFunc)
 }
 
-@module("react-dom/test-utils")
+@module("react-dom/test-utils.js")
 external reactActAsync: ((. unit) => Js.Promise.t<'a>) => Js.Promise.t<unit> = "act"
 
 let actAsync = func => {
@@ -21,32 +21,32 @@ let actAsync = func => {
   reactActAsync(reactFunc)
 }
 
-@module("react-dom/test-utils")
+@module("react-dom/test-utils.js")
 external isElement: 'element => bool = "isElement"
 
-@module("react-dom/test-utils")
+@module("react-dom/test-utils.js")
 external isElementOfType: ('element, React.component<'props>) => bool = "isElementOfType"
 
-@module("react-dom/test-utils")
+@module("react-dom/test-utils.js")
 external isDOMComponent: 'element => bool = "isDOMComponent"
 
-@module("react-dom/test-utils")
+@module("react-dom/test-utils.js")
 external isCompositeComponent: 'element => bool = "isCompositeComponent"
 
-@module("react-dom/test-utils")
+@module("react-dom/test-utils.js")
 external isCompositeComponentWithType: ('element, React.component<'props>) => bool =
   "isCompositeComponentWithType"
 
 module Simulate = {
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external click: Dom.element => unit = "click"
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external clickWithEvent: (Dom.element, 'event) => unit = "click"
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external change: Dom.element => unit = "change"
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external blur: Dom.element => unit = "blur"
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external changeWithEvent: (Dom.element, 'event) => unit = "change"
   let changeWithValue = (element, value) => {
     let event = {
@@ -64,13 +64,13 @@ module Simulate = {
     }
     changeWithEvent(element, event)
   }
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external canPlay: Dom.element => unit = "canPlay"
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external timeUpdate: Dom.element => unit = "timeUpdate"
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external ended: Dom.element => unit = "ended"
-  @module("react-dom/test-utils") @scope("Simulate")
+  @module("react-dom/test-utils.js") @scope("Simulate")
   external focus: Dom.element => unit = "focus"
 }
 
