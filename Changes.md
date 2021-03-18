@@ -2,6 +2,8 @@
 
 ## master
 
+- Added `.js` extension to externals to comply to ES6 module conventions
+
 ## v0.10.1
 
 This is the initial version of `rescript-react`, a port of `reason-react@0.9` that will be almost equivalent, except for a few long needed minor breaking changes.
