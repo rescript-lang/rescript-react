@@ -2,7 +2,12 @@
 
 ## master
 
+- Nothing yet
+
+## v0.10.2
+
 - Added `.js` extension to externals to comply to ES6 module conventions
+- Bump peerDependencies versions
 
 ## v0.10.1
 
