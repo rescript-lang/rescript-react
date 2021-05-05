@@ -2,7 +2,7 @@
 
 ## master
 
-- Nothing yet
+- Temporarily remove peerDependency for bs-platform, so we can gracefully do the transition to our new `rescript` package
 
 ## v0.10.2
 

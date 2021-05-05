@@ -35,7 +35,6 @@
     "reason-test-framework": "^0.3.2"
   },
   "peerDependencies": {
-    "bs-platform": ">=8.3.0",
     "react": ">=16.8.1",
     "react-dom": ">=16.8.1"
   },
