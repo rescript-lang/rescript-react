@@ -168,6 +168,8 @@ module Props = {
     contentEditable: bool,
     @optional
     contextMenu: string,
+    @optional @as("data-testid")
+    dataTestId: string,
     @optional
     dir: string /* "ltr", "rtl" or "auto" */,
     @optional
@@ -1193,6 +1195,8 @@ module Props = {
     contentEditable: bool,
     @optional
     contextMenu: string,
+    @optional @as("data-testid")
+    dataTestId: string,
     @optional
     dir: string /* "ltr", "rtl" or "auto" */,
     @optional
