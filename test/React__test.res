@@ -155,7 +155,11 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render DOM elements", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<div> {"Hello world!"->React.string} </div>, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <div> {"Hello world!"->React.string} </div>,
+      )
+    )
 
     expect.bool(
       container->DOM.findBySelectorAndTextContent("div", "Hello world!")->Option.isSome,
@@ -165,7 +169,7 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render null elements", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<div> React.null </div>, container))
+    act(() => ReactDOM.createRoot(container)->ReactDOM.Root.render(<div> React.null </div>))
 
     expect.bool(
       container->DOM.findBySelectorAndPartialTextContent("div", "")->Option.isSome,
@@ -175,7 +179,9 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render string elements", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<div> {"Hello"->React.string} </div>, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(<div> {"Hello"->React.string} </div>)
+    )
 
     expect.bool(
       container->DOM.findBySelectorAndPartialTextContent("div", "Hello")->Option.isSome,
@@ -185,7 +191,7 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render int elements", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<div> {12345->React.int} </div>, container))
+    act(() => ReactDOM.createRoot(container)->ReactDOM.Root.render(<div> {12345->React.int} </div>))
 
     expect.bool(
       container->DOM.findBySelectorAndPartialTextContent("div", "12345")->Option.isSome,
@@ -195,7 +201,9 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render float elements", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<div> {12.345->React.float} </div>, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(<div> {12.345->React.float} </div>)
+    )
 
     expect.bool(
       container->DOM.findBySelectorAndPartialTextContent("div", "12.345")->Option.isSome,
@@ -206,7 +214,9 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let container = getContainer(container)
     let array = [1, 2, 3]->Array.map(item => <div key=j`$item`> {item->React.int} </div>)
 
-    act(() => ReactDOM.render(<div> {array->React.array} </div>, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(<div> {array->React.array} </div>)
+    )
 
     expect.bool(
       container->DOM.findBySelectorAndPartialTextContent("div", "1")->Option.isSome,
@@ -225,9 +235,8 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let container = getContainer(container)
 
     act(() =>
-      ReactDOM.render(
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
         React.cloneElement(<div> {"Hello"->React.string} </div>, {"data-name": "World"}),
-        container,
       )
     )
 
@@ -241,7 +250,7 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render react components", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<DummyStatefulComponent />, container))
+    act(() => ReactDOM.createRoot(container)->ReactDOM.Root.render(<DummyStatefulComponent />))
 
     expect.bool(
       container->DOM.findBySelectorAndTextContent("button", "0")->Option.isSome,
@@ -268,7 +277,7 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render react components with reducers", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<DummyReducerComponent />, container))
+    act(() => ReactDOM.createRoot(container)->ReactDOM.Root.render(<DummyReducerComponent />))
 
     expect.bool(
       container->DOM.findBySelectorAndTextContent(".value", "0")->Option.isSome,
@@ -312,7 +321,9 @@ describe("React", ({test, beforeEach, afterEach}) => {
   test("can render react components with reducers (map state)", ({expect}) => {
     let container = getContainer(container)
 
-    act(() => ReactDOM.render(<DummyReducerWithMapStateComponent />, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(<DummyReducerWithMapStateComponent />)
+    )
 
     expect.bool(
       container->DOM.findBySelectorAndTextContent(".value", "1")->Option.isSome,
@@ -357,9 +368,21 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let container = getContainer(container)
     let callback = Mock.fn()
 
-    act(() => ReactDOM.render(<DummyComponentWithEffect value=0 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithEffect value=1 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithEffect value=1 callback />, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <DummyComponentWithEffect value=0 callback />,
+      )
+    )
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <DummyComponentWithEffect value=1 callback />,
+      )
+    )
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <DummyComponentWithEffect value=1 callback />,
+      )
+    )
 
     expect.value(callback->Mock.getMock->Mock.calls).toEqual([[0], [1]])
   })
@@ -368,9 +391,21 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let container = getContainer(container)
     let callback = Mock.fn()
 
-    act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=0 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=1 callback />, container))
-    act(() => ReactDOM.render(<DummyComponentWithLayoutEffect value=1 callback />, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <DummyComponentWithLayoutEffect value=0 callback />,
+      )
+    )
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <DummyComponentWithLayoutEffect value=1 callback />,
+      )
+    )
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <DummyComponentWithLayoutEffect value=1 callback />,
+      )
+    )
 
     expect.value(callback->Mock.getMock->Mock.calls).toEqual([[0], [1]])
   })
@@ -387,7 +422,11 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let myRef = ref(None)
     let callback = reactRef => myRef := Some(reactRef)
 
-    act(() => ReactDOM.render(<DummyComponentWithRefAndEffect callback />, container))
+    act(() =>
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
+        <DummyComponentWithRefAndEffect callback />,
+      )
+    )
 
     expect.value(myRef.contents->Option.map(item => item.current)).toEqual(Some(2))
   })
@@ -396,11 +435,10 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let container = getContainer(container)
 
     act(() =>
-      ReactDOM.render(
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
         <DummyComponentThatMapsChildren>
           <div> {1->React.int} </div> <div> {2->React.int} </div> <div> {3->React.int} </div>
         </DummyComponentThatMapsChildren>,
-        container,
       )
     )
 
@@ -421,9 +459,8 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let container = getContainer(container)
 
     act(() =>
-      ReactDOM.render(
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
         <DummyContext.Provider value=10> <DummyContext.Consumer /> </DummyContext.Provider>,
-        container,
       )
     )
 
@@ -437,11 +474,10 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let value = ref("")
 
     act(() =>
-      ReactDOM.render(
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
         <input
           name="test-input" onChange={event => value := (event->ReactEvent.Form.target)["value"]}
         />,
-        container,
       )
     )
 
@@ -461,7 +497,7 @@ describe("React", ({test, beforeEach, afterEach}) => {
     let consoleFn = Console.disableError()
 
     act(() =>
-      ReactDOM.render(
+      ReactDOM.createRoot(container)->ReactDOM.Root.render(
         <RescriptReactErrorBoundary
           fallback={({error, info}) => {
             switch error {
@@ -474,7 +510,6 @@ describe("React", ({test, beforeEach, afterEach}) => {
           }}>
           <ComponentThatThrows value=1 />
         </RescriptReactErrorBoundary>,
-        container,
       )
     )
 
