@@ -10,19 +10,19 @@
 external querySelector: string => option<Dom.element> = "document.querySelector"
 
 @module("react-dom")
+@deprecated("ReactDOM.render is no longer supported in React 18. Use createRoot instead.")
 external render: (React.element, Dom.element) => unit = "render"
 
-module Experimental = {
-  type root
+module Root = {
+  type t
 
-  @module("react-dom/client")
-  external createRoot: Dom.element => root = "createRoot"
+  @send external render: (t, React.element) => unit = "render"
 
-  @module("react-dom/client")
-  external createBlockingRoot: Dom.element => root = "createBlockingRoot"
-
-  @send external render: (root, React.element) => unit = "render"
+  @send external unmount: (t, unit) => unit = "unmount"
 }
+
+@module("react-dom")
+external createRoot: Dom.element => Root.t = "createRoot"
 
 @module("react-dom")
 external hydrate: (React.element, Dom.element) => unit = "hydrate"

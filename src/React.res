@@ -367,6 +367,59 @@ external useImperativeHandle7: (
   ('a, 'b, 'c, 'd, 'e, 'f, 'g),
 ) => unit = "useImperativeHandle"
 
+@module("react") external useId: unit => string = "useId"
+
+@module("useDeferredValue") external useDeferredValue: 'value => 'value = "useDeferredValue"
+
+@module("react") external useTransition: unit => (bool, @uncurry (unit => unit)) = "useTransition"
+
+@module("react")
+external useInsertionEffect: (@uncurry (unit => option<unit => unit>)) => unit =
+  "useInsertionEffect"
+@module("react")
+external useInsertionEffect0: (@uncurry (unit => option<unit => unit>), @as(json`[]`) _) => unit =
+  "useInsertionEffect"
+@module("react")
+external useInsertionEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => unit =
+  "useInsertionEffect"
+@module("react")
+external useInsertionEffect2: (@uncurry (unit => option<unit => unit>), ('a, 'b)) => unit =
+  "useInsertionEffect"
+@module("react")
+external useInsertionEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit =
+  "useInsertionEffect"
+@module("react")
+external useInsertionEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
+  "useInsertionEffect"
+@module("react")
+external useInsertionEffect5: (
+  @uncurry (unit => option<unit => unit>),
+  ('a, 'b, 'c, 'd, 'e),
+) => unit = "useInsertionEffect"
+@module("react")
+external useInsertionEffect6: (
+  @uncurry (unit => option<unit => unit>),
+  ('a, 'b, 'c, 'd, 'e, 'f),
+) => unit = "useInsertionEffect"
+@module("react")
+external useInsertionEffect7: (
+  @uncurry (unit => option<unit => unit>),
+  ('a, 'b, 'c, 'd, 'e, 'f, 'g),
+) => unit = "useInsertionEffect"
+
+@module("react")
+external useSyncExternalStore: (
+  @uncurry (unit => @uncurry (unit => unit)),
+  @uncurry unit => 'state,
+) => 'state = "useSyncExternalStore"
+
+@module("react")
+external useSyncExternalStoreWithServerSnapshot: (
+  @uncurry (unit => @uncurry (unit => unit)),
+  @uncurry unit => 'state,
+  @uncurry unit => 'state,
+) => 'state = "useSyncExternalStore"
+
 module Uncurried = {
   @module("react")
   external useState: (@uncurry (unit => 'state)) => ('state, (. 'state => 'state) => unit) =
@@ -432,14 +485,6 @@ module Uncurried = {
     ('a, 'b, 'c, 'd, 'e, 'f, 'g),
   ) => callback<'input, 'output> = "useCallback"
 }
-
-type transitionConfig = {timeoutMs: int}
-
-@module("react")
-external useTransition: (
-  ~config: transitionConfig=?,
-  unit,
-) => (callback<callback<unit, unit>, unit>, bool) = "useTransition"
 
 @set
 external setDisplayName: (component<'props>, string) => unit = "displayName"
