@@ -11,9 +11,9 @@
     "src/**/*.resi"
   ],
   "scripts": {
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
-    "clean": "bsb -clean-world",
+    "build": "rescript build",
+    "start": "rescript build -w",
+    "clean": "rescript clean -with-deps",
     "test": "echo 'tests disabled for now'"
   },
   "keywords": [
@@ -28,11 +28,11 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
-    "bs-platform": "8.3.0",
     "jest": "^26.0.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "reason-test-framework": "^0.3.2"
+    "reason-test-framework": "^0.3.2",
+    "rescript": "^9.1.4"
   },
   "peerDependencies": {
     "react": ">=16.8.1",
