@@ -88,9 +88,8 @@ module Context = {
 external createContext: 'a => Context.t<'a> = "createContext"
 
 @module("react")
-external forwardRef: (@uncurry ('props, Js.Nullable.t<ref<'a>>) => element) => component<
-  'props,
-> = "forwardRef"
+external forwardRef: (@uncurry ('props, Js.Nullable.t<ref<'a>>) => element) => component<'props> =
+  "forwardRef"
 
 @module("react")
 external memo: component<'props> => component<'props> = "memo"
@@ -165,14 +164,11 @@ module Experimental = {
  * only way to safely have any type of state and be able to update it correctly.
  */
 @module("react")
-external useState: (@uncurry (unit => 'state)) => ('state, ('state => 'state) => unit) =
-  "useState"
+external useState: (@uncurry (unit => 'state)) => ('state, ('state => 'state) => unit) = "useState"
 
 @module("react")
-external useReducer: (
-  @uncurry ('state, 'action) => 'state,
-  'state,
-) => ('state, 'action => unit) = "useReducer"
+external useReducer: (@uncurry ('state, 'action) => 'state, 'state) => ('state, 'action => unit) =
+  "useReducer"
 
 @module("react")
 external useReducerWithMapState: (
@@ -191,8 +187,7 @@ external useEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => uni
 @module("react")
 external useEffect2: (@uncurry (unit => option<unit => unit>), ('a, 'b)) => unit = "useEffect"
 @module("react")
-external useEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit =
-  "useEffect"
+external useEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit = "useEffect"
 @module("react")
 external useEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
   "useEffect"
@@ -200,10 +195,8 @@ external useEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd))
 external useEffect5: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e)) => unit =
   "useEffect"
 @module("react")
-external useEffect6: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e, 'f),
-) => unit = "useEffect"
+external useEffect6: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e, 'f)) => unit =
+  "useEffect"
 @module("react")
 external useEffect7: (
   @uncurry (unit => option<unit => unit>),
@@ -213,10 +206,8 @@ external useEffect7: (
 @module("react")
 external useLayoutEffect: (@uncurry (unit => option<unit => unit>)) => unit = "useLayoutEffect"
 @module("react")
-external useLayoutEffect0: (
-  @uncurry (unit => option<unit => unit>),
-  @as(json`[]`) _,
-) => unit = "useLayoutEffect"
+external useLayoutEffect0: (@uncurry (unit => option<unit => unit>), @as(json`[]`) _) => unit =
+  "useLayoutEffect"
 @module("react")
 external useLayoutEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => unit =
   "useLayoutEffect"
@@ -230,10 +221,8 @@ external useLayoutEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c
 external useLayoutEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
   "useLayoutEffect"
 @module("react")
-external useLayoutEffect5: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e),
-) => unit = "useLayoutEffect"
+external useLayoutEffect5: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e)) => unit =
+  "useLayoutEffect"
 @module("react")
 external useLayoutEffect6: (
   @uncurry (unit => option<unit => unit>),
@@ -293,10 +282,8 @@ external useCallback2: (@uncurry ('input => 'output), ('a, 'b)) => callback<'inp
   "useCallback"
 
 @module("react")
-external useCallback3: (
-  @uncurry ('input => 'output),
-  ('a, 'b, 'c),
-) => callback<'input, 'output> = "useCallback"
+external useCallback3: (@uncurry ('input => 'output), ('a, 'b, 'c)) => callback<'input, 'output> =
+  "useCallback"
 
 @module("react")
 external useCallback4: (
@@ -404,8 +391,7 @@ module Uncurried = {
   type callback<'input, 'output> = (. 'input) => 'output
 
   @module("react")
-  external useCallback: (@uncurry ('input => 'output)) => callback<'input, 'output> =
-    "useCallback"
+  external useCallback: (@uncurry ('input => 'output)) => callback<'input, 'output> = "useCallback"
 
   @module("react")
   external useCallback0: (
@@ -422,10 +408,8 @@ module Uncurried = {
     "useCallback"
 
   @module("react")
-  external useCallback3: (
-    @uncurry ('input => 'output),
-    ('a, 'b, 'c),
-  ) => callback<'input, 'output> = "useCallback"
+  external useCallback3: (@uncurry ('input => 'output), ('a, 'b, 'c)) => callback<'input, 'output> =
+    "useCallback"
 
   @module("react")
   external useCallback4: (
