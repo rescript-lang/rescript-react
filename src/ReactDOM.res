@@ -516,7 +516,7 @@ module Props = {
     @optional
     onEmptied: ReactEvent.Media.t => unit,
     @optional
-    onEncrypetd: ReactEvent.Media.t => unit,
+    onEncrypted: ReactEvent.Media.t => unit,
     @optional
     onEnded: ReactEvent.Media.t => unit,
     @optional
