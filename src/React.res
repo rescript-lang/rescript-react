@@ -21,6 +21,9 @@ external createElement: (component<'props>, 'props) => element = "createElement"
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
 
+@module("react")
+external isValidElement: Js.nullable<'a> => bool = "isValidElement"
+
 @variadic @module("react")
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
