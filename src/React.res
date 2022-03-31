@@ -372,7 +372,7 @@ external useImperativeHandle7: (
 
 @module("react") external useId: unit => string = "useId"
 
-@module("useDeferredValue") external useDeferredValue: 'value => 'value = "useDeferredValue"
+@module("react") external useDeferredValue: 'value => 'value = "useDeferredValue"
 
 @module("react") external useTransition: unit => (bool, @uncurry (unit => unit)) = "useTransition"
 
