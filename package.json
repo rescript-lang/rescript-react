@@ -35,8 +35,8 @@
     "rescript": "^9.1.4"
   },
   "peerDependencies": {
-    "react": ">=16.8.1",
-    "react-dom": ">=16.8.1"
+    "react": ">=16.8.1 || ^17.0.0 || ^18.0.0",
+    "react-dom": ">=16.8.1 || ^17.0.0 || ^18.0.0"
   },
   "jest": {
     "moduleDirectories": [
