@@ -10,27 +10,35 @@
 external querySelector: string => option<Dom.element> = "document.querySelector"
 
 @module("react-dom")
-@deprecated("ReactDOM.render is no longer supported in React 18. Use createRoot instead.")
+@deprecated("ReactDOM.render is no longer supported in React 18. Use ReactDOM.Client.createRoot instead.")
 external render: (React.element, Dom.element) => unit = "render"
 
-module Root = {
-  type t
+module Client = {
 
-  @send external render: (t, React.element) => unit = "render"
+  module Root = {
+    type t
 
-  @send external unmount: (t, unit) => unit = "unmount"
+    @send external render: (t, React.element) => unit = "render"
+
+    @send external unmount: (t, unit) => unit = "unmount"
+  }
+
+  @module("react-dom/client")
+  external createRoot: Dom.element => Root.t = "createRoot"
+
+  @module("react-dom/client")
+  external hydrateRoot: (Dom.element, React.element) => Root.t = "hydrateRoot"
 }
 
 @module("react-dom")
-external createRoot: Dom.element => Root.t = "createRoot"
-
-@module("react-dom")
+@deprecated("ReactDOM.hydrate is no longer supported in React 18. Use ReactDOM.Client.hydrateRoot instead.")
 external hydrate: (React.element, Dom.element) => unit = "hydrate"
 
 @module("react-dom")
 external createPortal: (React.element, Dom.element) => React.element = "createPortal"
 
 @module("react-dom")
+@deprecated("ReactDOM.unmountComponentAtNode is no longer supported in React 18. Use ReactDOM.Client.Root.unmount instead.")
 external unmountComponentAtNode: Dom.element => unit = "unmountComponentAtNode"
 
 external domElementToObj: Dom.element => {..} = "%identity"
