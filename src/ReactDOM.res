@@ -291,6 +291,8 @@ module Props = {
     @optional
     list: string,
     @optional
+    loading: [#"lazy" | #eager],
+    @optional
     loop: bool,
     @optional
     low: int,
