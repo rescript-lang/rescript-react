@@ -371,7 +371,8 @@ external useImperativeHandle7: (
 
 @module("react") external useDeferredValue: 'value => 'value = "useDeferredValue"
 
-@module("react") external useTransition: unit => (bool, @uncurry (unit => unit)) = "useTransition"
+@module("react")
+external useTransition: unit => (bool, (. unit => unit) => unit) = "useTransition"
 
 @module("react")
 external useInsertionEffect: (@uncurry (unit => option<unit => unit>)) => unit =
