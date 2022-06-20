@@ -2,7 +2,7 @@
 
 ## master
 
-- Nothing yet
+- Rewrite the `RescriptReactErrorBoundary` component implementation with `@react.component`, so it can be compatible with the changes of JSX PPX.
 
 ## v0.10.3
 
@@ -26,12 +26,14 @@ For history on previous evolution of the code, check out the original [reason-re
 - **IMPORTANT:** Currently, old third-party packages that are still dependent on `reason-react` will not mix with other `@rescript/react` based code due to a build system problem. Which means that every third-party dependency needs to be upgraded to `@rescript/react` first to make it compatible. See [this forum discussion](https://forum.rescript-lang.org/t/discussion-reason-react-rescript-react-migration-path/1086) for more details.
 
 - Removed legacy modules ("record api"):
+
   - `ReasonReactCompat`
   - `ReactDOMServerRe`
   - `ReactEventRe`
   - `ReasonReactOptimizedCreateClass`
 
 - Renamed existing modules:
+
   - `ReasonReactErrorBoundary` -> `RescriptReactErrorBoundary`
   - `ReasonReactRouter` -> `RescriptReactRouter`
   - (Note: Usually the two only valid styles would be `ReScript` or `rescript`, the latter being the version for technical writing. We are using `Rescript` here, since it is essentially the capitalized version of `rescript`)
