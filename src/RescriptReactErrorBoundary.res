@@ -14,7 +14,7 @@ type params<'error> = {
   info: info,
 }
 
-let getErrorBoundary = %raw(`
+let getErrorBoundary: reactComponentClass => React.element = %raw(`
   function (Component) {
     function ErrorBoundary(props) {
       Component.call(this);
@@ -31,12 +31,6 @@ let getErrorBoundary = %raw(`
   }
 `)
 
-@obj
-external makeProps: (
-  ~children: React.element,
-  ~fallback: params<'error> => React.element,
-  ~key: string=?,
-  unit,
-) => {"children": React.element, "fallback": params<'error> => React.element} = ""
-
-let make = getErrorBoundary(component)
+@react.component
+let make = (~children as _: React.element, ~fallback as _: params<'error> => React.element) =>
+  getErrorBoundary(component)
