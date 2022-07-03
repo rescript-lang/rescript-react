@@ -37,7 +37,7 @@ external domElementToObj: Dom.element => {..} = "%identity"
 
 type style = ReactDOMStyle.t
 
-type domRef
+type domRef = JsxDOM.domRef
 
 module Ref = {
   type t = domRef
@@ -2106,8 +2106,20 @@ module Props = {
 
 include Props
 
+@module("react/jsx-runtime")
+external jsxKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsx"
+
+@module("react/jsx-runtime")
+external jsx: (string, JsxDOM.domProps) => Jsx.element = "jsx"
+
+@module("react/jsx-runtime")
+external jsxs: (string, JsxDOM.domProps) => Jsx.element = "jsxs"
+
+@module("react/jsx-runtime")
+external jsxsKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsxs"
+
 // As we've removed `ReactDOMRe.createElement`, this enables patterns like
 // React.createElement(ReactDOM.stringToComponent(multiline ? "textarea" : "input"), ...)
-external stringToComponent: string => React.component<domProps> = "%identity"
+external stringToComponent: string => React.component<JsxDOM.domProps> = "%identity"
 
 module Style = ReactDOMStyle

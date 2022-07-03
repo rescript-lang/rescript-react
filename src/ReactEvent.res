@@ -1,4 +1,4 @@
-type synthetic<'a>
+type synthetic<'a> = JsxEvent.synthetic<'a>
 
 module MakeEventWithType = (
   Type: {
