@@ -36,7 +36,9 @@ external jsxs: (component<'props>, 'props) => element = "jsxs"
 @module("react/jsx-runtime")
 external jsxsKeyed: (component<'props>, 'props, string) => element = "jsxs"
 
-@module("react/jsx-runtime") external jsxFragment: element = "Fragment"
+type fragmentProps<'children> = {children: 'children}
+
+@module("react/jsx-runtime") external jsxFragment: component<fragmentProps<'children>> = "Fragment"
 
 type ref<'value> = {mutable current: 'value}
 
