@@ -1,12 +1,12 @@
 type element = Jsx.element
 
-let null = Jsx.null
+@val external null: element = "null"
 
-let float = Jsx.float
-let int = Jsx.int
-let string = Jsx.string
+external float: float => element = "%identity"
+external int: int => element = "%identity"
+external string: string => element = "%identity"
 
-let array = Jsx.array
+external array: array<element> => element = "%identity"
 
 type componentLike<'props, 'return> = Jsx.componentLike<'props, 'return>
 
