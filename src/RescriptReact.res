@@ -13,7 +13,7 @@ module Context = {
 }
 
 module Fragment = {
-  @react.component @modue("react")
+  @react.component @module("react")
   external make: (~children: React.element) => React.element = "Fragment"
 }
 
