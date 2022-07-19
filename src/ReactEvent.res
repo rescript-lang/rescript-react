@@ -26,7 +26,7 @@ module MakeEventWithType = (
 }
 
 module Synthetic = {
-  type tag
+  type tag = JsxEvent.Synthetic.tag
   type t = synthetic<tag>
   @get external bubbles: synthetic<'a> => bool = "bubbles"
   @get external cancelable: synthetic<'a> => bool = "cancelable"
@@ -57,7 +57,7 @@ module Synthetic = {
 external toSyntheticEvent: synthetic<'a> => Synthetic.t = "%identity"
 
 module Clipboard = {
-  type tag
+  type tag = JsxEvent.Clipboard.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -66,7 +66,7 @@ module Clipboard = {
 }
 
 module Composition = {
-  type tag
+  type tag = JsxEvent.Composition.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -75,7 +75,7 @@ module Composition = {
 }
 
 module Keyboard = {
-  type tag
+  type tag = JsxEvent.Keyboard.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -96,7 +96,7 @@ module Keyboard = {
 }
 
 module Focus = {
-  type tag
+  type tag = JsxEvent.Focus.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -106,7 +106,7 @@ module Focus = {
 }
 
 module Form = {
-  type tag
+  type tag = JsxEvent.Form.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -114,7 +114,7 @@ module Form = {
 }
 
 module Mouse = {
-  type tag
+  type tag = JsxEvent.Mouse.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -140,7 +140,7 @@ module Mouse = {
 }
 
 module Pointer = {
-  type tag
+  type tag = JsxEvent.Pointer.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -187,7 +187,7 @@ module Pointer = {
 }
 
 module Selection = {
-  type tag
+  type tag = JsxEvent.Selection.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -195,7 +195,7 @@ module Selection = {
 }
 
 module Touch = {
-  type tag
+  type tag = JsxEvent.Touch.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -212,7 +212,7 @@ module Touch = {
 }
 
 module UI = {
-  type tag
+  type tag = JsxEvent.UI.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -222,7 +222,7 @@ module UI = {
 }
 
 module Wheel = {
-  type tag
+  type tag = JsxEvent.Wheel.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -234,7 +234,7 @@ module Wheel = {
 }
 
 module Media = {
-  type tag
+  type tag = JsxEvent.Media.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -242,7 +242,7 @@ module Media = {
 }
 
 module Image = {
-  type tag
+  type tag = JsxEvent.Image.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -250,7 +250,7 @@ module Image = {
 }
 
 module Animation = {
-  type tag
+  type tag = JsxEvent.Animation.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t
@@ -261,7 +261,7 @@ module Animation = {
 }
 
 module Transition = {
-  type tag
+  type tag = JsxEvent.Transition.tag
   type t = synthetic<tag>
   include MakeEventWithType({
     type t = t

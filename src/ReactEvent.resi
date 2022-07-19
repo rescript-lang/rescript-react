@@ -36,10 +36,10 @@
    1. myMouseEvent.preventDefault() -> ReactEvent.Mouse.preventDefault(myMouseEvent)
    2. myKeyboardEvent.which -> ReactEvent.Keyboard.which(myKeyboardEvent)
  */
-type synthetic<'a>
+type synthetic<'a> = JsxEvent.synthetic<'a>
 
 module Synthetic: {
-  type tag
+  type tag = JsxEvent.Synthetic.tag
   type t = synthetic<tag>
   @get external bubbles: synthetic<'a> => bool = "bubbles"
   @get external cancelable: synthetic<'a> => bool = "cancelable"
@@ -69,7 +69,7 @@ module Synthetic: {
 external toSyntheticEvent: synthetic<'a> => Synthetic.t = "%identity"
 
 module Clipboard: {
-  type tag
+  type tag = JsxEvent.Clipboard.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -90,7 +90,7 @@ module Clipboard: {
 }
 
 module Composition: {
-  type tag
+  type tag = JsxEvent.Composition.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -111,7 +111,7 @@ module Composition: {
 }
 
 module Keyboard: {
-  type tag
+  type tag = JsxEvent.Keyboard.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -144,7 +144,7 @@ module Keyboard: {
 }
 
 module Focus: {
-  type tag
+  type tag = JsxEvent.Focus.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -166,7 +166,7 @@ module Focus: {
 }
 
 module Form: {
-  type tag
+  type tag = JsxEvent.Form.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -186,7 +186,7 @@ module Form: {
 }
 
 module Mouse: {
-  type tag
+  type tag = JsxEvent.Mouse.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -224,7 +224,7 @@ module Mouse: {
 }
 
 module Pointer: {
-  type tag
+  type tag = JsxEvent.Pointer.tag
   type t = synthetic<tag>
 
   // Event
@@ -290,7 +290,7 @@ module Pointer: {
 }
 
 module Selection: {
-  type tag
+  type tag = JsxEvent.Selection.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -310,7 +310,7 @@ module Selection: {
 }
 
 module Touch: {
-  type tag
+  type tag = JsxEvent.Touch.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -339,7 +339,7 @@ module Touch: {
 }
 
 module UI: {
-  type tag
+  type tag = JsxEvent.UI.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -361,7 +361,7 @@ module UI: {
 }
 
 module Wheel: {
-  type tag
+  type tag = JsxEvent.Wheel.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -385,7 +385,7 @@ module Wheel: {
 }
 
 module Media: {
-  type tag
+  type tag = JsxEvent.Media.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -405,7 +405,7 @@ module Media: {
 }
 
 module Image: {
-  type tag
+  type tag = JsxEvent.Image.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -425,7 +425,7 @@ module Image: {
 }
 
 module Animation: {
-  type tag
+  type tag = JsxEvent.Animation.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
@@ -448,7 +448,7 @@ module Animation: {
 }
 
 module Transition: {
-  type tag
+  type tag = JsxEvent.Transition.tag
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
