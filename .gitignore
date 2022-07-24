@@ -17,3 +17,6 @@ _build
 
 # Editor
 /.idea/
+
+# React
+!/src/react/*.js
