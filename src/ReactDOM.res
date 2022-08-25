@@ -1292,7 +1292,7 @@ module Props = {
     @optional
     formMethod: string /* "post", "get", "put" */,
     @optional
-    frameBorder: int,
+    frameBorder: int, /* deprecated, prefer to use css border instead */
     @optional
     headers: string,
     @optional
