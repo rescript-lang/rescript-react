@@ -1234,6 +1234,8 @@ module Props = {
     @optional
     action: string /* uri */,
     @optional
+    allow: string,
+    @optional
     allowFullScreen: bool,
     @optional
     alt: string,
@@ -1289,6 +1291,8 @@ module Props = {
     formTarget: string /* "_blank", "_self", etc. */,
     @optional
     formMethod: string /* "post", "get", "put" */,
+    @optional
+    frameBorder: int, /* deprecated, prefer to use css border instead */
     @optional
     headers: string,
     @optional
