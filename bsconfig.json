@@ -1,6 +1,9 @@
 {
   "name": "@rescript/react",
-  "reason": { "react-jsx": 3 },
+  "jsx": {
+    "version": 4,
+    "mode": "classic"
+  },
   "sources": [
     {"dir": "src", "subdirs": true},
     { "dir": "test", "type": "dev" }

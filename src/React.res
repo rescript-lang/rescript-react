@@ -74,17 +74,15 @@ module Children = {
 }
 
 module Context = {
-  type t<'props>
+  type t<'context>
 
-  @obj
-  external makeProps: (
-    ~value: 'props,
-    ~children: element,
-    unit,
-  ) => {"value": 'props, "children": element} = ""
+  type props<'context> = {
+    value: 'context,
+    children: element,
+  }
 
   @get
-  external provider: t<'props> => component<{"value": 'props, "children": element}> = "Provider"
+  external provider: t<'context> => component<props<'context>> = "Provider"
 }
 
 @module("react")
@@ -104,57 +102,39 @@ external memoCustomCompareProps: (
 ) => component<'props> = "memo"
 
 module Fragment = {
-  @obj
-  external makeProps: (~children: element, ~key: 'key=?, unit) => {"children": element} = ""
+  type props<'children> = {key?: string, children: 'children}
+
   @module("react")
-  external make: component<{
-    "children": element,
-  }> = "Fragment"
+  external make: component<props<'children>> => element = "Fragment"
 }
 
 module StrictMode = {
-  @obj
-  external makeProps: (~children: element, ~key: 'key=?, unit) => {"children": element} = ""
+  type props<'children> = {key?: string, children: 'children}
+
   @module("react")
-  external make: component<{
-    "children": element,
-  }> = "StrictMode"
+  external make: component<props<'children>> => element = "StrictMode"
 }
 
 module Suspense = {
-  @obj
-  external makeProps: (
-    ~children: element=?,
-    ~fallback: element=?,
-    ~key: 'key=?,
-    unit,
-  ) => {"children": option<element>, "fallback": option<element>} = ""
+  type props<'children, 'fallback> = {key?: string, children?: 'children, fallback?: 'fallback}
+
   @module("react")
-  external make: component<{
-    "children": option<element>,
-    "fallback": option<element>,
-  }> = "Suspense"
+  external make: component<props<'children, 'fallback>> => element = "Suspense"
 }
 
 module Experimental = {
   module SuspenseList = {
     type revealOrder
     type tail
-    @obj
-    external makeProps: (
-      ~children: element=?,
-      ~revealOrder: [#forwards | #backwards | #together]=?,
-      ~tail: [#collapsed | #hidden]=?,
-      unit,
-    ) => {"children": option<element>, "revealOrder": option<revealOrder>, "tail": option<tail>} =
-      ""
+    type props<'children, 'revealOrder, 'tail> = {
+      key?: string,
+      children?: 'children,
+      revealOrder?: 'revealOrder,
+      tail?: 'tail,
+    }
 
     @module("react")
-    external make: component<{
-      "children": option<element>,
-      "revealOrder": option<revealOrder>,
-      "tail": option<tail>,
-    }> = "SuspenseList"
+    external make: component<props<'children, 'revealOrder, 'tail>> => element = "SuspenseList"
   }
 }
 
