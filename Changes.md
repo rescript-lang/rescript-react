@@ -4,6 +4,16 @@
 
 - Rewrite the `RescriptReactErrorBoundary` component implementation with `@react.component`, so it can be compatible with the changes of JSX PPX.
 
+**Breaking:**
+
+- **IMPORTANT** Rewrite the `React` module for compatibility with the JSX PPX V4.
+
+- Remove the deprecation attribute from apis of the new jsx transform which was introduced in React v17.
+
+- The requirements are changed.
+  - ReScript compiler V10.1+
+  - ReactJS v18.2.0+
+
 ## v0.10.3
 
 - Temporarily remove peerDependency for bs-platform, so we can gracefully do the transition to our new `rescript` package

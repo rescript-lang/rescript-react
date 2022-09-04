@@ -1,4 +1,4 @@
-## rescript-react 
+## rescript-react
 
 > The Official ReScript Bindings for ReactJS
 
@@ -18,6 +18,19 @@ npm install @rescript/react --save
 
 In your `bsconfig.json`:
 
+- v0.11.0+ for React-JSX transformation V4
+
+```
+{
+  "reason": { "react-jsx": 4, "mode": "classic" },
+  "bs-dependencies": ["@rescript/react"]
+}
+```
+
+If you want to try [the new jsx transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) which was introduced in React v17, set the `"mode": "automatic"`.
+
+- v0.10.3 for React-JSX transformation V3
+
 ```
 {
   "reason": { "react-jsx": 3 },
@@ -31,9 +44,16 @@ In your `bsconfig.json`:
 
 ### Requirements
 
-- bs-platform v8.3+
-- ReactJS v16.8.1+
-- **Optimized for ReScript syntax usage**
+- v0.11.0+
+
+  - ReScript Compiler v10.1+
+  - ReactJS v18.2.0+
+
+- v0.10.3
+
+  - bs-platform v8.3+
+  - ReactJS v16.8.1+
+  - **Optimized for ReScript syntax usage**
 
 ### Development
 
