@@ -22,7 +22,7 @@ In your `bsconfig.json`:
 
 ```
 {
-  "reason": { "react-jsx": 4, "mode": "classic" },
+  "jsx": { "version": 4, "mode": "classic" },
   "bs-dependencies": ["@rescript/react"]
 }
 ```
