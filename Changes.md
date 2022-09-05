@@ -8,9 +8,9 @@
 
 - **IMPORTANT** Rewrite the `React` module for compatibility with the JSX PPX V4.
 
-- Remove the deprecation attribute from apis of the new jsx transform which was introduced in React v17.
+- Removed the deprecation attribute from apis of the new jsx transform (introduced in React v17).
 
-- The requirements are changed.
+- New version requirements:
   - ReScript compiler V10.1+
   - ReactJS v18.2.0+
 
