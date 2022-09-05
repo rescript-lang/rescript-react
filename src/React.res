@@ -105,21 +105,21 @@ module Fragment = {
   type props<'children> = {key?: string, children: 'children}
 
   @module("react")
-  external make: component<props<'children>> => element = "Fragment"
+  external make: component<props<'children>> = "Fragment"
 }
 
 module StrictMode = {
   type props<'children> = {key?: string, children: 'children}
 
   @module("react")
-  external make: component<props<'children>> => element = "StrictMode"
+  external make: component<props<'children>> = "StrictMode"
 }
 
 module Suspense = {
   type props<'children, 'fallback> = {key?: string, children?: 'children, fallback?: 'fallback}
 
   @module("react")
-  external make: component<props<'children, 'fallback>> => element = "Suspense"
+  external make: component<props<'children, 'fallback>> = "Suspense"
 }
 
 module Experimental = {
@@ -134,7 +134,7 @@ module Experimental = {
     }
 
     @module("react")
-    external make: component<props<'children, 'revealOrder, 'tail>> => element = "SuspenseList"
+    external make: component<props<'children, 'revealOrder, 'tail>> = "SuspenseList"
   }
 }
 
