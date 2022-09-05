@@ -2,11 +2,11 @@
 
 ## master
 
-- Rewrite the `RescriptReactErrorBoundary` component implementation with `@react.component`, so it can be compatible with the changes of JSX PPX.
+- Re-written the `RescriptReactErrorBoundary` component implementation using `@react.component`, to support the new JSX PPX V4.
 
 **Breaking:**
 
-- **IMPORTANT** Rewrite the `React` module for compatibility with the JSX PPX V4.
+- **IMPORTANT** The `React` module has been modified in a breaking way to support the new JSX PPX V4.
 
 - Removed the deprecation attribute from apis of the new jsx transform (introduced in React v17).
 
