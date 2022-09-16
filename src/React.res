@@ -432,6 +432,3 @@ external setDisplayName: (component<'props>, string) => unit = "displayName"
 
 @get @return(nullable)
 external displayName: component<'props> => option<string> = "displayName"
-
-@inline
-let addKeyProp = (o: 't, k): 't => Obj.magic(Js.Obj.assign(Obj.magic(o), {"key": k}))
