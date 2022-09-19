@@ -27,7 +27,7 @@ external cloneElement: (element, 'props) => element = "cloneElement"
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
 
-let createDOMElementVariadicWithKey = (component, props, elements, key) =>
+let createElementVariadicWithKey = (component, props, elements, key) =>
   createElementVariadic(component, Jsx.addKeyProp(props, key), elements)
 
 @module("react/jsx-runtime")
