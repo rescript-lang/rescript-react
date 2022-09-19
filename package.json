@@ -32,7 +32,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reason-test-framework": "^0.3.2",
-    "rescript": "^10.0.0"
+    "rescript": "rescript-lang/rescript-compiler#d519570a28e9d524dc606a0ccc630acfe6b45ed8"
   },
   "peerDependencies": {
     "react": ">=18.2.0",
