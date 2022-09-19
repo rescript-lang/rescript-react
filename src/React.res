@@ -17,12 +17,18 @@ let component = Jsx.component
 @module("react")
 external createElement: (component<'props>, 'props) => element = "createElement"
 
+let createElementWithKey = (component, props, key) =>
+  createElement(component, Jsx.addKeyProp(props, key))
+
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
 
 @variadic @module("react")
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
+
+let createDOMElementVariadicWithKey = (component, props, elements, key) =>
+  createElementVariadic(component, Jsx.addKeyProp(props, key), elements)
 
 @module("react/jsx-runtime")
 external jsxKeyed: (component<'props>, 'props, string) => element = "jsx"
