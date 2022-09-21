@@ -14,11 +14,17 @@ type component<'props> = Jsx.component<'props>
 
 let component = Jsx.component
 
+/** Use Js_obj.assign, not Js.Obj.assign, otherwise the dependency will not be picked up correctly
+in the ninja file. */
+@inline
+let addKeyProp = (p: 'props, k: string): 'props =>
+  Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": k}))
+
 @module("react")
 external createElement: (component<'props>, 'props) => element = "createElement"
 
 let createElementWithKey = (component, props, key) =>
-  createElement(component, Jsx.addKeyProp(props, key))
+  createElement(component, addKeyProp(props, key))
 
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
@@ -28,7 +34,7 @@ external createElementVariadic: (component<'props>, 'props, array<element>) => e
   "createElement"
 
 let createElementVariadicWithKey = (component, props, elements, key) =>
-  createElementVariadic(component, Jsx.addKeyProp(props, key), elements)
+  createElementVariadic(component, addKeyProp(props, key), elements)
 
 @module("react/jsx-runtime")
 external jsxKeyed: (component<'props>, 'props, string) => element = "jsx"
