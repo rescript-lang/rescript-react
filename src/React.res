@@ -14,11 +14,11 @@ type component<'props> = Jsx.component<'props>
 
 let component = Jsx.component
 
-/** Use Js_obj.assign, not Js.Obj.assign, otherwise the dependency will not be picked up correctly
-in the ninja file. */
-@inline
-let addKeyProp = (p: 'props, k: string): 'props =>
-  Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": k}))
+%%private(
+  @inline
+  let addKeyProp = (p: 'props, k: string): 'props =>
+    Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": k}))
+)
 
 @module("react")
 external createElement: (component<'props>, 'props) => element = "createElement"
