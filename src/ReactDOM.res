@@ -1292,7 +1292,7 @@ module Props = {
     @optional
     formMethod: string /* "post", "get", "put" */,
     @optional
-    frameBorder: int, /* deprecated, prefer to use css border instead */
+    frameBorder: int /* deprecated, prefer to use css border instead */,
     @optional
     headers: string,
     @optional
@@ -2105,6 +2105,17 @@ module Props = {
 }
 
 include Props
+
+@variadic @module("react")
+external createElement: (string, ~props: props=?, array<React.element>) => React.element =
+  "createElement"
+
+@variadic @module("react")
+external createDOMElementVariadic: (
+  string,
+  ~props: domProps=?,
+  array<React.element>,
+) => React.element = "createElement"
 
 @module("react/jsx-runtime")
 external jsxKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsx"

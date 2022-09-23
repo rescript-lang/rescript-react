@@ -113,6 +113,8 @@ external memoCustomCompareProps: (
   @uncurry ('props, 'props) => bool,
 ) => component<'props> = "memo"
 
+@module("react") external fragment: 'a = "Fragment"
+
 module Fragment = {
   type props<'children> = {key?: string, children: 'children}
 
