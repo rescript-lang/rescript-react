@@ -4,6 +4,8 @@
 
 - Re-written the `RescriptReactErrorBoundary` component implementation using `@react.component`, to support the new JSX PPX V4.
 
+- `ReactV3` module added for backward compatibility to JSX v3.
+
 **Breaking:**
 
 - **IMPORTANT** The `React` module has been modified in a breaking way to support the new JSX PPX V4.
