@@ -14,6 +14,8 @@
 
 #### React-JSX transformation V4
 
+- [Documentation](https://github.com/rescript-lang/syntax/blob/master/cli/JSXV4.md)
+
 The ReScript compiler V10.1+ is required.
 
 ```
@@ -31,20 +33,7 @@ In your `bsconfig.json`:
 
 If you want to try [the new jsx transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) which was introduced in React v17, set the `"mode": "automatic"`.
 
-#### React-JSX transformation V3
-
-```
-npm install @rescript/react@0.10.3 --save
-```
-
-In your `bsconfig.json`:
-
-```
-{
-  "reason": { "react-jsx": 3 },
-  "bs-dependencies": ["@rescript/react"]
-}
-```
+If you want to try build your project with JSX v3, see [the V3 compatibility mode](https://github.com/rescript-lang/syntax/blob/master/cli/JSXV4.md)
 
 **Quick Links:**
 
