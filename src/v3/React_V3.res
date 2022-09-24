@@ -1,3 +1,4 @@
+/** Binding to React.element enables the compatibility with v3 */
 type element = React.element
 
 @val external null: element = "null"
