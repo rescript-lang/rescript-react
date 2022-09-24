@@ -12,7 +12,6 @@ finalOutput/*.js
 _esy
 _build
 *.install
-test/*.bs.js
 src/legacy/*.bs.js
 
 # Editor
