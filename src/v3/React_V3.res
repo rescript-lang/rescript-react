@@ -1,4 +1,5 @@
-type element = Jsx.element
+/** Binding to React.element enables the compatibility with v3 */
+type element = React.element
 
 @val external null: element = "null"
 
@@ -8,23 +9,15 @@ external string: string => element = "%identity"
 
 external array: array<element> => element = "%identity"
 
-type componentLike<'props, 'return> = Jsx.componentLike<'props, 'return>
+type componentLike<'props, 'return> = React.componentLike<'props, 'return>
 
-type component<'props> = Jsx.component<'props>
+type component<'props> = React.component<'props>
 
-let component = Jsx.component
-
-%%private(
-  @inline
-  let addKeyProp = (p: 'props, k: string): 'props =>
-    Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": k}))
-)
+/* this function exists to prepare for making `component` abstract */
+external component: componentLike<'props, element> => component<'props> = "%identity"
 
 @module("react")
 external createElement: (component<'props>, 'props) => element = "createElement"
-
-let createElementWithKey = (component, props, key) =>
-  createElement(component, addKeyProp(props, key))
 
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
@@ -33,26 +26,19 @@ external cloneElement: (element, 'props) => element = "cloneElement"
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
 
-let createElementVariadicWithKey = (component, props, elements, key) =>
-  createElementVariadic(component, addKeyProp(props, key), elements)
-
-@module("react/jsx-runtime")
+@module("react") @deprecated("Please use JSX syntax directly.")
 external jsxKeyed: (component<'props>, 'props, string) => element = "jsx"
 
-@module("react/jsx-runtime")
+@module("react") @deprecated("Please use JSX syntax directly.")
 external jsx: (component<'props>, 'props) => element = "jsx"
 
-@module("react/jsx-runtime")
+@module("react") @deprecated("Please use JSX syntax directly.")
 external jsxs: (component<'props>, 'props) => element = "jsxs"
 
-@module("react/jsx-runtime")
+@module("react") @deprecated("Please use JSX syntax directly.")
 external jsxsKeyed: (component<'props>, 'props, string) => element = "jsxs"
 
-type fragmentProps<'children> = {children: 'children}
-
-@module("react/jsx-runtime") external jsxFragment: component<fragmentProps<'children>> = "Fragment"
-
-type ref<'value> = {mutable current: 'value}
+type ref<'value> = React.ref<'value>
 
 module Ref = {
   @deprecated("Please use the type React.ref instead")
@@ -86,15 +72,17 @@ module Children = {
 }
 
 module Context = {
-  type t<'context>
+  type t<'props> = React.Context.t<'props>
 
-  type props<'context> = {
-    value: 'context,
-    children: element,
-  }
+  @obj
+  external makeProps: (
+    ~value: 'props,
+    ~children: element,
+    unit,
+  ) => {"value": 'props, "children": element} = ""
 
   @get
-  external provider: t<'context> => component<props<'context>> = "Provider"
+  external provider: t<'props> => component<{"value": 'props, "children": element}> = "Provider"
 }
 
 @module("react")
@@ -113,42 +101,58 @@ external memoCustomCompareProps: (
   @uncurry ('props, 'props) => bool,
 ) => component<'props> = "memo"
 
-@module("react") external fragment: 'a = "Fragment"
-
 module Fragment = {
-  type props<'children> = {key?: string, children: 'children}
-
+  @obj
+  external makeProps: (~children: element, ~key: 'key=?, unit) => {"children": element} = ""
   @module("react")
-  external make: component<props<'children>> = "Fragment"
+  external make: component<{
+    "children": element,
+  }> = "Fragment"
 }
 
 module StrictMode = {
-  type props<'children> = {key?: string, children: 'children}
-
+  @obj
+  external makeProps: (~children: element, ~key: 'key=?, unit) => {"children": element} = ""
   @module("react")
-  external make: component<props<'children>> = "StrictMode"
+  external make: component<{
+    "children": element,
+  }> = "StrictMode"
 }
 
 module Suspense = {
-  type props<'children, 'fallback> = {key?: string, children?: 'children, fallback?: 'fallback}
-
+  @obj
+  external makeProps: (
+    ~children: element=?,
+    ~fallback: element=?,
+    ~key: 'key=?,
+    unit,
+  ) => {"children": option<element>, "fallback": option<element>} = ""
   @module("react")
-  external make: component<props<'children, 'fallback>> = "Suspense"
+  external make: component<{
+    "children": option<element>,
+    "fallback": option<element>,
+  }> = "Suspense"
 }
 
 module Experimental = {
   module SuspenseList = {
-    type revealOrder
-    type tail
-    type props<'children, 'revealOrder, 'tail> = {
-      key?: string,
-      children?: 'children,
-      revealOrder?: 'revealOrder,
-      tail?: 'tail,
-    }
+    type revealOrder = React.Experimental.SuspenseList.revealOrder
+    type tail = React.Experimental.SuspenseList.tail
+    @obj
+    external makeProps: (
+      ~children: element=?,
+      ~revealOrder: [#forwards | #backwards | #together]=?,
+      ~tail: [#collapsed | #hidden]=?,
+      unit,
+    ) => {"children": option<element>, "revealOrder": option<revealOrder>, "tail": option<tail>} =
+      ""
 
     @module("react")
-    external make: component<props<'children, 'revealOrder, 'tail>> = "SuspenseList"
+    external make: component<{
+      "children": option<element>,
+      "revealOrder": option<revealOrder>,
+      "tail": option<tail>,
+    }> = "SuspenseList"
   }
 }
 
@@ -259,7 +263,7 @@ external useMemo6: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f)) => 'any =
 external useMemo7: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'any = "useMemo"
 
 /* This is used as return values */
-type callback<'input, 'output> = 'input => 'output
+type callback<'input, 'output> = React.callback<'input, 'output>
 
 @module("react")
 external useCallback: (@uncurry ('input => 'output)) => callback<'input, 'output> = "useCallback"
@@ -385,7 +389,7 @@ module Uncurried = {
     @uncurry ('initialState => 'state),
   ) => ('state, (. 'action) => unit) = "useReducer"
 
-  type callback<'input, 'output> = (. 'input) => 'output
+  type callback<'input, 'output> = React.callback<'input, 'output>
 
   @module("react")
   external useCallback: (@uncurry ('input => 'output)) => callback<'input, 'output> = "useCallback"
@@ -433,7 +437,7 @@ module Uncurried = {
   ) => callback<'input, 'output> = "useCallback"
 }
 
-type transitionConfig = {timeoutMs: int}
+type transitionConfig = React.transitionConfig
 
 @module("react")
 external useTransition: (

@@ -1,6 +1,6 @@
 {
   "name": "@rescript/react",
-  "version": "0.10.3",
+  "version": "0.11.0-rc.1",
   "description": "React bindings for ReScript",
   "files": [
     "README.md",
@@ -28,28 +28,12 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
-    "jest": "^26.0.1",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "reason-test-framework": "^0.3.2",
-    "rescript": "^9.1.4"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rescript": "^10.1.0-alpha.2"
   },
   "peerDependencies": {
-    "react": ">=16.8.1",
-    "react-dom": ">=16.8.1"
-  },
-  "jest": {
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "roots": [
-      "test"
-    ],
-    "testMatch": [
-      "**/*__test.bs.js"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(bs-platform|reason-react|reason-react-compat|reason-react-update|bs-webapi|bs-css|bs-css-emotion|reason-test-framework)/)"
-    ]
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
   }
 }

@@ -9,11 +9,10 @@ finalOutput/*.js
 /docs/
 *.log
 .bsb.lock
-/src/**/*.js
 _esy
 _build
 *.install
-*.bs.js
+src/legacy/*.bs.js
 
 # Editor
 /.idea/

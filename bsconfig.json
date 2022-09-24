@@ -1,12 +1,12 @@
 {
   "name": "@rescript/react",
-  "reason": { "react-jsx": 3 },
-  "sources": [
-    {"dir": "src", "subdirs": true},
-    { "dir": "test", "type": "dev" }
-  ],
+  "jsx": {
+    "version": 4,
+    "mode": "classic"
+  },
+  "sources": [{ "dir": "src", "subdirs": true }],
   "package-specs": [{ "module": "commonjs", "in-source": true }],
   "suffix": ".bs.js",
-  "bs-dev-dependencies": ["reason-test-framework"],
+  "bs-dev-dependencies": [],
   "bsc-flags": []
 }

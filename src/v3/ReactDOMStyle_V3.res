@@ -1,4 +1,4 @@
-type t = JsxDOMStyle.t
+type t = ReactDOMStyle.t
 
 @obj
 external make: (

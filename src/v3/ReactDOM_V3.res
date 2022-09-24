@@ -13,7 +13,7 @@ external querySelector: string => option<Dom.element> = "document.querySelector"
 external render: (React.element, Dom.element) => unit = "render"
 
 module Experimental = {
-  type root
+  type root = ReactDOM.Experimental.root
 
   @module("react-dom")
   external createRoot: Dom.element => root = "createRoot"
@@ -37,7 +37,7 @@ external domElementToObj: Dom.element => {..} = "%identity"
 
 type style = ReactDOMStyle.t
 
-type domRef = JsxDOM.domRef
+type domRef = ReactDOM.domRef
 
 module Ref = {
   type t = domRef
@@ -2106,31 +2106,8 @@ module Props = {
 
 include Props
 
-@variadic @module("react")
-external createElement: (string, ~props: props=?, array<React.element>) => React.element =
-  "createElement"
-
-@variadic @module("react")
-external createDOMElementVariadic: (
-  string,
-  ~props: domProps=?,
-  array<React.element>,
-) => React.element = "createElement"
-
-@module("react/jsx-runtime")
-external jsxKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsx"
-
-@module("react/jsx-runtime")
-external jsx: (string, JsxDOM.domProps) => Jsx.element = "jsx"
-
-@module("react/jsx-runtime")
-external jsxs: (string, JsxDOM.domProps) => Jsx.element = "jsxs"
-
-@module("react/jsx-runtime")
-external jsxsKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsxs"
-
 // As we've removed `ReactDOMRe.createElement`, this enables patterns like
 // React.createElement(ReactDOM.stringToComponent(multiline ? "textarea" : "input"), ...)
-external stringToComponent: string => React.component<JsxDOM.domProps> = "%identity"
+external stringToComponent: string => React.component<domProps> = "%identity"
 
 module Style = ReactDOMStyle
