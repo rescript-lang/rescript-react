@@ -28,7 +28,6 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
-    "jest": "^26.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rescript": "^10.1.0-alpha.2"
@@ -36,19 +35,5 @@
   "peerDependencies": {
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0"
-  },
-  "jest": {
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "roots": [
-      "test"
-    ],
-    "testMatch": [
-      "**/*__test.bs.js"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(bs-platform|reason-react|reason-react-compat|reason-react-update|bs-webapi|bs-css|bs-css-emotion|reason-test-framework)/)"
-    ]
   }
 }
