@@ -2,7 +2,7 @@
 
 ## master
 
-## 0.11.0-rc.1
+## 0.11.0-alpha.1
 
 - `RescriptReactErrorBoundary` component now implemented using `@react.component`, so it is compatible with JSX V4.
 
