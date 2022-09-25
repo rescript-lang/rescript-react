@@ -15,10 +15,10 @@ external render: (React.element, Dom.element) => unit = "render"
 module Experimental = {
   type root
 
-  @module("react-dom")
+  @module("react-dom/client")
   external createRoot: Dom.element => root = "createRoot"
 
-  @module("react-dom")
+  @module("react-dom/client")
   external createBlockingRoot: Dom.element => root = "createBlockingRoot"
 
   @send external render: (root, React.element) => unit = "render"
