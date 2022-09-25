@@ -82,6 +82,7 @@ module Keyboard = {
   })
   @get external altKey: t => bool = "altKey"
   @get external charCode: t => int = "charCode"
+  @get external code: t => string = "code"
   @get external ctrlKey: t => bool = "ctrlKey"
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
