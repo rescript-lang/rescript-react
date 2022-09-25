@@ -5,8 +5,11 @@
 ## 0.11.0-alpha.1
 
 - `RescriptReactErrorBoundary` component now implemented using `@react.component`, so it is compatible with JSX V4.
-
 - `ReactV3` module added for backward compatibility to JSX V3. See [the V3 compatibility mode](https://github.com/rescript-lang/syntax/blob/master/cli/JSXV4.md)
+- Fixed `react-dom/server` and `react-dom/test-utils` imports.
+- Fixed `createRoot` bindings.
+- Added `Keyboard.code` binding.
+- Renamed `Changes.md` to `CHANGELOG.md` to align with the rescript-compiler repo.
 
 **Breaking:**
 
