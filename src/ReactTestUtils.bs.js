@@ -5,17 +5,17 @@ var Curry = require("rescript/lib/js/curry.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Belt_Option = require("rescript/lib/js/belt_Option.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
-var TestUtilsJs = require("react-dom/test-utils.js");
+var TestUtils = require("react-dom/test-utils");
 
 function act(func) {
   var reactFunc = function () {
     Curry._1(func, undefined);
   };
-  TestUtilsJs.act(reactFunc);
+  TestUtils.act(reactFunc);
 }
 
 function actAsync(func) {
-  return TestUtilsJs.act(function () {
+  return TestUtils.act(function () {
               return Curry._1(func, undefined);
             });
 }
@@ -26,7 +26,7 @@ function changeWithValue(element, value) {
       value: value
     }
   };
-  TestUtilsJs.Simulate.change(element, $$event);
+  TestUtils.Simulate.change(element, $$event);
 }
 
 function changeWithChecked(element, value) {
@@ -35,7 +35,7 @@ function changeWithChecked(element, value) {
       checked: value
     }
   };
-  TestUtilsJs.Simulate.change(element, $$event);
+  TestUtils.Simulate.change(element, $$event);
 }
 
 var Simulate = {
@@ -96,4 +96,4 @@ exports.DOM = DOM;
 exports.prepareContainer = prepareContainer;
 exports.cleanupContainer = cleanupContainer;
 exports.getContainer = getContainer;
-/* react-dom/test-utils.js Not a pure module */
+/* react-dom/test-utils Not a pure module */
