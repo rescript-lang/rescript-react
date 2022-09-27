@@ -2129,8 +2129,8 @@ external jsxs: (string, JsxDOM.domProps) => Jsx.element = "jsxs"
 @module("react/jsx-runtime")
 external jsxsKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsxs"
 
-// As we've removed `ReactDOMRe.createElement`, this enables patterns like
-// React.createElement(ReactDOM.stringToComponent(multiline ? "textarea" : "input"), ...)
-external stringToComponent: string => React.component<JsxDOM.domProps> = "%identity"
+// Currently, not used by JSX ppx
+@deprecated("Please use ReactDOM.createElement instead.")
+external stringToComponent: string => React.component<'a> = "%identity"
 
 module Style = ReactDOMStyle
