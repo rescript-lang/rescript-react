@@ -2,7 +2,11 @@
 'use strict';
 
 
-var Experimental = {};
+var Root = {};
+
+var Client = {
+  Root: Root
+};
 
 var Ref = {};
 
@@ -10,7 +14,7 @@ var Props = {};
 
 var Style;
 
-exports.Experimental = Experimental;
+exports.Client = Client;
 exports.Ref = Ref;
 exports.Props = Props;
 exports.Style = Style;

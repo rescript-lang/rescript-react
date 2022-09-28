@@ -437,11 +437,8 @@ module Uncurried = {
   ) => callback<'input, 'output> = "useCallback"
 }
 
-type transitionConfig = React.transitionConfig
-
 @module("react")
 external useTransition: (
-  ~config: transitionConfig=?,
   unit,
 ) => (callback<callback<unit, unit>, unit>, bool) = "useTransition"
 
