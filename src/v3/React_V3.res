@@ -438,9 +438,7 @@ module Uncurried = {
 }
 
 @module("react")
-external useTransition: (
-  unit,
-) => (callback<callback<unit, unit>, unit>, bool) = "useTransition"
+external useTransition: unit => (bool, (. unit => unit) => unit) = "useTransition"
 
 @set
 external setDisplayName: (component<'props>, string) => unit = "displayName"
