@@ -1,6 +1,8 @@
 # Changelog
 
-## master
+## 0.11.0-alpha.2
+
+- Relax React version requirement to v18.0.0+.
 
 ## 0.11.0-alpha.1
 
