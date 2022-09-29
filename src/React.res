@@ -372,7 +372,7 @@ external useImperativeHandle7: (
 @module("react") external useDeferredValue: 'value => 'value = "useDeferredValue"
 
 @module("react")
-external useTransition: unit => (bool, (. unit => unit) => unit) = "useTransition"
+external useTransition: unit => (bool, unit => unit) = "useTransition"
 
 @module("react")
 external useInsertionEffect: (@uncurry (unit => option<unit => unit>)) => unit =
@@ -410,15 +410,15 @@ external useInsertionEffect7: (
 
 @module("react")
 external useSyncExternalStore: (
-  @uncurry (unit => @uncurry (unit => unit)),
-  @uncurry unit => 'state,
+  ~subscribe: @uncurry ((unit => unit) => ((. unit) => unit)),
+  ~getSnapshot: @uncurry unit => 'state,
 ) => 'state = "useSyncExternalStore"
 
 @module("react")
 external useSyncExternalStoreWithServerSnapshot: (
-  @uncurry (unit => @uncurry (unit => unit)),
-  @uncurry unit => 'state,
-  @uncurry unit => 'state,
+  ~subscribe: @uncurry ((unit => unit) => ((. unit) => unit)),
+  ~getSnapshot: @uncurry unit => 'state,
+  ~getServerSnapshot: @uncurry unit => 'state,
 ) => 'state = "useSyncExternalStore"
 
 module Uncurried = {
