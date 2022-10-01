@@ -56,12 +56,18 @@ module Ref = {
   external callbackDomRef: callbackDomRef => domRef = "%identity"
 }
 
+type domProps = JsxDOM.domProps
+
+@deprecated("Please use type ReactDOM.domProps")
+type props = JsxDOM.domProps
+
 module Props = {
+  @deprecated("Please use type ReactDOM.domProps")
   type domProps = JsxDOM.domProps
 
   /** DEPRECATED */
   @deriving(abstract)
-  @deprecated("Please use type domProps")
+  @deprecated("Please use type ReactDOM.domProps")
   type props = {
     @optional
     key: string,
@@ -1084,10 +1090,8 @@ module Props = {
   }
 }
 
-include Props
-
 @variadic @module("react")
-external createElement: (string, ~props: props=?, array<React.element>) => React.element =
+external createElement: (string, ~props: domProps=?, array<React.element>) => React.element =
   "createElement"
 
 @variadic @module("react")

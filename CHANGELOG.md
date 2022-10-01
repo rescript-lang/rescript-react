@@ -3,7 +3,7 @@
 ## 0.11.0-alpha.2
 
 - Relax React version requirement to v18.0.0+.
-- Deprecated type `ReactDOM.props`
+- Deprecated types `ReactDOM.props`, `ReactDOM.Props.props`, `ReactDOM.Props.domProps`.
 
 **Breaking:**
 
