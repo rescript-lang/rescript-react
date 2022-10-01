@@ -12,6 +12,7 @@
 - Fixed `createRoot` bindings.
 - Added `Keyboard.code` binding.
 - Renamed `Changes.md` to `CHANGELOG.md` to align with the rescript-compiler repo.
+- Deprecated type `ReactDOM.props`
 
 **Breaking:**
 
