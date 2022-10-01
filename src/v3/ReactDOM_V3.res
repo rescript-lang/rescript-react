@@ -13,7 +13,7 @@ external querySelector: string => option<Dom.element> = "document.querySelector"
 external render: (React.element, Dom.element) => unit = "render"
 
 module Experimental = {
-  type root = ReactDOM.Experimental.root
+  type root = ReactDOM.Client.Root.t
 
   @module("react-dom")
   external createRoot: Dom.element => root = "createRoot"
