@@ -6,13 +6,13 @@ We removed all functionality that is not needed for JSX usage
 @module("react")
 external createDOMElementVariadic: (
   string,
-  ~props: ReactDOM.domProps=?,
+  ~props: ReactDOM_V3.domProps=?,
   array<React.element>,
 ) => React.element = "createElement"
 
 @variadic @module("react")
 external createElement: (
   string,
-  ~props: ReactDOM.domProps=?,
+  ~props: ReactDOM_V3.domProps=?,
   array<React.element>,
 ) => React.element = "createElement"
