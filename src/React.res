@@ -29,6 +29,9 @@ let createElementWithKey = (component, props, key) =>
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
 
+@module("react")
+external isValidElement: 'a => bool = "isValidElement"
+
 @variadic @module("react")
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
