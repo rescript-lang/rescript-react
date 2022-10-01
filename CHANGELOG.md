@@ -19,8 +19,11 @@
 - Removed the deprecation attribute from apis of the new jsx transform (introduced in React v17).
 
 - New version requirements:
+
   - ReScript compiler V10.1+
   - ReactJS v18.2.0+
+
+- Changed the attribute `method` to `method_` of DOM element in `ReactDOM.domProps`
 
 ## v0.10.3
 
