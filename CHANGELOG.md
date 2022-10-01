@@ -3,6 +3,11 @@
 ## 0.11.0-alpha.2
 
 - Relax React version requirement to v18.0.0+.
+- Deprecated type `ReactDOM.props`
+
+**Breaking:**
+
+- Changed the attribute `method` to `method_` of DOM element in `ReactDOM.domProps`
 
 ## 0.11.0-alpha.1
 
@@ -12,7 +17,6 @@
 - Fixed `createRoot` bindings.
 - Added `Keyboard.code` binding.
 - Renamed `Changes.md` to `CHANGELOG.md` to align with the rescript-compiler repo.
-- Deprecated type `ReactDOM.props`
 
 **Breaking:**
 
@@ -24,8 +28,6 @@
 
   - ReScript compiler V10.1+
   - ReactJS v18.2.0+
-
-- Changed the attribute `method` to `method_` of DOM element in `ReactDOM.domProps`
 
 ## v0.10.3
 
