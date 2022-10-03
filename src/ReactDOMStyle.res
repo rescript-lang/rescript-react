@@ -3,6 +3,7 @@ type t = JsxDOMStyle.t
 @obj
 external make: (
   ~azimuth: string=?,
+  ~backdropFilter: string=?,
   ~background: string=?,
   ~backgroundAttachment: string=?,
   ~backgroundColor: string=?,
