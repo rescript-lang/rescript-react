@@ -1101,6 +1101,8 @@ external createDOMElementVariadic: (
   array<React.element>,
 ) => React.element = "createElement"
 
+external someElement: React.element => option<React.element> = "%identity"
+
 @module("react/jsx-runtime")
 external jsxKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsx"
 
