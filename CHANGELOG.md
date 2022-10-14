@@ -5,10 +5,6 @@
 - Relax React version requirement to v18.0.0+.
 - Deprecated types `ReactDOM.props`, `ReactDOM.Props.props`, `ReactDOM.Props.domProps`.
 
-**Breaking:**
-
-- Changed the attribute `method` to `method_` of DOM element in `ReactDOM.domProps`
-
 ## 0.11.0-alpha.1
 
 - `RescriptReactErrorBoundary` component now implemented using `@react.component`, so it is compatible with JSX V4.
