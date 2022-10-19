@@ -1,9 +1,14 @@
 # Changelog
 
-## 0.11.0-alpha.2
+## 0.11.0-rc.1
 
-- Relax React version requirement to v18.0.0+.
+- Added React 18 bindings.
+- Added binding for `React.isValidElement`.
+- Added backgroundFilter prop in `ReactDOMStyle`.
+- Relaxed React version requirement to v18.0.0+.
+- `ReactDOM.domProps` is now an alias for `JsxDOM.domProps` (defined in the compiler repo)
 - Deprecated types `ReactDOM.props`, `ReactDOM.Props.props`, `ReactDOM.Props.domProps`.
+- Deprecated `ReactDOM.stringToComponent`.
 
 ## 0.11.0-alpha.1
 
