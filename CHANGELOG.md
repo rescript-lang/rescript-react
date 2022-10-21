@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0-rc.2
+
+- Fixed JSX PPX V3 backward compatibility.
+
 ## 0.11.0-rc.1
 
 - Added React 18 bindings.
