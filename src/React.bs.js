@@ -3,25 +3,42 @@
 
 var React = require("react");
 var Caml_splice_call = require("rescript/lib/js/caml_splice_call.js");
+var JsxRuntime = require("react/jsx-runtime");
 
 function component(prim) {
   return prim;
 }
 
-function createElementWithKey(component, props, key) {
-  return React.createElement(component, Object.assign(props, {
-                  key: key
-                }));
+function createElementWithKey(key, component, props) {
+  return React.createElement(component, key !== undefined ? Object.assign(props, {
+                    key: key
+                  }) : props);
 }
 
-function createElementVariadicWithKey(component, props, elements, key) {
+function createElementVariadicWithKey(key, component, props, elements) {
   return Caml_splice_call.spliceApply(React.createElement, [
               component,
-              Object.assign(props, {
-                    key: key
-                  }),
+              key !== undefined ? Object.assign(props, {
+                      key: key
+                    }) : props,
               elements
             ]);
+}
+
+function jsxWithKey(key, component, props) {
+  if (key !== undefined) {
+    return JsxRuntime.jsx(component, props, key);
+  } else {
+    return JsxRuntime.jsx(component, props);
+  }
+}
+
+function jsxsWithKey(key, component, props) {
+  if (key !== undefined) {
+    return JsxRuntime.jsxs(component, props, key);
+  } else {
+    return JsxRuntime.jsxs(component, props);
+  }
 }
 
 var Ref = {};
@@ -47,6 +64,8 @@ var Uncurried = {};
 exports.component = component;
 exports.createElementWithKey = createElementWithKey;
 exports.createElementVariadicWithKey = createElementVariadicWithKey;
+exports.jsxWithKey = jsxWithKey;
+exports.jsxsWithKey = jsxsWithKey;
 exports.Ref = Ref;
 exports.Children = Children;
 exports.Context = Context;
