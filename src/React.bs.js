@@ -25,7 +25,7 @@ function createElementVariadicWithKey(key, component, props, elements) {
             ]);
 }
 
-function jsxWithKey(key, component, props) {
+function jsx(key, component, props) {
   if (key !== undefined) {
     return JsxRuntime.jsx(component, props, key);
   } else {
@@ -33,7 +33,7 @@ function jsxWithKey(key, component, props) {
   }
 }
 
-function jsxsWithKey(key, component, props) {
+function jsxs(key, component, props) {
   if (key !== undefined) {
     return JsxRuntime.jsxs(component, props, key);
   } else {
@@ -64,8 +64,8 @@ var Uncurried = {};
 exports.component = component;
 exports.createElementWithKey = createElementWithKey;
 exports.createElementVariadicWithKey = createElementVariadicWithKey;
-exports.jsxWithKey = jsxWithKey;
-exports.jsxsWithKey = jsxsWithKey;
+exports.jsx = jsx;
+exports.jsxs = jsxs;
 exports.Ref = Ref;
 exports.Children = Children;
 exports.Context = Context;
