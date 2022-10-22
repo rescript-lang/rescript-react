@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.0-rc.3
+
+- Renamed `React.jsx(s)`, `ReactDOM.jsx(s)` to `React.jsx(s)NotKeyed`, `ReactDOM.jsx(s)NotKeyed`.
+- Added `React.jsx(s)`, `ReactDOM.jsx(s)` which are having key as optional argument.
+
 ## 0.11.0-rc.2
 
 - Fixed JSX PPX V3 backward compatibility.
