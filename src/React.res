@@ -43,28 +43,16 @@ let createElementVariadicWithKey = (~key=?, component, props, elements) =>
   createElementVariadic(component, addKeyProp(~key?, props), elements)
 
 @module("react/jsx-runtime")
-external jsxNotKeyed: (component<'props>, 'props) => element = "jsx"
+external jsx: (component<'props>, 'props) => element = "jsx"
 
 @module("react/jsx-runtime")
-external jsxKeyed: (component<'props>, 'props, string) => element = "jsx"
-
-let jsx = (~key=?, component, props) =>
-  switch key {
-  | Some(key) => jsxKeyed(component, props, key)
-  | None => jsxNotKeyed(component, props)
-  }
+external jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsx"
 
 @module("react/jsx-runtime")
-external jsxsNotKeyed: (component<'props>, 'props) => element = "jsxs"
+external jsxs: (component<'props>, 'props) => element = "jsxs"
 
 @module("react/jsx-runtime")
-external jsxsKeyed: (component<'props>, 'props, string) => element = "jsxs"
-
-let jsxs = (~key=?, component, props) =>
-  switch key {
-  | Some(key) => jsxsKeyed(component, props, key)
-  | None => jsxsNotKeyed(component, props)
-  }
+external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsxs"
 
 type fragmentProps<'children> = {children: 'children}
 
