@@ -8,18 +8,18 @@ function component(prim) {
   return prim;
 }
 
-function createElementWithKey(component, props, key) {
-  return React.createElement(component, Object.assign(props, {
-                  key: key
-                }));
+function createElementWithKey(key, component, props) {
+  return React.createElement(component, key !== undefined ? Object.assign(props, {
+                    key: key
+                  }) : props);
 }
 
-function createElementVariadicWithKey(component, props, elements, key) {
+function createElementVariadicWithKey(key, component, props, elements) {
   return Caml_splice_call.spliceApply(React.createElement, [
               component,
-              Object.assign(props, {
-                    key: key
-                  }),
+              key !== undefined ? Object.assign(props, {
+                      key: key
+                    }) : props,
               elements
             ]);
 }

@@ -1109,16 +1109,16 @@ external createDOMElementVariadic: (
 external someElement: React.element => option<React.element> = "%identity"
 
 @module("react/jsx-runtime")
-external jsxKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsx"
+external jsx: (string, JsxDOM.domProps) => Jsx.element = "jsx"
 
 @module("react/jsx-runtime")
-external jsx: (string, JsxDOM.domProps) => Jsx.element = "jsx"
+external jsxKeyed: (string, JsxDOM.domProps, ~key: string=?, @ignore unit) => Jsx.element = "jsx"
 
 @module("react/jsx-runtime")
 external jsxs: (string, JsxDOM.domProps) => Jsx.element = "jsxs"
 
 @module("react/jsx-runtime")
-external jsxsKeyed: (string, JsxDOM.domProps, string) => Jsx.element = "jsxs"
+external jsxsKeyed: (string, JsxDOM.domProps, ~key: string=?, @ignore unit) => Jsx.element = "jsxs"
 
 // Currently, not used by JSX ppx
 @deprecated("Please use ReactDOM.createElement instead.")

@@ -16,15 +16,18 @@ let component = Jsx.component
 
 %%private(
   @inline
-  let addKeyProp = (p: 'props, k: string): 'props =>
-    Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": k}))
+  let addKeyProp = (~key: option<string>=?, p: 'props): 'props =>
+    switch key {
+    | Some(key) => Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": key}))
+    | None => p
+    }
 )
 
 @module("react")
 external createElement: (component<'props>, 'props) => element = "createElement"
 
-let createElementWithKey = (component, props, key) =>
-  createElement(component, addKeyProp(props, key))
+let createElementWithKey = (~key=?, component, props) =>
+  createElement(component, addKeyProp(~key?, props))
 
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
@@ -36,20 +39,20 @@ external isValidElement: 'a => bool = "isValidElement"
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
 
-let createElementVariadicWithKey = (component, props, elements, key) =>
-  createElementVariadic(component, addKeyProp(props, key), elements)
-
-@module("react/jsx-runtime")
-external jsxKeyed: (component<'props>, 'props, string) => element = "jsx"
+let createElementVariadicWithKey = (~key=?, component, props, elements) =>
+  createElementVariadic(component, addKeyProp(~key?, props), elements)
 
 @module("react/jsx-runtime")
 external jsx: (component<'props>, 'props) => element = "jsx"
 
 @module("react/jsx-runtime")
+external jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsx"
+
+@module("react/jsx-runtime")
 external jsxs: (component<'props>, 'props) => element = "jsxs"
 
 @module("react/jsx-runtime")
-external jsxsKeyed: (component<'props>, 'props, string) => element = "jsxs"
+external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsxs"
 
 type fragmentProps<'children> = {children: 'children}
 
@@ -413,13 +416,13 @@ external useInsertionEffect7: (
 
 @module("react")
 external useSyncExternalStore: (
-  ~subscribe: @uncurry ((unit => unit) => ((. unit) => unit)),
+  ~subscribe: @uncurry (unit => unit, . unit) => unit,
   ~getSnapshot: @uncurry unit => 'state,
 ) => 'state = "useSyncExternalStore"
 
 @module("react")
 external useSyncExternalStoreWithServerSnapshot: (
-  ~subscribe: @uncurry ((unit => unit) => ((. unit) => unit)),
+  ~subscribe: @uncurry (unit => unit, . unit) => unit,
   ~getSnapshot: @uncurry unit => 'state,
   ~getServerSnapshot: @uncurry unit => 'state,
 ) => 'state = "useSyncExternalStore"

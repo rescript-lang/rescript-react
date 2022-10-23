@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0-rc.3
+
+- Changed `React.jsxKeyed(s)`, `ReactDOM.jsxKeyed(s)` having key as optional argument.
+
 ## 0.11.0-rc.2
 
 - Fixed JSX PPX V3 backward compatibility.
