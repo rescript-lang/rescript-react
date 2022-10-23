@@ -14,20 +14,13 @@ type component<'props> = Jsx.component<'props>
 
 let component = Jsx.component
 
-%%private(
-  @inline
-  let addKeyProp = (~key: option<string>=?, p: 'props): 'props =>
-    switch key {
-    | Some(key) => Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": key}))
-    | None => p
-    }
-)
-
 @module("react")
 external createElement: (component<'props>, 'props) => element = "createElement"
 
-let createElementWithKey = (~key=?, component, props) =>
-  createElement(component, addKeyProp(~key?, props))
+let createElementWithKey = (~key=?, component, props) => {
+  let _ = Obj.magic(props)["key"] = key
+  createElement(component, props)
+}
 
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
@@ -39,8 +32,10 @@ external isValidElement: 'a => bool = "isValidElement"
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
 
-let createElementVariadicWithKey = (~key=?, component, props, elements) =>
-  createElementVariadic(component, addKeyProp(~key?, props), elements)
+let createElementVariadicWithKey = (~key=?, component, props, elements) => {
+  let _ = Obj.magic(props)["key"] = key
+  createElementVariadic(component, props, elements)
+}
 
 @module("react/jsx-runtime")
 external jsxNotKeyed: (component<'props>, 'props) => element = "jsx"
