@@ -9,7 +9,7 @@ function component(prim) {
 }
 
 function createElementWithKey(key, component, props) {
-  return React.createElement(component, key !== undefined ? Object.assign(props, {
+  return React.createElement(component, key !== undefined ? Object.assign({}, props, {
                     key: key
                   }) : props);
 }
@@ -17,7 +17,7 @@ function createElementWithKey(key, component, props) {
 function createElementVariadicWithKey(key, component, props, elements) {
   return Caml_splice_call.spliceApply(React.createElement, [
               component,
-              key !== undefined ? Object.assign(props, {
+              key !== undefined ? Object.assign({}, props, {
                       key: key
                     }) : props,
               elements
