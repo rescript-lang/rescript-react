@@ -15,10 +15,13 @@ type component<'props> = Jsx.component<'props>
 let component = Jsx.component
 
 %%private(
+  @val
+  external propsWithKey: (@as(json`{}`) _, 'props, {"key": string}) => 'props = "Object.assign"
+
   @inline
   let addKeyProp = (~key: option<string>=?, p: 'props): 'props =>
     switch key {
-    | Some(key) => Obj.magic(Js.Obj.assign(Obj.magic(p), {"key": key}))
+    | Some(key) => propsWithKey(p, {"key": key})
     | None => p
     }
 )
