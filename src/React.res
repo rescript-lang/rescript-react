@@ -12,7 +12,7 @@ type componentLike<'props, 'return> = Jsx.componentLike<'props, 'return>
 
 type component<'props> = Jsx.component<'props>
 
-let component = Jsx.component
+external component: componentLike<'props, element> => component<'props> = "%identity"
 
 %%private(
   @val

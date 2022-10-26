@@ -4,10 +4,6 @@
 var React = require("react");
 var Caml_splice_call = require("rescript/lib/js/caml_splice_call.js");
 
-function component(prim) {
-  return prim;
-}
-
 function createElementWithKey(key, component, props) {
   return React.createElement(component, key !== undefined ? Object.assign({}, props, {
                     key: key
@@ -44,7 +40,6 @@ var Experimental = {
 
 var Uncurried = {};
 
-exports.component = component;
 exports.createElementWithKey = createElementWithKey;
 exports.createElementVariadicWithKey = createElementVariadicWithKey;
 exports.Ref = Ref;
