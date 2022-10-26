@@ -3,6 +3,7 @@
 ## 0.11.0-rc.3
 
 - Changed `React.jsxKeyed(s)`, `ReactDOM.jsxKeyed(s)` having key as optional argument.
+- Changed `React.fragmentProps` children field to optional.
 
 ## 0.11.0-rc.2
 
