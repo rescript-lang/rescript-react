@@ -14,23 +14,8 @@ type component<'props> = Jsx.component<'props>
 
 external component: componentLike<'props, element> => component<'props> = "%identity"
 
-%%private(
-  @val
-  external propsWithKey: (@as(json`{}`) _, 'props, {"key": string}) => 'props = "Object.assign"
-
-  @inline
-  let addKeyProp = (~key: option<string>=?, p: 'props): 'props =>
-    switch key {
-    | Some(key) => propsWithKey(p, {"key": key})
-    | None => p
-    }
-)
-
 @module("react")
 external createElement: (component<'props>, 'props) => element = "createElement"
-
-let createElementWithKey = (~key=?, component, props) =>
-  createElement(component, addKeyProp(~key?, props))
 
 @module("react")
 external cloneElement: (element, 'props) => element = "cloneElement"
@@ -41,9 +26,6 @@ external isValidElement: 'a => bool = "isValidElement"
 @variadic @module("react")
 external createElementVariadic: (component<'props>, 'props, array<element>) => element =
   "createElement"
-
-let createElementVariadicWithKey = (~key=?, component, props, elements) =>
-  createElementVariadic(component, addKeyProp(~key?, props), elements)
 
 @module("react/jsx-runtime")
 external jsx: (component<'props>, 'props) => element = "jsx"
