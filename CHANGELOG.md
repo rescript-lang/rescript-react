@@ -4,6 +4,7 @@
 
 - Changed `React.jsxKeyed(s)`, `ReactDOM.jsxKeyed(s)` having key as optional argument.
 - Changed `React.fragmentProps` children field to optional.
+- Removed the helper functions for JSX v4 from `React.res`
 
 ## 0.11.0-rc.2
 
