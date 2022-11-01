@@ -1,6 +1,6 @@
 {
   "name": "@rescript/react",
-  "version": "0.11.0-rc.2",
+  "version": "0.11.0-rc.3",
   "description": "React bindings for ReScript",
   "files": [
     "README.md",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rescript": "^10.1.0-rc.2"
+    "rescript": "^10.1.0-rc.3"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
