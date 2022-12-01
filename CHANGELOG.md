@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+No changes compared to rc.3.
+
 ## 0.11.0-rc.3
 
 - Changed `React.jsxKeyed(s)`, `ReactDOM.jsxKeyed(s)` having key as optional argument.
