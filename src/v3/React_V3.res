@@ -38,7 +38,7 @@ external jsxs: (component<'props>, 'props) => element = "jsxs"
 @module("react") @deprecated("Please use JSX syntax directly.")
 external jsxsKeyed: (component<'props>, 'props, string) => element = "jsxs"
 
-type ref<'value> = React.ref<'value>
+type ref<'value> = React.ref<'value> = {mutable current: 'value}
 
 module Ref = {
   @deprecated("Please use the type React.ref instead")
