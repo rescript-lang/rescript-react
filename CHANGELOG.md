@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.12.0-rc.1
+
+- Compatibility with ReScript 11 uncurried mode.
+- Breaking: removed `React.callback` type.
+
 ## 0.11.0
 
 No changes compared to rc.3.
