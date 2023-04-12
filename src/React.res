@@ -401,13 +401,13 @@ external useInsertionEffect7: (
 
 @module("react")
 external useSyncExternalStore: (
-  ~subscribe: @uncurry (unit => unit, . unit) => unit,
+  ~subscribe: @uncurry ((unit => unit) => (. unit) => unit),
   ~getSnapshot: @uncurry unit => 'state,
 ) => 'state = "useSyncExternalStore"
 
 @module("react")
 external useSyncExternalStoreWithServerSnapshot: (
-  ~subscribe: @uncurry (unit => unit, . unit) => unit,
+  ~subscribe: @uncurry ((unit => unit) => (. unit) => unit),
   ~getSnapshot: @uncurry unit => 'state,
   ~getServerSnapshot: @uncurry unit => 'state,
 ) => 'state = "useSyncExternalStore"
