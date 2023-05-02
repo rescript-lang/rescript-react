@@ -14,12 +14,6 @@ var StrictMode = {};
 
 var Suspense = {};
 
-var SuspenseList = {};
-
-var Experimental = {
-  SuspenseList: SuspenseList
-};
-
 var Uncurried = {};
 
 exports.Ref = Ref;
@@ -28,6 +22,5 @@ exports.Context = Context;
 exports.Fragment = Fragment;
 exports.StrictMode = StrictMode;
 exports.Suspense = Suspense;
-exports.Experimental = Experimental;
 exports.Uncurried = Uncurried;
 /* No side effect */

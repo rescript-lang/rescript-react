@@ -127,22 +127,6 @@ module Suspense = {
   external make: component<props<'children, 'fallback>> = "Suspense"
 }
 
-module Experimental = {
-  module SuspenseList = {
-    type revealOrder
-    type tail
-    type props<'children, 'revealOrder, 'tail> = {
-      key?: string,
-      children?: 'children,
-      revealOrder?: 'revealOrder,
-      tail?: 'tail,
-    }
-
-    @module("react")
-    external make: component<props<'children, 'revealOrder, 'tail>> = "SuspenseList"
-  }
-}
-
 type dynamicallyImportedModule<'a> = {default: component<'a>}
 
 @module("react")
