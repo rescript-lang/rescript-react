@@ -143,6 +143,13 @@ module Experimental = {
   }
 }
 
+type dynamicallyImportedModule<'a> = {default: component<'a>}
+
+@module("react")
+external lazy_: (unit => promise<dynamicallyImportedModule<'a>>) => component<'a> = "lazy"
+
+let lazy_ = load => lazy_(async () => {default: await load()})
+
 /* HOOKS */
 
 /*
