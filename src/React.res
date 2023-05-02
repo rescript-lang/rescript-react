@@ -39,9 +39,9 @@ external jsxs: (component<'props>, 'props) => element = "jsxs"
 @module("react/jsx-runtime")
 external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsxs"
 
-type fragmentProps<'children> = {children?: 'children}
+type fragmentProps = {children?: element}
 
-@module("react/jsx-runtime") external jsxFragment: component<fragmentProps<'children>> = "Fragment"
+@module("react/jsx-runtime") external jsxFragment: component<fragmentProps> = "Fragment"
 
 type ref<'value> = {mutable current: 'value}
 
@@ -104,27 +104,27 @@ external memoCustomCompareProps: (
   @uncurry ('props, 'props) => bool,
 ) => component<'props> = "memo"
 
-@module("react") external fragment: 'a = "Fragment"
+@module("react") external fragment: component<fragmentProps> = "Fragment"
 
 module Fragment = {
-  type props<'children> = {key?: string, children: 'children}
+  type props = {key?: string, children: element}
 
   @module("react")
-  external make: component<props<'children>> = "Fragment"
+  external make: component<props> = "Fragment"
 }
 
 module StrictMode = {
-  type props<'children> = {key?: string, children: 'children}
+  type props = {key?: string, children: element}
 
   @module("react")
-  external make: component<props<'children>> = "StrictMode"
+  external make: component<props> = "StrictMode"
 }
 
 module Suspense = {
-  type props<'children, 'fallback> = {key?: string, children?: 'children, fallback?: 'fallback}
+  type props = {key?: string, children?: element, fallback?: element}
 
   @module("react")
-  external make: component<props<'children, 'fallback>> = "Suspense"
+  external make: component<props> = "Suspense"
 }
 
 type dynamicallyImportedModule<'a> = {default: component<'a>}
