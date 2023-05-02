@@ -16,12 +16,6 @@ var StrictMode = {};
 
 var Suspense = {};
 
-var SuspenseList = {};
-
-var Experimental = {
-  SuspenseList: SuspenseList
-};
-
 function lazy_(load) {
   return React.lazy(async function (param) {
               return {
@@ -38,7 +32,6 @@ exports.Context = Context;
 exports.Fragment = Fragment;
 exports.StrictMode = StrictMode;
 exports.Suspense = Suspense;
-exports.Experimental = Experimental;
 exports.lazy_ = lazy_;
 exports.Uncurried = Uncurried;
 /* react Not a pure module */

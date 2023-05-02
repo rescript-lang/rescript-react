@@ -134,28 +134,6 @@ module Suspense = {
   }> = "Suspense"
 }
 
-module Experimental = {
-  module SuspenseList = {
-    type revealOrder = React.Experimental.SuspenseList.revealOrder
-    type tail = React.Experimental.SuspenseList.tail
-    @obj
-    external makeProps: (
-      ~children: element=?,
-      ~revealOrder: [#forwards | #backwards | #together]=?,
-      ~tail: [#collapsed | #hidden]=?,
-      unit,
-    ) => {"children": option<element>, "revealOrder": option<revealOrder>, "tail": option<tail>} =
-      ""
-
-    @module("react")
-    external make: component<{
-      "children": option<element>,
-      "revealOrder": option<revealOrder>,
-      "tail": option<tail>,
-    }> = "SuspenseList"
-  }
-}
-
 /* HOOKS */
 
 /*
