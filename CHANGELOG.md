@@ -1,9 +1,47 @@
 # Changelog
 
+> **Tags:**
+>
+> - :boom: [Breaking Change]
+> - :eyeglasses: [Spec Compliance]
+> - :rocket: [New Feature]
+> - :bug: [Bug Fix]
+> - :memo: [Documentation]
+> - :house: [Internal]
+> - :nail_care: [Polish]
+
+## 0.12.0-alpha.2
+
+#### :rocket: New Feature
+
+- Added `React.lazy_`.
+
+#### :boom: Breaking Change
+
+- Requires ReScript 11.0.0-alpha.6 or newer.
+
+#### :bug: Bug Fix
+
+- Fixed children type for `Fragment`, `StrictMode` and `Suspense`.
+
+#### :nail_care: Polish
+
+- Removed experimental `SuspenseList` component.
+
 ## 0.12.0-alpha.1
 
+#### :rocket: New Feature
+
 - Compatibility with ReScript 11 uncurried mode.
-- Breaking: removed `React.callback` type.
+- Added `gap` prop to `ReactDOMStyle.make`.
+
+#### :boom: Breaking Change
+
+- Removed `React.callback` type.
+
+#### :bug: Bug Fix
+
+- Updated `React_V3` compatibility module to define record field `current` for `ref`.
 
 ## 0.11.0
 

@@ -35,7 +35,12 @@ If you want to try build your project with JSX v3, see [the V3 compatibility mod
 
 ### Requirements
 
-- v0.11.0+
+- v0.12.0+:
+
+  - ReScript Compiler v11.0+
+  - ReactJS v18.0.0+
+
+- v0.11.0
 
   - ReScript Compiler v10.1+
   - ReactJS v18.0.0+
