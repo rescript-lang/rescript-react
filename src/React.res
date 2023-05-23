@@ -241,30 +241,30 @@ external useMemo6: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f)) => 'any =
 external useMemo7: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'any = "useMemo"
 
 @module("react")
-external useCallback: 'f => 'f = "useCallback"
+external useCallback: ('f, 'deps) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback0: ('f, @as(json`[]`) _) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback1: ('f, array<'a>) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback2: ('f, ('a, 'b)) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback3: ('f, ('a, 'b, 'c)) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback4: ('f, ('a, 'b, 'c, 'd)) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use the useCallback instead")
 external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 
 @module("react")
@@ -401,30 +401,30 @@ module Uncurried = {
   ) => ('state, (. 'action) => unit) = "useReducer"
 
   @module("react")
-  external useCallback: 'f => 'f = "useCallback"
+  external useCallback: ('f, 'deps) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback0: ('f, @as(json`[]`) _) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback1: ('f, array<'a>) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback2: ('f, ('a, 'b)) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback3: ('f, ('a, 'b, 'c)) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback4: ('f, ('a, 'b, 'c, 'd)) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use the useCallback instead")
   external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 }
 
