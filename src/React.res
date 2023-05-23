@@ -262,10 +262,10 @@ external useCallback4: ('f, ('a, 'b, 'c, 'd)) => 'f = "useCallback"
 external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
 
 @module("react")
-external useCallback6: ('f, ('a, 'b, 'c, 'd, 'e, 'f0)) => 'f = "useCallback"
+external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
 
 @module("react")
-external useCallback7: ('f, ('a, 'b, 'c, 'd, 'e, 'f0, 'g)) => 'f = "useCallback"
+external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 
 @module("react")
 external useContext: Context.t<'any> => 'any = "useContext"
@@ -422,10 +422,10 @@ module Uncurried = {
   external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
 
   @module("react")
-  external useCallback6: ('f, ('a, 'b, 'c, 'd, 'e, 'f0)) => 'f = "useCallback"
+  external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
 
   @module("react")
-  external useCallback7: ('f, ('a, 'b, 'c, 'd, 'e, 'f0, 'g)) => 'f = "useCallback"
+  external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 }
 
 @set
