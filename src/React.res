@@ -241,7 +241,31 @@ external useMemo6: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f)) => 'any =
 external useMemo7: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'any = "useMemo"
 
 @module("react")
-external useCallback: ('f, 'deps) => 'f = "useCallback"
+external useCallback: 'f => 'f = "useCallback"
+
+@module("react")
+external useCallback0: ('f, @as(json`[]`) _) => 'f = "useCallback"
+
+@module("react")
+external useCallback1: ('f, array<'a>) => 'f = "useCallback"
+
+@module("react")
+external useCallback2: ('f, ('a, 'b)) => 'f = "useCallback"
+
+@module("react")
+external useCallback3: ('f, ('a, 'b, 'c)) => 'f = "useCallback"
+
+@module("react")
+external useCallback4: ('f, ('a, 'b, 'c, 'd)) => 'f = "useCallback"
+
+@module("react")
+external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
+
+@module("react")
+external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
+
+@module("react")
+external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 
 @module("react")
 external useContext: Context.t<'any> => 'any = "useContext"
@@ -377,7 +401,31 @@ module Uncurried = {
   ) => ('state, (. 'action) => unit) = "useReducer"
 
   @module("react")
-  external useCallback: ('f, 'deps) => 'f = "useCallback"
+  external useCallback: 'f => 'f = "useCallback"
+
+  @module("react")
+  external useCallback0: ('f, @as(json`[]`) _) => 'f = "useCallback"
+
+  @module("react")
+  external useCallback1: ('f, array<'a>) => 'f = "useCallback"
+
+  @module("react")
+  external useCallback2: ('f, ('a, 'b)) => 'f = "useCallback"
+
+  @module("react")
+  external useCallback3: ('f, ('a, 'b, 'c)) => 'f = "useCallback"
+
+  @module("react")
+  external useCallback4: ('f, ('a, 'b, 'c, 'd)) => 'f = "useCallback"
+
+  @module("react")
+  external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
+
+  @module("react")
+  external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
+
+  @module("react")
+  external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 }
 
 @set
