@@ -23,6 +23,7 @@
 #### :bug: Bug Fix
 
 - Fixed children type for `Fragment`, `StrictMode` and `Suspense`.
+- Fixed the incorrect type definitions for `React.useCallback`
 
 #### :nail_care: Polish
 
