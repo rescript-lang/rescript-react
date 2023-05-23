@@ -19,11 +19,13 @@
 #### :boom: Breaking Change
 
 - Requires ReScript 11.0.0-alpha.6 or newer.
+- Deprecated useCallbackN functions in favor of changing `useCallback` signature. (`useCallback: 'f => 'f` -> `useCallback: ('f, 'deps) => 'f`)
+  - Use useCallback instead of useCallbackN. e.g. `useCallback3(f, (a, b, c))` -> `useCallback(f, (a, b, c))`
+  - With this change, it is now possible to pass any value as the second argument `'deps`, but you can still use tuples as before. It provides convenience and flexibility, especially in case of using more than 7 dependencies.
 
 #### :bug: Bug Fix
 
 - Fixed children type for `Fragment`, `StrictMode` and `Suspense`.
-- Fixed the incorrect type definitions for `React.useCallback`
 
 #### :nail_care: Polish
 
