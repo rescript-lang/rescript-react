@@ -62,7 +62,8 @@ let arrayToList = a => {
 let pathParse = str =>
   switch str {
   | ""
-  | "/" => list{}
+  | "/" =>
+    list{}
   | raw =>
     /* remove the preceeding /, which every pathname seems to have */
     let raw = Js.String.sliceToEnd(~from=1, raw)
@@ -190,7 +191,7 @@ let useUrl = (~serverUrl=?, ()) => {
     }
   )
 
-  React.useEffect0(() => {
+  React.useEffect(() => {
     let watcherId = watchUrl(url => setUrl(_ => url))
 
     // check for updates that may have occured between the initial state and
@@ -201,7 +202,7 @@ let useUrl = (~serverUrl=?, ()) => {
     }
 
     Some(() => unwatchUrl(watcherId))
-  })
+  }, [])
 
   url
 }

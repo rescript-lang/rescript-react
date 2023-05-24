@@ -19,6 +19,14 @@
 #### :boom: Breaking Change
 
 - Requires ReScript 11.0.0-alpha.6 or newer.
+- Deprecated use\*N functions in favor of changing the signature of the main hook function.
+  - For example, useEffect instead of useEffectN e.g. `useEffect3(f, (a, b, c))` -> `useEffect(f, (a, b, c))`
+  - The affected hooks include `useEffect`, `useLayoutEffect`, `useCallback`, `useMemo`, `useImperativeHandle`, `useInsertionEffect`
+  - With this change, it is now possible to pass any value as the second argument `'deps`. In case you pass an invalid value, you will get a warning from React at runtime. You should be using one of the following values for the dependency array:
+    - 0 dependencies: `[]`
+    - 1 dependency: `[a]`
+    - more than 1 dependency: `(a, b, ...)`
+- For calling `useEffect`, `useLayoutEffect` etc. *without* a dependency array (meaning that the effect is executed on every render), there are now separate bindings `useEffectOnEveryRender`, `useLayoutEffectOnEveryRender` etc.
 
 #### :bug: Bug Fix
 

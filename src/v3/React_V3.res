@@ -157,115 +157,121 @@ external useReducerWithMapState: (
 ) => ('state, 'action => unit) = "useReducer"
 
 @module("react")
-external useEffect: (@uncurry (unit => option<unit => unit>)) => unit = "useEffect"
+external useEffectOnEveryRender: (@uncurry (unit => option<unit => unit>)) => unit = "useEffect"
 @module("react")
+external useEffect: (@uncurry (unit => option<unit => unit>), 'deps) => unit = "useEffect"
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect0: (@uncurry (unit => option<unit => unit>), @as(json`[]`) _) => unit =
   "useEffect"
-@module("react")
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => unit = "useEffect"
-@module("react")
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect2: (@uncurry (unit => option<unit => unit>), ('a, 'b)) => unit = "useEffect"
-@module("react")
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit = "useEffect"
-@module("react")
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
   "useEffect"
-@module("react")
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect5: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e)) => unit =
   "useEffect"
-@module("react")
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect6: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e, 'f)) => unit =
   "useEffect"
-@module("react")
+@module("react") @deprecated("Please use useEffect or useEffectOnEveryRender instead")
 external useEffect7: (
   @uncurry (unit => option<unit => unit>),
   ('a, 'b, 'c, 'd, 'e, 'f, 'g),
 ) => unit = "useEffect"
 
 @module("react")
-external useLayoutEffect: (@uncurry (unit => option<unit => unit>)) => unit = "useLayoutEffect"
+external useLayoutEffectOnEveryRender: (@uncurry (unit => option<unit => unit>)) => unit =
+  "useLayoutEffect"
 @module("react")
+external useLayoutEffect: (@uncurry (unit => option<unit => unit>), 'deps) => unit =
+  "useLayoutEffect"
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect0: (@uncurry (unit => option<unit => unit>), @as(json`[]`) _) => unit =
   "useLayoutEffect"
-@module("react")
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => unit =
   "useLayoutEffect"
-@module("react")
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect2: (@uncurry (unit => option<unit => unit>), ('a, 'b)) => unit =
   "useLayoutEffect"
-@module("react")
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit =
   "useLayoutEffect"
-@module("react")
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
   "useLayoutEffect"
-@module("react")
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect5: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e)) => unit =
   "useLayoutEffect"
-@module("react")
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect6: (
   @uncurry (unit => option<unit => unit>),
   ('a, 'b, 'c, 'd, 'e, 'f),
 ) => unit = "useLayoutEffect"
-@module("react")
+@module("react") @deprecated("Please use useLayoutEffect or useLayoutEffectOnEveryRender instead")
 external useLayoutEffect7: (
   @uncurry (unit => option<unit => unit>),
   ('a, 'b, 'c, 'd, 'e, 'f, 'g),
 ) => unit = "useLayoutEffect"
 
 @module("react")
-external useMemo: (@uncurry (unit => 'any)) => 'any = "useMemo"
+external useMemo: (@uncurry (unit => 'any), 'deps) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo0: (@uncurry (unit => 'any), @as(json`[]`) _) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo1: (@uncurry (unit => 'any), array<'a>) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo2: (@uncurry (unit => 'any), ('a, 'b)) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo3: (@uncurry (unit => 'any), ('a, 'b, 'c)) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo4: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd)) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo5: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e)) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo6: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f)) => 'any = "useMemo"
 
-@module("react")
+@module("react") @deprecated("Please use useMemo instead")
 external useMemo7: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'any = "useMemo"
 
 @module("react")
-external useCallback: 'f => 'f = "useCallback"
+external useCallback: ('f, 'deps) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use useCallback instead")
 external useCallback0: ('f, @as(json`[]`) _) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use useCallback instead")
 external useCallback1: ('f, array<'a>) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use useCallback instead")
 external useCallback2: ('f, ('a, 'b)) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use useCallback instead")
 external useCallback3: ('f, ('a, 'b, 'c)) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use useCallback instead")
 external useCallback4: ('f, ('a, 'b, 'c, 'd)) => 'f = "useCallback"
 
-@module("react")
+@module("react") @deprecated("Please use useCallback instead")
 external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
 
-@module("react")
-external useCallback6: ('f, ('a, 'b, 'c, 'd, 'e, 'f)) => 'f = "useCallback"
+@module("react") @deprecated("Please use useCallback instead")
+external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
 
-@module("react")
-external useCallback7: ('f, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'f = "useCallback"
+@module("react") @deprecated("Please use useCallback instead")
+external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 
 @module("react")
 external useContext: Context.t<'any> => 'any = "useContext"
@@ -273,6 +279,20 @@ external useContext: Context.t<'any> => 'any = "useContext"
 @module("react") external useRef: 'value => ref<'value> = "useRef"
 
 @module("react")
+external useImperativeHandleOnEveryRender: (
+  Js.Nullable.t<ref<'value>>,
+  @uncurry (unit => 'value),
+) => unit = "useImperativeHandle"
+
+@module("react")
+external useImperativeHandle: (
+  Js.Nullable.t<ref<'value>>,
+  @uncurry (unit => 'value),
+  'deps,
+) => unit = "useImperativeHandle"
+
+@module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle0: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -280,6 +300,7 @@ external useImperativeHandle0: (
 ) => unit = "useImperativeHandle"
 
 @module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle1: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -287,6 +308,7 @@ external useImperativeHandle1: (
 ) => unit = "useImperativeHandle"
 
 @module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle2: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -294,6 +316,7 @@ external useImperativeHandle2: (
 ) => unit = "useImperativeHandle"
 
 @module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle3: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -301,6 +324,7 @@ external useImperativeHandle3: (
 ) => unit = "useImperativeHandle"
 
 @module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle4: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -308,6 +332,7 @@ external useImperativeHandle4: (
 ) => unit = "useImperativeHandle"
 
 @module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle5: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -315,6 +340,7 @@ external useImperativeHandle5: (
 ) => unit = "useImperativeHandle"
 
 @module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle6: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -322,6 +348,7 @@ external useImperativeHandle6: (
 ) => unit = "useImperativeHandle"
 
 @module("react")
+@deprecated("Please use useImperativeHandle or useImperativeHandleOnEveryRender instead")
 external useImperativeHandle7: (
   Js.Nullable.t<ref<'value>>,
   @uncurry (unit => 'value),
@@ -347,31 +374,31 @@ module Uncurried = {
   ) => ('state, (. 'action) => unit) = "useReducer"
 
   @module("react")
-  external useCallback: 'f => 'f = "useCallback"
+  external useCallback: ('f, 'deps) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use useCallback instead")
   external useCallback0: ('f, @as(json`[]`) _) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use useCallback instead")
   external useCallback1: ('f, array<'a>) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use useCallback instead")
   external useCallback2: ('f, ('a, 'b)) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use useCallback instead")
   external useCallback3: ('f, ('a, 'b, 'c)) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use useCallback instead")
   external useCallback4: ('f, ('a, 'b, 'c, 'd)) => 'f = "useCallback"
 
-  @module("react")
+  @module("react") @deprecated("Please use useCallback instead")
   external useCallback5: ('f, ('a, 'b, 'c, 'd, 'e)) => 'f = "useCallback"
 
-  @module("react")
-  external useCallback6: ('f, ('a, 'b, 'c, 'd, 'e, 'f)) => 'f = "useCallback"
+  @module("react") @deprecated("Please use useCallback instead")
+  external useCallback6: ('callback, ('a, 'b, 'c, 'd, 'e, 'f)) => 'callback = "useCallback"
 
-  @module("react")
-  external useCallback7: ('f, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'f = "useCallback"
+  @module("react") @deprecated("Please use useCallback instead")
+  external useCallback7: ('callback, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'callback = "useCallback"
 }
 
 @module("react")
