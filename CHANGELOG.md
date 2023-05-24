@@ -26,7 +26,7 @@
     - 0 dependencies: `[]`
     - 1 dependency: `[a]`
     - more than 1 dependency: `(a, b, ...)`
-    - In case of omitting dependency which means the effect is executed on every render, use \*onEveryRender functions. e.g. `useEffectOnEveryRender`
+- For calling `useEffect`, `useLayoutEffect` etc. *without* a dependency array (meaning that the effect is executed on every render), there are now separate bindings `useEffectOnEveryRender`, `useLayoutEffectOnEveryRender` etc.
 
 #### :bug: Bug Fix
 
