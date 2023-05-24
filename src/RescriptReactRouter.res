@@ -191,7 +191,7 @@ let useUrl = (~serverUrl=?, ()) => {
     }
   )
 
-  React.useEffectOnEveryRender(() => {
+  React.useEffect(() => {
     let watcherId = watchUrl(url => setUrl(_ => url))
 
     // check for updates that may have occured between the initial state and
@@ -202,7 +202,7 @@ let useUrl = (~serverUrl=?, ()) => {
     }
 
     Some(() => unwatchUrl(watcherId))
-  })
+  }, [])
 
   url
 }
