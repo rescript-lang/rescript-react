@@ -191,22 +191,22 @@ function useUrl(serverUrl, param) {
       });
   var setUrl = match[1];
   var url$1 = match[0];
-  React.useEffect((function (param) {
-          var watcherId = watchUrl(function (url) {
-                Curry._1(setUrl, (function (param) {
-                        return url;
-                      }));
-              });
-          var newUrl = url(undefined, undefined);
-          if (urlNotEqual(newUrl, url$1)) {
-            Curry._1(setUrl, (function (param) {
-                    return newUrl;
-                  }));
-          }
-          return (function (param) {
-                    unwatchUrl(watcherId);
-                  });
-        }), []);
+  React.useEffect(function (param) {
+        var watcherId = watchUrl(function (url) {
+              Curry._1(setUrl, (function (param) {
+                      return url;
+                    }));
+            });
+        var newUrl = url(undefined, undefined);
+        if (urlNotEqual(newUrl, url$1)) {
+          Curry._1(setUrl, (function (param) {
+                  return newUrl;
+                }));
+        }
+        return (function (param) {
+                  unwatchUrl(watcherId);
+                });
+      });
   return url$1;
 }
 
