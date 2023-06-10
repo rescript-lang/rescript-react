@@ -1,0 +1,3 @@
+# Tell github that .res and .resi files are ReScript
+*.res linguist-language=ReScript
+*.resi linguist-language=ReScript
