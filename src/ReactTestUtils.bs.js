@@ -2,8 +2,6 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
-var Belt_Array = require("rescript/lib/js/belt_Array.js");
-var Belt_Option = require("rescript/lib/js/belt_Option.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var TestUtils = require("react-dom/test-utils");
 
@@ -52,15 +50,15 @@ function findByAllSelector(element, selector) {
 }
 
 function findBySelectorAndTextContent(element, selector, content) {
-  return Belt_Array.getBy(Array.from(element.querySelectorAll(selector)), (function (node) {
-                return node.textContent === content;
-              }));
+  return Caml_option.undefined_to_opt(Array.from(element.querySelectorAll(selector)).find(function (node) {
+                  return node.textContent === content;
+                }));
 }
 
 function findBySelectorAndPartialTextContent(element, selector, content) {
-  return Belt_Array.getBy(Array.from(element.querySelectorAll(selector)), (function (node) {
-                return node.textContent.includes(content);
-              }));
+  return Caml_option.undefined_to_opt(Array.from(element.querySelectorAll(selector)).find(function (node) {
+                  return node.textContent.includes(content);
+                }));
 }
 
 var DOM = {
@@ -72,21 +70,30 @@ var DOM = {
 
 function prepareContainer(container, param) {
   var containerElement = document.createElement("div");
-  Belt_Option.map(document.body, (function (body) {
-          return body.appendChild(containerElement);
-        }));
+  var body = document.body;
+  if (body !== undefined) {
+    Caml_option.valFromOption(body).appendChild(containerElement);
+  }
   container.contents = Caml_option.some(containerElement);
 }
 
 function cleanupContainer(container, param) {
-  Belt_Option.map(container.contents, (function (prim) {
-          prim.remove();
-        }));
+  var contents = container.contents;
+  if (contents !== undefined) {
+    Caml_option.valFromOption(contents).remove();
+  }
   container.contents = undefined;
 }
 
 function getContainer(container) {
-  return Belt_Option.getExn(container.contents);
+  var contents = container.contents;
+  if (contents !== undefined) {
+    return Caml_option.valFromOption(contents);
+  }
+  throw {
+        RE_EXN_ID: "Not_found",
+        Error: new Error()
+      };
 }
 
 exports.act = act;
