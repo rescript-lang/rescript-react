@@ -10,6 +10,10 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.12.0
+
+- Requires ReScript 11.0.0 or newer.
+
 ## 0.12.0-alpha.3
 
 #### :boom: Breaking Change
