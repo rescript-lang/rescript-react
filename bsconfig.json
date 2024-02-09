@@ -8,5 +8,6 @@
   "package-specs": [{ "module": "commonjs", "in-source": true }],
   "suffix": ".bs.js",
   "bs-dev-dependencies": [],
-  "bsc-flags": []
+  "bsc-flags": [],
+  "uncurried": false
 }
