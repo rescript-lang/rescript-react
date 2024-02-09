@@ -153,7 +153,7 @@ function urlNotEqual(a, b) {
 function url(serverUrlString, param) {
   return {
           path: path(serverUrlString, undefined),
-          hash: hash(undefined),
+          hash: hash(),
           search: search(serverUrlString, undefined)
         };
 }
