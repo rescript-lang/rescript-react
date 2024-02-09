@@ -10,6 +10,10 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.12.1
+
+- Undeprecate numbered hooks for a smoother upgrading experience.
+
 ## 0.12.0
 
 - Requires ReScript 11.0.0 or newer.
