@@ -1,3 +1,5 @@
+@val external window: option<Dom.window> = "window"
+
 @get external location: Dom.window => Dom.location = "location"
 
 /* actually the cb is Dom.event => unit, but let's restrict the access for now */
@@ -15,6 +17,8 @@ external dispatchEvent: (Dom.window, Dom.event) => unit = "dispatchEvent"
 @get external hash: Dom.location => string = "hash"
 
 @get external search: Dom.location => string = "search"
+
+@val external history: option<Dom.history> = "window"
 
 @send
 external pushState: (Dom.history, @as(json`null`) _, @as("") _, ~href: string) => unit = "pushState"
@@ -81,15 +85,15 @@ let pathParse = str =>
     raw |> Js.String.split("/") |> Js.Array.filter(item => String.length(item) != 0) |> arrayToList
   }
 let path = (~serverUrlString=?, ()) =>
-  switch (serverUrlString, %external(window)) {
+  switch (serverUrlString, window) {
   | (None, None) => list{}
   | (Some(serverUrlString), _) => pathParse(serverUrlString)
-  | (_, Some(window: Dom.window)) => pathParse(window |> location |> pathname)
+  | (_, Some(window)) => pathParse(window |> location |> pathname)
   }
 let hash = () =>
-  switch %external(window) {
+  switch window {
   | None => ""
-  | Some(window: Dom.window) =>
+  | Some(window) =>
     switch window |> location |> hash {
     | ""
     | "#" => ""
@@ -111,26 +115,24 @@ let searchParse = str =>
   }
 
 let search = (~serverUrlString=?, ()) =>
-  switch (serverUrlString, %external(window)) {
+  switch (serverUrlString, window) {
   | (None, None) => ""
   | (Some(serverUrlString), _) => searchParse(serverUrlString)
-  | (_, Some(window: Dom.window)) => searchParse(window |> location |> search)
+  | (_, Some(window)) => searchParse(window |> location |> search)
   }
 
 let push = path =>
-  switch (%external(history), %external(window)) {
-  | (None, _)
-  | (_, None) => ()
-  | (Some(history: Dom.history), Some(window: Dom.window)) =>
+  switch (history, window) {
+  | (None, _) | (_, None) => ()
+  | (Some(history), Some(window)) =>
     pushState(history, ~href=path)
     dispatchEvent(window, safeMakeEvent("popstate"))
   }
 
 let replace = path =>
-  switch (%external(history), %external(window)) {
-  | (None, _)
-  | (_, None) => ()
-  | (Some(history: Dom.history), Some(window: Dom.window)) =>
+  switch (history, window) {
+  | (None, _) | (_, None) => ()
+  | (Some(history: Dom.history), Some(window)) =>
     replaceState(history, ~href=path)
     dispatchEvent(window, safeMakeEvent("popstate"))
   }
@@ -169,18 +171,18 @@ let url = (~serverUrlString=?, ()) => {
 let dangerouslyGetInitialUrl = url
 
 let watchUrl = callback =>
-  switch %external(window) {
+  switch window {
   | None => () => ()
-  | Some(window: Dom.window) =>
+  | Some(window) =>
     let watcherID = () => callback(url())
     addEventListener(window, "popstate", watcherID)
     watcherID
   }
 
 let unwatchUrl = watcherID =>
-  switch %external(window) {
+  switch window {
   | None => ()
-  | Some(window: Dom.window) => removeEventListener(window, "popstate", watcherID)
+  | Some(window) => removeEventListener(window, "popstate", watcherID)
   }
 
 let useUrl = (~serverUrl=?, ()) => {
