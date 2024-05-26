@@ -10,6 +10,11 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.12.2
+
+- Fix incorrect usage of `@uncurry`.
+- bsconfig.json -> rescript.json.
+
 ## 0.12.1
 
 - Undeprecate numbered hooks for a smoother upgrading experience.
