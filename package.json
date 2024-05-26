@@ -6,7 +6,7 @@
     "README.md",
     "CHANGELOG.md",
     "LICENSE",
-    "bsconfig.json",
+    "rescript.json",
     "src/**/*.res",
     "src/**/*.resi"
   ],
