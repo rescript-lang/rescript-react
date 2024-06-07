@@ -10,6 +10,12 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.12.3 [Unreleased]
+
+#### :bug: Bug Fix
+
+- Remove hardcoded `require` so it works in both common js and ES module modes. (https://github.com/rescript-lang/rescript-react/pull/117)
+
 ## 0.12.2
 
 - Fix incorrect usage of `@uncurry`.

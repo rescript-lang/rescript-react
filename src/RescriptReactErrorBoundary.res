@@ -10,8 +10,14 @@ type params<'error> = {
   info: info,
 }
 
+type reactComponentClass
+@module("react") external component: reactComponentClass = "Component"
+let noOp: reactComponentClass => unit = %raw(`function (_x) {}`)
+let reactComponentClass = component
+// this is so that the compiler doesn't optimize away the previous line
+noOp(reactComponentClass)
+
 %%raw(`
-var React = require("react");
 
 var ErrorBoundary = (function (Component) {
   function ErrorBoundary(props) {
@@ -28,7 +34,7 @@ var ErrorBoundary = (function (Component) {
       : this.props.children;
   };
   return ErrorBoundary;
-})(React.Component);
+})(reactComponentClass);
 `)
 
 @react.component @val
