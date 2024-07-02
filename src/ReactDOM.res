@@ -61,7 +61,10 @@ module Ref = {
   external callbackDomRef: callbackDomRef => domRef = "%identity"
 }
 
-type domProps = JsxDOM.domProps
+type domProps = {
+  ...JsxDOM.domProps,
+  suppressHydrationWarning?: bool,
+}
 
 @deprecated("Please use type ReactDOM.domProps")
 type props = JsxDOM.domProps
