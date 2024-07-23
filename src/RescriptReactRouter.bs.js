@@ -5,6 +5,7 @@ var Curry = require("rescript/lib/js/curry.js");
 var React = require("react");
 var Js_array = require("rescript/lib/js/js_array.js");
 var Js_string = require("rescript/lib/js/js_string.js");
+var Caml_option = require("rescript/lib/js/caml_option.js");
 
 function safeMakeEvent(eventName) {
   if (typeof Event === "function") {
@@ -48,22 +49,22 @@ function pathParse(str) {
 }
 
 function path(serverUrlString, param) {
-  var match = typeof window === "undefined" ? undefined : window;
+  var match = globalThis.window;
   if (serverUrlString !== undefined) {
     return pathParse(serverUrlString);
   } else if (match !== undefined) {
-    return pathParse(match.location.pathname);
+    return pathParse(Caml_option.valFromOption(match).location.pathname);
   } else {
     return /* [] */0;
   }
 }
 
 function hash(param) {
-  var $$window = typeof window === "undefined" ? undefined : window;
+  var $$window = globalThis.window;
   if ($$window === undefined) {
     return "";
   }
-  var raw = $$window.location.hash;
+  var raw = Caml_option.valFromOption($$window).location.hash;
   switch (raw) {
     case "" :
     case "#" :
@@ -89,33 +90,33 @@ function searchParse(str) {
 }
 
 function search(serverUrlString, param) {
-  var match = typeof window === "undefined" ? undefined : window;
+  var match = globalThis.window;
   if (serverUrlString !== undefined) {
     return searchParse(serverUrlString);
   } else if (match !== undefined) {
-    return searchParse(match.location.search);
+    return searchParse(Caml_option.valFromOption(match).location.search);
   } else {
     return "";
   }
 }
 
 function push(path) {
-  var match = typeof history === "undefined" ? undefined : history;
-  var match$1 = typeof window === "undefined" ? undefined : window;
+  var match = globalThis.history;
+  var match$1 = globalThis.window;
   if (match !== undefined && match$1 !== undefined) {
-    match.pushState(null, "", path);
-    match$1.dispatchEvent(safeMakeEvent("popstate"));
+    Caml_option.valFromOption(match).pushState(null, "", path);
+    Caml_option.valFromOption(match$1).dispatchEvent(safeMakeEvent("popstate"));
     return ;
   }
   
 }
 
 function replace(path) {
-  var match = typeof history === "undefined" ? undefined : history;
-  var match$1 = typeof window === "undefined" ? undefined : window;
+  var match = globalThis.history;
+  var match$1 = globalThis.window;
   if (match !== undefined && match$1 !== undefined) {
-    match.replaceState(null, "", path);
-    match$1.dispatchEvent(safeMakeEvent("popstate"));
+    Caml_option.valFromOption(match).replaceState(null, "", path);
+    Caml_option.valFromOption(match$1).dispatchEvent(safeMakeEvent("popstate"));
     return ;
   }
   
@@ -159,7 +160,7 @@ function url(serverUrlString, param) {
 }
 
 function watchUrl(callback) {
-  var $$window = typeof window === "undefined" ? undefined : window;
+  var $$window = globalThis.window;
   if ($$window === undefined) {
     return function (param) {
       
@@ -168,14 +169,14 @@ function watchUrl(callback) {
   var watcherID = function (param) {
     Curry._1(callback, url(undefined, undefined));
   };
-  $$window.addEventListener("popstate", watcherID);
+  Caml_option.valFromOption($$window).addEventListener("popstate", watcherID);
   return watcherID;
 }
 
 function unwatchUrl(watcherID) {
-  var $$window = typeof window === "undefined" ? undefined : window;
+  var $$window = globalThis.window;
   if ($$window !== undefined) {
-    $$window.removeEventListener("popstate", watcherID);
+    Caml_option.valFromOption($$window).removeEventListener("popstate", watcherID);
     return ;
   }
   
