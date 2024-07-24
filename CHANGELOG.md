@@ -10,7 +10,11 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
-## 0.12.3 [Unreleased]
+## 0.13.0
+
+#### :boom: Breaking Change
+
+- Replace usages of `%external` by binding to `globalThis`. This is to support upcoming ReScript 12 versions. For older browsers, it may be necessary to polyfill `globalThis`.
 
 #### :bug: Bug Fix
 
