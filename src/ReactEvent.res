@@ -25,6 +25,31 @@ module MakeEventWithType = (
   @send external persist: Type.t => unit = "persist"
 }
 
+module MakeEventWithTypeStrict = (
+  Type: {
+    type t
+  },
+) => {
+  @get external bubbles: Type.t => bool = "bubbles"
+  @get external cancelable: Type.t => bool = "cancelable"
+  @get
+  external currentTarget: Type.t => Js.Json.t = "currentTarget" /* Should return Dom.eventTarget */
+  @get external defaultPrevented: Type.t => bool = "defaultPrevented"
+  @get external eventPhase: Type.t => int = "eventPhase"
+  @get external isTrusted: Type.t => bool = "isTrusted"
+  @get external nativeEvent: Type.t => Js.Json.t = "nativeEvent" /* Should return Dom.event */
+  @send external preventDefault: Type.t => unit = "preventDefault"
+  @send
+  external isDefaultPrevented: Type.t => bool = "isDefaultPrevented"
+  @send external stopPropagation: Type.t => unit = "stopPropagation"
+  @send
+  external isPropagationStopped: Type.t => bool = "isPropagationStopped"
+  @get external target: Type.t => Js.Json.t = "target" /* Should return Dom.eventTarget */
+  @get external timeStamp: Type.t => float = "timeStamp"
+  @get external type_: Type.t => string = "type"
+  @send external persist: Type.t => unit = "persist"
+}
+
 module Synthetic = {
   type tag = JsxEvent.Synthetic.tag
   type t = synthetic<tag>
@@ -109,7 +134,7 @@ module Focus = {
 module Form = {
   type tag = JsxEvent.Form.tag
   type t = synthetic<tag>
-  include MakeEventWithType({
+  include MakeEventWithTypeStrict({
     type t = t
   })
 }
