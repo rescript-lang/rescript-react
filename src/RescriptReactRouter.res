@@ -1,3 +1,9 @@
+@scope("globalThis")
+external window: option<Dom.window> = "window"
+
+@scope("globalThis")
+external history: option<Dom.history> = "history"
+
 @get external location: Dom.window => Dom.location = "location"
 
 /* actually the cb is Dom.event => unit, but let's restrict the access for now */
@@ -81,13 +87,13 @@ let pathParse = str =>
     raw |> Js.String.split("/") |> Js.Array.filter(item => String.length(item) != 0) |> arrayToList
   }
 let path = (~serverUrlString=?, ()) =>
-  switch (serverUrlString, %external(window)) {
+  switch (serverUrlString, window) {
   | (None, None) => list{}
   | (Some(serverUrlString), _) => pathParse(serverUrlString)
   | (_, Some(window: Dom.window)) => pathParse(window |> location |> pathname)
   }
 let hash = () =>
-  switch %external(window) {
+  switch window {
   | None => ""
   | Some(window: Dom.window) =>
     switch window |> location |> hash {
@@ -111,14 +117,14 @@ let searchParse = str =>
   }
 
 let search = (~serverUrlString=?, ()) =>
-  switch (serverUrlString, %external(window)) {
+  switch (serverUrlString, window) {
   | (None, None) => ""
   | (Some(serverUrlString), _) => searchParse(serverUrlString)
   | (_, Some(window: Dom.window)) => searchParse(window |> location |> search)
   }
 
 let push = path =>
-  switch (%external(history), %external(window)) {
+  switch (history, window) {
   | (None, _)
   | (_, None) => ()
   | (Some(history: Dom.history), Some(window: Dom.window)) =>
@@ -127,7 +133,7 @@ let push = path =>
   }
 
 let replace = path =>
-  switch (%external(history), %external(window)) {
+  switch (history, window) {
   | (None, _)
   | (_, None) => ()
   | (Some(history: Dom.history), Some(window: Dom.window)) =>
@@ -169,7 +175,7 @@ let url = (~serverUrlString=?, ()) => {
 let dangerouslyGetInitialUrl = url
 
 let watchUrl = callback =>
-  switch %external(window) {
+  switch window {
   | None => () => ()
   | Some(window: Dom.window) =>
     let watcherID = () => callback(url())
@@ -178,7 +184,7 @@ let watchUrl = callback =>
   }
 
 let unwatchUrl = watcherID =>
-  switch %external(window) {
+  switch window {
   | None => ()
   | Some(window: Dom.window) => removeEventListener(window, "popstate", watcherID)
   }
