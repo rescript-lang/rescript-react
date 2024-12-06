@@ -55,7 +55,7 @@ let arrayToList = a => {
     if i < 0 {
       res
     } else {
-      tolist(i - 1, list{Array.unsafe_get(a, i), ...res})
+      tolist(i - 1, list{Array.getUnsafe(a, i), ...res})
     }
   tolist(Array.length(a) - 1, list{})
 }
