@@ -430,3 +430,14 @@ external useActionState: (
 @module("react")
 external useOptimistic: ('state, ('state, 'action) => 'state) => ('state, 'action => unit) =
   "useOptimistic"
+
+module Usable = {
+  type t<'value>
+
+  external context: Context.t<'value> => t<'value> = "%identity"
+  external promise: promise<'value> => t<'value> = "%identity"
+}
+
+/** `use` is a React API that lets you read the value of a resource like a Promise or context. */
+@module("react")
+external use: Usable.t<'value> => 'value = "use"
