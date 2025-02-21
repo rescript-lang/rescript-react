@@ -425,3 +425,8 @@ external useActionState: (
   'state,
   ~permalink: string=?,
 ) => ('state, formAction<'payload>, bool) = "useActionState"
+
+/** `useOptimistic` is a React Hook that lets you optimistically update the UI. */
+@module("react")
+external useOptimistic: ('state, ('state, 'action) => 'state) => ('state, 'action => unit) =
+  "useOptimistic"
