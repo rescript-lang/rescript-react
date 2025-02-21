@@ -413,3 +413,15 @@ type transitionStartFunction = transitionFunction => unit
 /** `useTransition` is a React Hook that lets you render a part of the UI in the background. */
 @module("react")
 external useTransition: unit => (bool, transitionStartFunction) = "useTransition"
+
+type action<'state, 'payload> = ('state, 'payload) => promise<'state>
+
+type formAction<'formData> = 'formData => promise<unit>
+
+/** `useActionState` is a Hook that allows you to update state based on the result of a form action. */
+@module("react")
+external useActionState: (
+  action<'state, 'payload>,
+  'state,
+  ~permalink: string=?,
+) => ('state, formAction<'payload>, bool) = "useActionState"
