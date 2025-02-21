@@ -25,6 +25,23 @@ module Client = {
   external hydrateRoot: (Dom.element, React.element) => Root.t = "hydrateRoot"
 }
 
+// Very rudimentary form data bindings
+module FormData = {
+  type t
+  type value
+
+  @new external make: unit => t = "FormData"
+
+  @send external append: (t, string, ~filename: string=?) => unit = "append"
+  @send external delete: (t, string) => unit = "delete"
+  @send external get: (t, string) => option<value> = "get"
+  @send external getAll: (t, string) => array<value> = "getAll"
+  @send external set: (string, string) => unit = "set"
+  @send external has: string => bool = "has"
+  // @send external keys: t => Iterator.t<string> = "keys";
+  // @send external values: t => Iterator.t<value> = "values";
+}
+
 @module("react-dom")
 external createPortal: (React.element, Dom.element) => React.element = "createPortal"
 
@@ -42,6 +59,23 @@ module Ref = {
   external domRef: currentDomRef => domRef = "%identity"
   external callbackDomRef: callbackDomRef => domRef = "%identity"
 }
+
+// Hooks
+
+type formStatus<'state> = {
+  /** If true, this means the parent <form> is pending submission. Otherwise, false. */
+  pending: bool,
+  /** An object implementing the FormData interface that contains the data the parent <form> is submitting. If there is no active submission or no parent <form>, it will be null. */
+  data: FormData.t,
+  /** This represents whether the parent <form> is submitting with either a GET or POST HTTP method. By default, a <form> will use the GET method and can be specified by the method property. */
+  method: [#get | #post],
+  /** A reference to the function passed to the action prop on the parent <form>. If there is no parent <form>, the property is null. If there is a URI value provided to the action prop, or no action prop specified, status.action will be null. */
+  action: React.action<'state, FormData.t>,
+}
+
+/** `useFormStatus` is a Hook that gives you status information of the last form submission. */
+@module("react-dom")
+external useFormStatus: unit => formStatus<'state> = "useFormStatus"
 
 // Resource Preloading APIs
 
