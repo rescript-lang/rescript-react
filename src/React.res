@@ -5,6 +5,7 @@ type element = Jsx.element
 external float: float => element = "%identity"
 external int: int => element = "%identity"
 external string: string => element = "%identity"
+external promise: promise<element> => element = "%identity"
 
 external array: array<element> => element = "%identity"
 
