@@ -37,7 +37,7 @@ type domRef = JsxDOM.domRef
 module Ref = {
   type t = domRef
   type currentDomRef = React.ref<Js.nullable<Dom.element>>
-  type callbackDomRef = Js.nullable<Dom.element> => unit
+  type callbackDomRef = Js.nullable<Dom.element> => option<unit => unit>
 
   external domRef: currentDomRef => domRef = "%identity"
   external callbackDomRef: callbackDomRef => domRef = "%identity"
