@@ -313,9 +313,6 @@ external useImperativeHandle7: (
 @module("react") external useDeferredValue: 'value => 'value = "useDeferredValue"
 
 @module("react")
-external useTransition: unit => (bool, (unit => unit) => unit) = "useTransition"
-
-@module("react")
 external useInsertionEffectOnEveryRender: (unit => option<unit => unit>) => unit =
   "useInsertionEffect"
 @module("react")
@@ -406,3 +403,13 @@ external setDisplayName: (component<'props>, string) => unit = "displayName"
 
 @get @return(nullable)
 external displayName: component<'props> => option<string> = "displayName"
+
+// Actions
+
+type transitionFunction = unit => promise<unit>
+
+type transitionStartFunction = transitionFunction => unit
+
+/** `useTransition` is a React Hook that lets you render a part of the UI in the background. */
+@module("react")
+external useTransition: unit => (bool, transitionStartFunction) = "useTransition"
