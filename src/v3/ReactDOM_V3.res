@@ -6,33 +6,35 @@
  calls and add the appropriate `require("react-dom")` in the file calling this `render` */
 
 // Helper so that ReactDOM itself doesn't bring any runtime
-@val @return(nullable)
+@val @return(nullable) @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external querySelector: string => option<Dom.element> = "document.querySelector"
 
-@module("react-dom")
+@module("react-dom") @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external render: (React.element, Dom.element) => unit = "render"
 
 module Experimental = {
   type root = ReactDOM.Client.Root.t
 
-  @module("react-dom")
+  @module("react-dom") @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
   external createRoot: Dom.element => root = "createRoot"
 
-  @module("react-dom")
+  @module("react-dom") @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
   external createBlockingRoot: Dom.element => root = "createBlockingRoot"
 
-  @send external render: (root, React.element) => unit = "render"
+  @send @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
+  external render: (root, React.element) => unit = "render"
 }
 
-@module("react-dom")
+@module("react-dom") @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external hydrate: (React.element, Dom.element) => unit = "hydrate"
 
-@module("react-dom")
+@module("react-dom") @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external createPortal: (React.element, Dom.element) => React.element = "createPortal"
 
-@module("react-dom")
+@module("react-dom") @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external unmountComponentAtNode: Dom.element => unit = "unmountComponentAtNode"
 
+@deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external domElementToObj: Dom.element => {..} = "%identity"
 
 type style = ReactDOMStyle.t
@@ -44,7 +46,9 @@ module Ref = {
   type currentDomRef = React.ref<Js.nullable<Dom.element>>
   type callbackDomRef = Js.nullable<Dom.element> => unit
 
+  @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
   external domRef: currentDomRef => domRef = "%identity"
+  @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
   external callbackDomRef: callbackDomRef => domRef = "%identity"
 }
 
@@ -2108,6 +2112,7 @@ include Props
 
 // As we've removed `ReactDOMRe.createElement`, this enables patterns like
 // React.createElement(ReactDOM.stringToComponent(multiline ? "textarea" : "input"), ...)
+@deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external stringToComponent: string => React.component<domProps> = "%identity"
 
 module Style = ReactDOMStyle

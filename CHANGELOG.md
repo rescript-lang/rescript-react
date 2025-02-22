@@ -10,6 +10,10 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.13.1 (Unreleased)
+
+- Deprecate JSX 3 https://github.com/rescript-lang/rescript-react/pull/120
+
 ## 0.13.0
 
 #### :boom: Breaking Change

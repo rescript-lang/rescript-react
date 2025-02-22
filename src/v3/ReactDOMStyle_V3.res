@@ -1,6 +1,6 @@
 type t = ReactDOMStyle.t
 
-@obj
+@obj @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external make: (
   ~azimuth: string=?,
   ~background: string=?,
@@ -420,16 +420,18 @@ external make: (
 ) => t = ""
 
 /* CSS2Properties: https://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSS2Properties */
-@val
+@val @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external combine: (@as(json`{}`) _, t, t) => t = "Object.assign"
 
+@deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external _dictToStyle: Js.Dict.t<string> => t = "%identity"
 
+@deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 let unsafeAddProp = (style, key, value) => {
   let dict = Js.Dict.empty()
   Js.Dict.set(dict, key, value)
   combine(style, _dictToStyle(dict))
 }
 
-@val
+@val @deprecated("Jsx 3 is deprecated, use jsx 4 instead")
 external unsafeAddStyle: (@as(json`{}`) _, t, {..}) => t = "Object.assign"
