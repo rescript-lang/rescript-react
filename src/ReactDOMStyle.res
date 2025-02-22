@@ -1,6 +1,6 @@
 type t = JsxDOMStyle.t
 
-@obj
+@deprecated("Please directly construct the style record instead") @obj
 external make: (
   ~azimuth: string=?,
   ~backdropFilter: string=?,
