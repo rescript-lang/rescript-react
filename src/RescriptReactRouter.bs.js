@@ -3,8 +3,6 @@
 
 var Curry = require("rescript/lib/js/curry.js");
 var React = require("react");
-var Js_array = require("rescript/lib/js/js_array.js");
-var Js_string = require("rescript/lib/js/js_string.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 
 function safeMakeEvent(eventName) {
@@ -22,14 +20,14 @@ function pathParse(str) {
     case "/" :
         return /* [] */0;
     default:
-      var raw = Js_string.sliceToEnd(1, str);
+      var raw = str.slice(1);
       var match = raw[raw.length - 1 | 0];
-      var raw$1 = match === "/" ? Js_string.slice(0, -1, raw) : raw;
-      var match$1 = Js_string.splitAtMost("?", 2, raw$1);
+      var raw$1 = match === "/" ? raw.slice(0, -1) : raw;
+      var match$1 = raw$1.split("?", 2);
       var raw$2 = match$1.length !== 2 ? raw$1 : match$1[0];
-      var a = Js_array.filter((function (item) {
-              return item.length !== 0;
-            }), Js_string.split("/", raw$2));
+      var a = raw$2.split("/").filter(function (item) {
+            return item.length !== 0;
+          });
       var _i = a.length - 1 | 0;
       var _res = /* [] */0;
       while(true) {
@@ -70,7 +68,7 @@ function hash(param) {
     case "#" :
         return "";
     default:
-      return Js_string.sliceToEnd(1, raw);
+      return raw.slice(1);
   }
 }
 
@@ -80,7 +78,7 @@ function searchParse(str) {
     case "?" :
         return "";
     default:
-      var match = Js_string.splitAtMost("?", 2, str);
+      var match = str.split("?", 2);
       if (match.length !== 2) {
         return "";
       } else {

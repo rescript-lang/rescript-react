@@ -55,9 +55,9 @@ let arrayToList = a => {
     if i < 0 {
       res
     } else {
-      tolist(i - 1, list{Array.unsafe_get(a, i), ...res})
+      tolist(i - 1, list{a->Js.Array2.unsafe_get(i), ...res})
     }
-  tolist(Array.length(a) - 1, list{})
+  tolist(a->Js.Array2.length - 1, list{})
 }
 /* if we ever roll our own parser in the future, make sure you test all url combinations
    e.g. foo.com/?#bar
@@ -72,37 +72,37 @@ let pathParse = str =>
     list{}
   | raw =>
     /* remove the preceeding /, which every pathname seems to have */
-    let raw = Js.String.sliceToEnd(~from=1, raw)
+    let raw = raw->Js.String2.sliceToEnd(~from=1)
     /* remove the trailing /, which some pathnames might have. Ugh */
-    let raw = switch Js.String.get(raw, Js.String.length(raw) - 1) {
-    | "/" => Js.String.slice(~from=0, ~to_=-1, raw)
+    let raw = switch raw->Js.String2.get(raw->Js.String2.length - 1) {
+    | "/" => raw->Js.String2.slice(~from=0, ~to_=-1)
     | _ => raw
     }
     /* remove search portion if present in string */
-    let raw = switch raw |> Js.String.splitAtMost("?", ~limit=2) {
+    let raw = switch raw->Js.String2.splitAtMost("?", ~limit=2) {
     | [path, _] => path
     | _ => raw
     }
 
-    raw |> Js.String.split("/") |> Js.Array.filter(item => String.length(item) != 0) |> arrayToList
+    raw->Js.String2.split("/")->Js.Array2.filter(item => item->Js.String2.length != 0)->arrayToList
   }
 let path = (~serverUrlString=?, ()) =>
   switch (serverUrlString, window) {
   | (None, None) => list{}
   | (Some(serverUrlString), _) => pathParse(serverUrlString)
-  | (_, Some(window: Dom.window)) => pathParse(window |> location |> pathname)
+  | (_, Some(window: Dom.window)) => pathParse(window->location->pathname)
   }
 let hash = () =>
   switch window {
   | None => ""
   | Some(window: Dom.window) =>
-    switch window |> location |> hash {
+    switch window->location->hash {
     | ""
     | "#" => ""
     | raw =>
       /* remove the preceeding #, which every hash seems to have.
        Why is this even included in location.hash?? */
-      raw |> Js.String.sliceToEnd(~from=1)
+      raw->Js.String2.sliceToEnd(~from=1)
     }
   }
 let searchParse = str =>
@@ -110,7 +110,7 @@ let searchParse = str =>
   | ""
   | "?" => ""
   | raw =>
-    switch raw |> Js.String.splitAtMost("?", ~limit=2) {
+    switch raw->Js.String2.splitAtMost("?", ~limit=2) {
     | [_, search] => search
     | _ => ""
     }
@@ -120,7 +120,7 @@ let search = (~serverUrlString=?, ()) =>
   switch (serverUrlString, window) {
   | (None, None) => ""
   | (Some(serverUrlString), _) => searchParse(serverUrlString)
-  | (_, Some(window: Dom.window)) => searchParse(window |> location |> search)
+  | (_, Some(window: Dom.window)) => searchParse(window->location->search)
   }
 
 let push = path =>
