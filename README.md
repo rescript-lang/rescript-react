@@ -7,11 +7,12 @@
 
 ### Versions
 
-| @rescript/react | ReScript | ReactJS | Documentation                                                     |
-| --------------- | -------- | ------- | ----------------------------------------------------------------- |
-| 0.12.0+         | 11.0+    | 18.0.0+ | [Link](https://rescript-lang.org/docs/react/latest/introduction)  |
-| 0.11.0          | 10.1     | 18.0.0+ | [Link](https://rescript-lang.org/docs/react/v0.11.0/introduction) |
-| 0.10.3          | 8.3      | 16.8.1+ | [Link](https://rescript-lang.org/docs/react/v0.10.0/introduction) |
+| @rescript/react | ReScript                           | ReactJS | Documentation                                                     |
+| --------------- | ---------------------------------- | ------- | ----------------------------------------------------------------- |
+| next (master)   | 11.0+ (JSX4 + uncurried mode only) | 18.0.0+ |                                                                   |
+| 0.12.x, 0.13.x  | 11.0+                              | 18.0.0+ | [Link](https://rescript-lang.org/docs/react/latest/introduction)  |
+| 0.11.0          | 10.1                               | 18.0.0+ | [Link](https://rescript-lang.org/docs/react/v0.11.0/introduction) |
+| 0.10.3          | 8.3                                | 16.8.1+ | [Link](https://rescript-lang.org/docs/react/v0.10.0/introduction) |
 
 ### Development
 
