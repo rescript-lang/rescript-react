@@ -52,11 +52,11 @@ module Children = {
   @module("react") @scope("Children")
   external map: (element, element => element) => element = "map"
   @module("react") @scope("Children")
-  external mapWithIndex: (element, @uncurry (element, int) => element) => element = "map"
+  external mapWithIndex: (element, (element, int) => element) => element = "map"
   @module("react") @scope("Children")
   external forEach: (element, element => unit) => unit = "forEach"
   @module("react") @scope("Children")
-  external forEachWithIndex: (element, @uncurry (element, int) => unit) => unit = "forEach"
+  external forEachWithIndex: (element, (element, int) => unit) => unit = "forEach"
   @module("react") @scope("Children")
   external count: element => int = "count"
   @module("react") @scope("Children")
@@ -81,7 +81,7 @@ module Context = {
 external createContext: 'a => Context.t<'a> = "createContext"
 
 @module("react")
-external forwardRef: (@uncurry ('props, Js.Nullable.t<ref<'a>>) => element) => component<'props> =
+external forwardRef: (('props, Js.Nullable.t<ref<'a>>) => element) => component<'props> =
   "forwardRef"
 
 @module("react")
@@ -90,7 +90,7 @@ external memo: component<'props> => component<'props> = "memo"
 @module("react")
 external memoCustomCompareProps: (
   component<'props>,
-  @uncurry ('props, 'props) => bool,
+  ('props, 'props) => bool,
 ) => component<'props> = "memo"
 
 @module("react") external fragment: component<fragmentProps> = "Fragment"
@@ -132,108 +132,93 @@ let lazy_ = load => lazy_(async () => {default: await load()})
  * only way to safely have any type of state and be able to update it correctly.
  */
 @module("react")
-external useState: (@uncurry (unit => 'state)) => ('state, ('state => 'state) => unit) = "useState"
+external useState: (unit => 'state) => ('state, ('state => 'state) => unit) = "useState"
 
 @module("react")
-external useReducer: (@uncurry ('state, 'action) => 'state, 'state) => ('state, 'action => unit) =
+external useReducer: (('state, 'action) => 'state, 'state) => ('state, 'action => unit) =
   "useReducer"
 
 @module("react")
 external useReducerWithMapState: (
-  @uncurry ('state, 'action) => 'state,
+  ('state, 'action) => 'state,
   'initialState,
-  @uncurry ('initialState => 'state),
+  'initialState => 'state,
 ) => ('state, 'action => unit) = "useReducer"
 
 @module("react")
-external useEffectOnEveryRender: (@uncurry (unit => option<unit => unit>)) => unit = "useEffect"
+external useEffectOnEveryRender: (unit => option<unit => unit>) => unit = "useEffect"
 @module("react")
-external useEffect: (@uncurry (unit => option<unit => unit>), 'deps) => unit = "useEffect"
+external useEffect: (unit => option<unit => unit>, 'deps) => unit = "useEffect"
 @module("react")
-external useEffect0: (@uncurry (unit => option<unit => unit>), @as(json`[]`) _) => unit =
+external useEffect0: (unit => option<unit => unit>, @as(json`[]`) _) => unit = "useEffect"
+@module("react")
+external useEffect1: (unit => option<unit => unit>, array<'a>) => unit = "useEffect"
+@module("react")
+external useEffect2: (unit => option<unit => unit>, ('a, 'b)) => unit = "useEffect"
+@module("react")
+external useEffect3: (unit => option<unit => unit>, ('a, 'b, 'c)) => unit = "useEffect"
+@module("react")
+external useEffect4: (unit => option<unit => unit>, ('a, 'b, 'c, 'd)) => unit = "useEffect"
+@module("react")
+external useEffect5: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e)) => unit = "useEffect"
+@module("react")
+external useEffect6: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e, 'f)) => unit = "useEffect"
+@module("react")
+external useEffect7: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => unit =
   "useEffect"
-@module("react")
-external useEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => unit = "useEffect"
-@module("react")
-external useEffect2: (@uncurry (unit => option<unit => unit>), ('a, 'b)) => unit = "useEffect"
-@module("react")
-external useEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit = "useEffect"
-@module("react")
-external useEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
-  "useEffect"
-@module("react")
-external useEffect5: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e)) => unit =
-  "useEffect"
-@module("react")
-external useEffect6: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e, 'f)) => unit =
-  "useEffect"
-@module("react")
-external useEffect7: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e, 'f, 'g),
-) => unit = "useEffect"
 
 @module("react")
-external useLayoutEffectOnEveryRender: (@uncurry (unit => option<unit => unit>)) => unit =
+external useLayoutEffectOnEveryRender: (unit => option<unit => unit>) => unit = "useLayoutEffect"
+@module("react")
+external useLayoutEffect: (unit => option<unit => unit>, 'deps) => unit = "useLayoutEffect"
+@module("react")
+external useLayoutEffect0: (unit => option<unit => unit>, @as(json`[]`) _) => unit =
   "useLayoutEffect"
 @module("react")
-external useLayoutEffect: (@uncurry (unit => option<unit => unit>), 'deps) => unit =
+external useLayoutEffect1: (unit => option<unit => unit>, array<'a>) => unit = "useLayoutEffect"
+@module("react")
+external useLayoutEffect2: (unit => option<unit => unit>, ('a, 'b)) => unit = "useLayoutEffect"
+@module("react")
+external useLayoutEffect3: (unit => option<unit => unit>, ('a, 'b, 'c)) => unit = "useLayoutEffect"
+@module("react")
+external useLayoutEffect4: (unit => option<unit => unit>, ('a, 'b, 'c, 'd)) => unit =
   "useLayoutEffect"
 @module("react")
-external useLayoutEffect0: (@uncurry (unit => option<unit => unit>), @as(json`[]`) _) => unit =
+external useLayoutEffect5: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e)) => unit =
   "useLayoutEffect"
 @module("react")
-external useLayoutEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => unit =
+external useLayoutEffect6: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e, 'f)) => unit =
   "useLayoutEffect"
 @module("react")
-external useLayoutEffect2: (@uncurry (unit => option<unit => unit>), ('a, 'b)) => unit =
+external useLayoutEffect7: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => unit =
   "useLayoutEffect"
-@module("react")
-external useLayoutEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit =
-  "useLayoutEffect"
-@module("react")
-external useLayoutEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
-  "useLayoutEffect"
-@module("react")
-external useLayoutEffect5: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd, 'e)) => unit =
-  "useLayoutEffect"
-@module("react")
-external useLayoutEffect6: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e, 'f),
-) => unit = "useLayoutEffect"
-@module("react")
-external useLayoutEffect7: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e, 'f, 'g),
-) => unit = "useLayoutEffect"
 
 @module("react")
-external useMemo: (@uncurry (unit => 'any), 'deps) => 'any = "useMemo"
+external useMemo: (unit => 'any, 'deps) => 'any = "useMemo"
 
 @module("react")
-external useMemo0: (@uncurry (unit => 'any), @as(json`[]`) _) => 'any = "useMemo"
+external useMemo0: (unit => 'any, @as(json`[]`) _) => 'any = "useMemo"
 
 @module("react")
-external useMemo1: (@uncurry (unit => 'any), array<'a>) => 'any = "useMemo"
+external useMemo1: (unit => 'any, array<'a>) => 'any = "useMemo"
 
 @module("react")
-external useMemo2: (@uncurry (unit => 'any), ('a, 'b)) => 'any = "useMemo"
+external useMemo2: (unit => 'any, ('a, 'b)) => 'any = "useMemo"
 
 @module("react")
-external useMemo3: (@uncurry (unit => 'any), ('a, 'b, 'c)) => 'any = "useMemo"
+external useMemo3: (unit => 'any, ('a, 'b, 'c)) => 'any = "useMemo"
 
 @module("react")
-external useMemo4: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd)) => 'any = "useMemo"
+external useMemo4: (unit => 'any, ('a, 'b, 'c, 'd)) => 'any = "useMemo"
 
 @module("react")
-external useMemo5: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e)) => 'any = "useMemo"
+external useMemo5: (unit => 'any, ('a, 'b, 'c, 'd, 'e)) => 'any = "useMemo"
 
 @module("react")
-external useMemo6: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f)) => 'any = "useMemo"
+external useMemo6: (unit => 'any, ('a, 'b, 'c, 'd, 'e, 'f)) => 'any = "useMemo"
 
 @module("react")
-external useMemo7: (@uncurry (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'any = "useMemo"
+external useMemo7: (unit => 'any, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'any = "useMemo"
 
 @module("react")
 external useCallback: ('f, 'deps) => 'f = "useCallback"
@@ -268,71 +253,57 @@ external useContext: Context.t<'any> => 'any = "useContext"
 @module("react") external useRef: 'value => ref<'value> = "useRef"
 
 @module("react")
-external useImperativeHandleOnEveryRender: (
-  Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
-) => unit = "useImperativeHandle"
+external useImperativeHandleOnEveryRender: (Js.Nullable.t<ref<'value>>, unit => 'value) => unit =
+  "useImperativeHandle"
 
 @module("react")
-external useImperativeHandle: (
-  Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
-  'deps,
-) => unit = "useImperativeHandle"
+external useImperativeHandle: (Js.Nullable.t<ref<'value>>, unit => 'value, 'deps) => unit =
+  "useImperativeHandle"
 
 @module("react")
 external useImperativeHandle0: (
   Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
+  unit => 'value,
   @as(json`[]`) _,
 ) => unit = "useImperativeHandle"
 
 @module("react")
-external useImperativeHandle1: (
-  Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
-  array<'a>,
-) => unit = "useImperativeHandle"
+external useImperativeHandle1: (Js.Nullable.t<ref<'value>>, unit => 'value, array<'a>) => unit =
+  "useImperativeHandle"
 
 @module("react")
-external useImperativeHandle2: (
-  Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
-  ('a, 'b),
-) => unit = "useImperativeHandle"
+external useImperativeHandle2: (Js.Nullable.t<ref<'value>>, unit => 'value, ('a, 'b)) => unit =
+  "useImperativeHandle"
 
 @module("react")
-external useImperativeHandle3: (
-  Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
-  ('a, 'b, 'c),
-) => unit = "useImperativeHandle"
+external useImperativeHandle3: (Js.Nullable.t<ref<'value>>, unit => 'value, ('a, 'b, 'c)) => unit =
+  "useImperativeHandle"
 
 @module("react")
 external useImperativeHandle4: (
   Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
+  unit => 'value,
   ('a, 'b, 'c, 'd),
 ) => unit = "useImperativeHandle"
 
 @module("react")
 external useImperativeHandle5: (
   Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
+  unit => 'value,
   ('a, 'b, 'c, 'd, 'e),
 ) => unit = "useImperativeHandle"
 
 @module("react")
 external useImperativeHandle6: (
   Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
+  unit => 'value,
   ('a, 'b, 'c, 'd, 'e, 'f),
 ) => unit = "useImperativeHandle"
 
 @module("react")
 external useImperativeHandle7: (
   Js.Nullable.t<ref<'value>>,
-  @uncurry (unit => 'value),
+  unit => 'value,
   ('a, 'b, 'c, 'd, 'e, 'f, 'g),
 ) => unit = "useImperativeHandle"
 
@@ -341,75 +312,65 @@ external useImperativeHandle7: (
 @module("react") external useDeferredValue: 'value => 'value = "useDeferredValue"
 
 @module("react")
-external useTransition: unit => (bool, (. unit => unit) => unit) = "useTransition"
+external useTransition: unit => (bool, (unit => unit) => unit) = "useTransition"
 
 @module("react")
-external useInsertionEffectOnEveryRender: (@uncurry (unit => option<unit => unit>)) => unit =
+external useInsertionEffectOnEveryRender: (unit => option<unit => unit>) => unit =
   "useInsertionEffect"
 @module("react")
-external useInsertionEffect: (@uncurry (unit => option<unit => unit>), 'deps) => unit =
+external useInsertionEffect: (unit => option<unit => unit>, 'deps) => unit = "useInsertionEffect"
+@module("react")
+external useInsertionEffect0: (unit => option<unit => unit>, @as(json`[]`) _) => unit =
   "useInsertionEffect"
 @module("react")
-external useInsertionEffect0: (@uncurry (unit => option<unit => unit>), @as(json`[]`) _) => unit =
+external useInsertionEffect1: (unit => option<unit => unit>, array<'a>) => unit =
   "useInsertionEffect"
 @module("react")
-external useInsertionEffect1: (@uncurry (unit => option<unit => unit>), array<'a>) => unit =
+external useInsertionEffect2: (unit => option<unit => unit>, ('a, 'b)) => unit =
   "useInsertionEffect"
 @module("react")
-external useInsertionEffect2: (@uncurry (unit => option<unit => unit>), ('a, 'b)) => unit =
+external useInsertionEffect3: (unit => option<unit => unit>, ('a, 'b, 'c)) => unit =
   "useInsertionEffect"
 @module("react")
-external useInsertionEffect3: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c)) => unit =
+external useInsertionEffect4: (unit => option<unit => unit>, ('a, 'b, 'c, 'd)) => unit =
   "useInsertionEffect"
 @module("react")
-external useInsertionEffect4: (@uncurry (unit => option<unit => unit>), ('a, 'b, 'c, 'd)) => unit =
+external useInsertionEffect5: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e)) => unit =
   "useInsertionEffect"
 @module("react")
-external useInsertionEffect5: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e),
-) => unit = "useInsertionEffect"
+external useInsertionEffect6: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e, 'f)) => unit =
+  "useInsertionEffect"
 @module("react")
-external useInsertionEffect6: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e, 'f),
-) => unit = "useInsertionEffect"
-@module("react")
-external useInsertionEffect7: (
-  @uncurry (unit => option<unit => unit>),
-  ('a, 'b, 'c, 'd, 'e, 'f, 'g),
-) => unit = "useInsertionEffect"
+external useInsertionEffect7: (unit => option<unit => unit>, ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => unit =
+  "useInsertionEffect"
 
 @module("react")
 external useSyncExternalStore: (
-  ~subscribe: @uncurry ((unit => unit) => (. unit) => unit),
-  ~getSnapshot: @uncurry (unit => 'state),
+  ~subscribe: (unit => unit) => unit => unit,
+  ~getSnapshot: unit => 'state,
 ) => 'state = "useSyncExternalStore"
 
 @module("react")
 external useSyncExternalStoreWithServerSnapshot: (
-  ~subscribe: @uncurry ((unit => unit) => (. unit) => unit),
-  ~getSnapshot: @uncurry (unit => 'state),
-  ~getServerSnapshot: @uncurry (unit => 'state),
+  ~subscribe: (unit => unit) => unit => unit,
+  ~getSnapshot: unit => 'state,
+  ~getServerSnapshot: unit => 'state,
 ) => 'state = "useSyncExternalStore"
 
 module Uncurried = {
   @module("react")
-  external useState: (@uncurry (unit => 'state)) => ('state, (. 'state => 'state) => unit) =
-    "useState"
+  external useState: (unit => 'state) => ('state, ('state => 'state) => unit) = "useState"
 
   @module("react")
-  external useReducer: (
-    @uncurry ('state, 'action) => 'state,
-    'state,
-  ) => ('state, (. 'action) => unit) = "useReducer"
+  external useReducer: (('state, 'action) => 'state, 'state) => ('state, 'action => unit) =
+    "useReducer"
 
   @module("react")
   external useReducerWithMapState: (
-    @uncurry ('state, 'action) => 'state,
+    ('state, 'action) => 'state,
     'initialState,
-    @uncurry ('initialState => 'state),
-  ) => ('state, (. 'action) => unit) = "useReducer"
+    'initialState => 'state,
+  ) => ('state, 'action => unit) = "useReducer"
 
   @module("react")
   external useCallback: ('f, 'deps) => 'f = "useCallback"
