@@ -10,9 +10,16 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
-## 0.13.1 (Unreleased)
+## 0.13.1
 
-- Deprecate JSX 3 https://github.com/rescript-lang/rescript-react/pull/120
+#### :boom: Breaking Change
+
+- Deprecate JSX 3. https://github.com/rescript-lang/rescript-react/pull/120
+- Deprecate ReactDOMStyle.make. https://github.com/rescript-lang/rescript-react/pull/127
+
+#### :nail_care: Polish
+
+- ReScriptReactRouter: get rid of pipe last. https://github.com/rescript-lang/rescript-react/pull/126
 
 ## 0.13.0
 
