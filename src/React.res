@@ -45,17 +45,6 @@ type fragmentProps = {children?: element}
 
 type ref<'value> = {mutable current: 'value}
 
-module Ref = {
-  @deprecated("Please use the type React.ref instead")
-  type t<'value> = ref<'value>
-
-  @deprecated("Please directly read from ref.current instead") @get
-  external current: ref<'value> => 'value = "current"
-
-  @deprecated("Please directly assign to ref.current instead") @set
-  external setCurrent: (ref<'value>, 'value) => unit = "current"
-}
-
 @module("react")
 external createRef: unit => ref<Js.nullable<'a>> = "createRef"
 
