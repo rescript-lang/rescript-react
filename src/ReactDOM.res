@@ -43,7 +43,10 @@ module Ref = {
   external callbackDomRef: callbackDomRef => domRef = "%identity"
 }
 
-type domProps = JsxDOM.domProps
+type domProps = {
+  ...JsxDOM.domProps,
+  suppressHydrationWarning?: bool,
+}
 
 @variadic @module("react")
 external createElement: (string, ~props: domProps=?, array<React.element>) => React.element =
