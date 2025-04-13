@@ -310,7 +310,9 @@ external useImperativeHandle7: (
 
 @module("react") external useId: unit => string = "useId"
 
-@module("react") external useDeferredValue: 'value => 'value = "useDeferredValue"
+/** `useDeferredValue` is a React Hook that lets you defer updating a part of the UI. */
+@module("react")
+external useDeferredValue: ('value, ~initialValue: 'value=?) => 'value = "useDeferredValue"
 
 @module("react")
 external useInsertionEffectOnEveryRender: (unit => option<unit => unit>) => unit =
