@@ -43,6 +43,117 @@ module Ref = {
   external callbackDomRef: callbackDomRef => domRef = "%identity"
 }
 
+// Resource Preloading APIs
+
+/** The CORS policy to use. */
+type crossOrigin = [
+  | #anonymous
+  | #"use-credentials"
+]
+
+/** The Referrer header to send when fetching. */
+type referrerPolicy = [
+  | #"referrer-when-downgrade"
+  | #"no-referrer"
+  | #origin
+  | #"origin-when-cross-origin"
+  | #"unsafe-url"
+]
+
+/** Suggests a relative priority for fetching the resource. */
+type fetchPriority = [#auto | #high | #low]
+
+/** `prefetchDNS` lets you eagerly look up the IP of a server that you expect to load resources from. */
+@module("react-dom")
+external prefetchDNS: string => unit = "prefetchDNS"
+
+/** `preconnect` lets you eagerly connect to a server that you expect to load resources from. */
+@module("react-dom")
+external preconnect: string => unit = "preconnect"
+
+type preloadOptions = {
+  /** The type of resource. */
+  @as("as")
+  as_: [
+    | #audio
+    | #document
+    | #embed
+    | #fetch
+    | #font
+    | #image
+    | #object
+    | #script
+    | #style
+    | #track
+    | #video
+    | #worker
+  ],
+  /** The CORS policy to use. It is required when as is set to "fetch". */
+  crossOrigin?: crossOrigin,
+  /** The Referrer header to send when fetching. */
+  referrerPolicy?: referrerPolicy,
+  /** A cryptographic hash of the resource, to verify its authenticity. */
+  integrity?: string,
+  /** The MIME type of the resource. */
+  @as("type")
+  type_?: string,
+  /** A cryptographic nonce to allow the resource when using a strict Content Security Policy. */
+  nonce?: string,
+  /** Suggests a relative priority for fetching the resource. */
+  fetchPriority?: fetchPriority,
+  /** For use only with as: "image". Specifies the source set of the image. */
+  imageSrcSet?: string,
+  /** For use only with as: "image". Specifies the sizes of the image. */
+  imageSizes?: string,
+}
+
+/** `preload` lets you eagerly fetch a resource such as a stylesheet, font, or external script that you expect to use. */
+@module("react-dom")
+external preload: (string, preloadOptions) => unit = "preload"
+
+type preloadModuleOptions = {
+  /** The type of resource. */
+  @as("as")
+  as_: [#script],
+  /** The CORS policy to use. It is required when as is set to "fetch". */
+  crossOrigin?: crossOrigin,
+  /** A cryptographic hash of the resource, to verify its authenticity. */
+  integrity?: string,
+  /** A cryptographic nonce to allow the resource when using a strict Content Security Policy. */
+  nonce?: string,
+}
+
+/** `preloadModule` lets you eagerly fetch an ESM module that you expect to use. */
+@module("react-dom")
+external preloadModule: (string, preloadModuleOptions) => unit = "preloadModule"
+
+type preinitOptions = {
+  /** The type of resource. */
+  @as("as")
+  as_: [#script | #style],
+  /** Required with stylesheets. Says where to insert the stylesheet relative to others. Stylesheets with higher precedence can override those with lower precedence. */
+  precedence?: [#reset | #low | #medium | #high],
+  /** The CORS policy to use. It is required when as is set to "fetch". */
+  crossOrigin?: crossOrigin,
+  /** The Referrer header to send when fetching. */
+  referrerPolicy?: referrerPolicy,
+  /** A cryptographic hash of the resource, to verify its authenticity. */
+  integrity?: string,
+  nonce?: string,
+  /** Suggests a relative priority for fetching the resource. */
+  fetchPriority?: fetchPriority,
+}
+
+/** `preinit` lets you eagerly fetch and evaluate a stylesheet or external script. */
+@module("react-dom")
+external preinit: (string, preinitOptions) => unit = "preinit"
+
+/** To preinit an ESM module, call the `preinitModule` function from react-dom. */
+@module("react-dom")
+external preinitModule: (string, preloadModuleOptions) => unit = "preinitModule"
+
+// Runtime
+
 type domProps = JsxDOM.domProps
 
 @variadic @module("react")
