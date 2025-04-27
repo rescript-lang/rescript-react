@@ -8,14 +8,14 @@ var Client = {
   Root: Root
 };
 
-var Ref = {};
+var $$FormData = {};
 
-var Props = {};
+var Ref = {};
 
 var Style;
 
 exports.Client = Client;
+exports.$$FormData = $$FormData;
 exports.Ref = Ref;
-exports.Props = Props;
 exports.Style = Style;
 /* No side effect */
