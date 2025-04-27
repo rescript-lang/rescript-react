@@ -441,3 +441,7 @@ module Usable = {
 /** `use` is a React API that lets you read the value of a resource like a Promise or context. */
 @module("react")
 external use: Usable.t<'value> => 'value = "use"
+
+/** `act` is a test helper to apply pending React updates before making assertions. */
+@module("react")
+external act: (unit => promise<unit>) => promise<unit> = "act"
