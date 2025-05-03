@@ -73,6 +73,8 @@ type formStatus<'state> = {
   action: React.action<'state, FormData.t>,
 }
 
+external formAction: React.formAction<FormData.t> => string = "%identity"
+
 /** `useFormStatus` is a Hook that gives you status information of the last form submission. */
 @module("react-dom")
 external useFormStatus: unit => formStatus<'state> = "useFormStatus"
