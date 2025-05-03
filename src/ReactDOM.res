@@ -28,14 +28,43 @@ module Client = {
 // Very rudimentary form data bindings
 module FormData = {
   type t
-  type value
+  type file
+
+  type formValue =
+    | String(string)
+    | File(file)
 
   @new external make: unit => t = "FormData"
 
   @send external append: (t, string, ~filename: string=?) => unit = "append"
   @send external delete: (t, string) => unit = "delete"
-  @send external get: (t, string) => option<value> = "get"
-  @send external getAll: (t, string) => array<value> = "getAll"
+  @return(nullable) @send external getUnsafe: (t, string) => option<'a> = "get"
+  @send external getAllUnsafe: (t, string) => array<'a> = "getAll"
+
+  let getString = (formData, name) => {
+    switch formData->getUnsafe(name) {
+    | Some(value) => Js.typeof(value) === "string" ? Some(value) : None
+    | _ => None
+    }
+  }
+
+  external _asFile: 'a => file = "%identity"
+
+  let getFile = (formData, name) => {
+    switch formData->getUnsafe(name) {
+    | Some(value) => Js.typeof(value) === "string" ? None : Some(value->_asFile)
+    | _ => None
+    }
+  }
+
+  let getAll = (t, string) => {
+    t
+    ->getAllUnsafe(string)
+    ->Js.Array2.map(value => {
+      Js.typeof(value) === "string" ? String(value) : File(value->_asFile)
+    })
+  }
+
   @send external set: (string, string) => unit = "set"
   @send external has: string => bool = "has"
   // @send external keys: t => Iterator.t<string> = "keys";
