@@ -433,8 +433,10 @@ external useActionState: (
 
 /** `useOptimistic` is a React Hook that lets you optimistically update the UI. */
 @module("react")
-external useOptimistic: ('state, ('state, 'action) => 'state) => ('state, 'action => unit) =
-  "useOptimistic"
+external useOptimistic: (
+  'state,
+  ~updateFn: ('state, 'action) => 'state=?,
+) => ('state, 'action => unit) = "useOptimistic"
 
 /** `act` is a test helper to apply pending React updates before making assertions. */
 @module("react")
