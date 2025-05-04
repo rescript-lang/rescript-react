@@ -3,8 +3,6 @@
 
 var React = require("react");
 
-var Ref = {};
-
 var Children = {};
 
 var Context = {};
@@ -25,7 +23,6 @@ function lazy_(load) {
 
 var Uncurried = {};
 
-exports.Ref = Ref;
 exports.Children = Children;
 exports.Context = Context;
 exports.Fragment = Fragment;
