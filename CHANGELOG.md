@@ -10,6 +10,18 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.14.0-rc.1
+
+#### :rocket: New Feature
+
+- Bindings for new React 19 APIs. https://github.com/rescript-lang/rescript-react/pull/133
+
+#### :boom: Breaking Change
+
+- Bumped React peer dependency to 19.0. https://github.com/rescript-lang/rescript-react/pull/139
+- Removed legacy JSX v3 modules and deprecated functions. https://github.com/rescript-lang/rescript-react/pull/129
+- Removed support for curried mode. https://github.com/rescript-lang/rescript-react/pull/131
+
 ## 0.13.1
 
 #### :boom: Breaking Change
