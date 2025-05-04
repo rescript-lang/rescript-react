@@ -1,6 +1,6 @@
 {
   "name": "@rescript/react",
-  "version": "0.13.1",
+  "version": "0.14.0-rc.1",
   "description": "React bindings for ReScript",
   "files": [
     "README.md",
@@ -28,12 +28,12 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "rescript": "^11.0.0"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   }
 }
