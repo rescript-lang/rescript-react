@@ -411,13 +411,17 @@ external displayName: component<'props> => option<string> = "displayName"
 
 // Actions
 
-type transitionFunction = unit => promise<unit>
-
+type transitionFunction = unit => unit
 type transitionStartFunction = transitionFunction => unit
+
+type transitionFunctionAsync = unit => promise<unit>
+type transitionStartFunctionAsync = transitionFunctionAsync => unit
 
 /** `useTransition` is a React Hook that lets you render a part of the UI in the background. */
 @module("react")
 external useTransition: unit => (bool, transitionStartFunction) = "useTransition"
+@module("react")
+external useTransitionAsync: unit => (bool, transitionStartFunctionAsync) = "useTransition"
 
 type action<'state, 'payload> = ('state, 'payload) => promise<'state>
 
