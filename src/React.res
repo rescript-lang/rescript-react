@@ -417,6 +417,12 @@ type transitionStartFunction = transitionFunction => unit
 type transitionFunctionAsync = unit => promise<unit>
 type transitionStartFunctionAsync = transitionFunctionAsync => unit
 
+/** `startTransition` lets you render a part of the UI in the background. */
+@module("react")
+external startTransition: transitionStartFunction = "startTransition"
+@module("react")
+external startTransitionAsync: transitionStartFunctionAsync = "startTransition"
+
 /** `useTransition` is a React Hook that lets you render a part of the UI in the background. */
 @module("react")
 external useTransition: unit => (bool, transitionStartFunction) = "useTransition"
