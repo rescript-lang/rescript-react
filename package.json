@@ -1,6 +1,6 @@
 {
   "name": "@rescript/react",
-  "version": "0.14.0-rc.1",
+  "version": "0.14.0",
   "description": "React bindings for ReScript",
   "files": [
     "README.md",

@@ -10,6 +10,12 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.14.0
+
+#### :nail_care: Polish
+
+- Keep `useTransition` backward compatibility and add `startTransition`. https://github.com/rescript-lang/rescript-react/pull/142
+
 ## 0.14.0-rc.1
 
 #### :rocket: New Feature
