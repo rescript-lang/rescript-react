@@ -451,3 +451,6 @@ external useOptimistic: (
 /** `act` is a test helper to apply pending React updates before making assertions. */
 @module("react")
 external act: (unit => promise<unit>) => promise<unit> = "act"
+
+@module("react")
+external captureOwnerStack: unit => Js.nullable<string> = "captureOwnerStack"
