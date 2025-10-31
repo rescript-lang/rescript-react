@@ -452,5 +452,5 @@ external useOptimistic: (
 @module("react")
 external act: (unit => promise<unit>) => promise<unit> = "act"
 
-@module("react")
-external captureOwnerStack: unit => Js.nullable<string> = "captureOwnerStack"
+@module("react") @return(nullable)
+external captureOwnerStack: unit => option<string> = "captureOwnerStack"
