@@ -452,5 +452,7 @@ external useOptimistic: (
 @module("react")
 external act: (unit => promise<unit>) => promise<unit> = "act"
 
-@module("react") @return(null_to_opt)
+/** captureOwnerStack reads the current Owner Stack in development and returns it as a string if available. */
+@module("react")
+@return(null_to_opt)
 external captureOwnerStack: unit => option<string> = "captureOwnerStack"
