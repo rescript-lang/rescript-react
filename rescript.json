@@ -5,8 +5,11 @@
     "mode": "classic"
   },
   "sources": [{ "dir": "src", "subdirs": true }],
-  "package-specs": [{ "module": "commonjs", "in-source": true }],
+  "package-specs": [{ "module": "esmodule", "in-source": true }],
   "suffix": ".bs.js",
+  "bs-dependencies": [
+    "@rescript/webapi"
+  ],
   "bs-dev-dependencies": [],
   "bsc-flags": []
 }

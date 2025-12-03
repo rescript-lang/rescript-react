@@ -6,8 +6,11 @@
  calls and add the appropriate `require("react-dom")` in the file calling this `render` */
 
 // Helper so that ReactDOM itself doesn't bring any runtime
+
+open WebAPI
+
 @val @return(nullable)
-external querySelector: string => option<Dom.element> = "document.querySelector"
+external querySelector: string => option<DOMAPI.element> = "document.querySelector"
 
 module Client = {
   module Root = {
@@ -19,10 +22,10 @@ module Client = {
   }
 
   @module("react-dom/client")
-  external createRoot: Dom.element => Root.t = "createRoot"
+  external createRoot: DOMAPI.element => Root.t = "createRoot"
 
   @module("react-dom/client")
-  external hydrateRoot: (Dom.element, React.element) => Root.t = "hydrateRoot"
+  external hydrateRoot: (DOMAPI.element, React.element) => Root.t = "hydrateRoot"
 }
 
 // Very rudimentary form data bindings
@@ -72,9 +75,9 @@ module FormData = {
 }
 
 @module("react-dom")
-external createPortal: (React.element, Dom.element) => React.element = "createPortal"
+external createPortal: (React.element, DOMAPI.element) => React.element = "createPortal"
 
-external domElementToObj: Dom.element => {..} = "%identity"
+external domElementToObj: DOMAPI.element => {..} = "%identity"
 
 type style = ReactDOMStyle.t
 
@@ -82,8 +85,8 @@ type domRef = JsxDOM.domRef
 
 module Ref = {
   type t = domRef
-  type currentDomRef = React.ref<Js.nullable<Dom.element>>
-  type callbackDomRef = Js.nullable<Dom.element> => option<unit => unit>
+  type currentDomRef = React.ref<Js.nullable<DOMAPI.element>>
+  type callbackDomRef = Js.nullable<DOMAPI.element> => option<unit => unit>
 
   external domRef: currentDomRef => domRef = "%identity"
   external callbackDomRef: callbackDomRef => domRef = "%identity"
