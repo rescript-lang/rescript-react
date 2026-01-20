@@ -472,3 +472,10 @@ module Activity = {
   @module("react")
   external make: component<props> = "Activity"
 }
+
+/**
+useEffectEvent is a React Hook that lets you extract non-reactive logic from your Effects into a reusable function called an Effect Event.
+[Read more on the React Documentation](https://react.dev/reference/react/useEffectEvent)
+*/
+@module("react")
+external useEffectEvent: (unit => unit) => unit = "useEffectEvent"
