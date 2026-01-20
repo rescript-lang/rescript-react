@@ -23,6 +23,8 @@ function lazy_(load) {
 
 var Uncurried = {};
 
+var Activity = {};
+
 exports.Children = Children;
 exports.Context = Context;
 exports.Fragment = Fragment;
@@ -30,4 +32,5 @@ exports.StrictMode = StrictMode;
 exports.Suspense = Suspense;
 exports.lazy_ = lazy_;
 exports.Uncurried = Uncurried;
+exports.Activity = Activity;
 /* react Not a pure module */
