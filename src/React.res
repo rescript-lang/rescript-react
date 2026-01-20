@@ -451,3 +451,11 @@ external useOptimistic: (
 /** `act` is a test helper to apply pending React updates before making assertions. */
 @module("react")
 external act: (unit => promise<unit>) => promise<unit> = "act"
+
+/**
+captureOwnerStack reads the current Owner Stack in development and returns it as a string if available.
+[Read more on the React Documentation](https://react.dev/reference/react/captureOwnerStack)
+*/
+@module("react")
+@return(null_to_opt)
+external captureOwnerStack: unit => option<string> = "captureOwnerStack"
