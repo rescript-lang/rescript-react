@@ -465,7 +465,9 @@ external captureOwnerStack: unit => option<string> = "captureOwnerStack"
 [Read more on the React Documentation](https://react.dev/reference/react/Activity)
 */
 module Activity = {
-  type mode = [#visible | #hidden]
+  type mode =
+    | @as("visible") Visible
+    | @as("hidden") Hidden
 
   type props = {mode?: mode, children: element, name?: string}
 
