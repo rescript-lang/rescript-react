@@ -10,6 +10,12 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.14.1
+
+#### :rocket: New Feature
+
+- Bindings for React 19.1 API (`captureOwnerStack`). https://github.com/rescript-lang/rescript-react/pull/146
+
 ## 0.14.0
 
 #### :nail_care: Polish
