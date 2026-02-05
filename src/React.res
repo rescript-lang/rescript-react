@@ -459,3 +459,25 @@ captureOwnerStack reads the current Owner Stack in development and returns it as
 @module("react")
 @return(null_to_opt)
 external captureOwnerStack: unit => option<string> = "captureOwnerStack"
+
+/**
+<Activity> lets you hide and restore the UI and internal state of its children.
+[Read more on the React Documentation](https://react.dev/reference/react/Activity)
+*/
+module Activity = {
+  type mode =
+    | @as("visible") Visible
+    | @as("hidden") Hidden
+
+  type props = {mode?: mode, children: element, name?: string}
+
+  @module("react")
+  external make: component<props> = "Activity"
+}
+
+/**
+useEffectEvent is a React Hook that lets you extract non-reactive logic from your Effects into a reusable function called an Effect Event.
+[Read more on the React Documentation](https://react.dev/reference/react/useEffectEvent)
+*/
+@module("react")
+external useEffectEvent: (unit => unit) => unit = "useEffectEvent"
