@@ -82,8 +82,7 @@ module Context = {
 external createContext: 'a => Context.t<'a> = "createContext"
 
 @module("react")
-external forwardRef: (('props, nullable<ref<'a>>) => element) => component<'props> =
-  "forwardRef"
+external forwardRef: (('props, nullable<ref<'a>>) => element) => component<'props> = "forwardRef"
 
 @module("react")
 external memo: component<'props> => component<'props> = "memo"
@@ -265,11 +264,8 @@ external useImperativeHandle: (nullable<ref<'value>>, unit => 'value, 'deps) => 
   "useImperativeHandle"
 
 @module("react")
-external useImperativeHandle0: (
-  nullable<ref<'value>>,
-  unit => 'value,
-  @as(json`[]`) _,
-) => unit = "useImperativeHandle"
+external useImperativeHandle0: (nullable<ref<'value>>, unit => 'value, @as(json`[]`) _) => unit =
+  "useImperativeHandle"
 
 @module("react")
 external useImperativeHandle1: (nullable<ref<'value>>, unit => 'value, array<'a>) => unit =
@@ -284,11 +280,8 @@ external useImperativeHandle3: (nullable<ref<'value>>, unit => 'value, ('a, 'b, 
   "useImperativeHandle"
 
 @module("react")
-external useImperativeHandle4: (
-  nullable<ref<'value>>,
-  unit => 'value,
-  ('a, 'b, 'c, 'd),
-) => unit = "useImperativeHandle"
+external useImperativeHandle4: (nullable<ref<'value>>, unit => 'value, ('a, 'b, 'c, 'd)) => unit =
+  "useImperativeHandle"
 
 @module("react")
 external useImperativeHandle5: (

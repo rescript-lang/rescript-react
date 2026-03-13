@@ -3,15 +3,6 @@
 import * as React from "react";
 import * as Primitive_option from "@rescript/runtime/lib/es6/Primitive_option.js";
 
-function safeMakeEvent(eventName) {
-  if (typeof Event === "function") {
-    return new Event(eventName);
-  }
-  let event = document.createEvent("Event");
-  event.initEvent(eventName, true, true);
-  return event;
-}
-
 function pathParse(str) {
   switch (str) {
     case "" :
@@ -99,7 +90,10 @@ function push(path) {
   let match$1 = globalThis.window;
   if (match !== undefined && match$1 !== undefined) {
     Primitive_option.valFromOption(match).pushState(null, "", path);
-    Primitive_option.valFromOption(match$1).dispatchEvent(safeMakeEvent("popstate"));
+    Primitive_option.valFromOption(match$1).dispatchEvent(new Event("popstate", {
+      bubbles: true,
+      cancelable: true
+    }));
     return;
   }
 }
@@ -109,7 +103,10 @@ function replace(path) {
   let match$1 = globalThis.window;
   if (match !== undefined && match$1 !== undefined) {
     Primitive_option.valFromOption(match).replaceState(null, "", path);
-    Primitive_option.valFromOption(match$1).dispatchEvent(safeMakeEvent("popstate"));
+    Primitive_option.valFromOption(match$1).dispatchEvent(new Event("popstate", {
+      bubbles: true,
+      cancelable: true
+    }));
     return;
   }
 }

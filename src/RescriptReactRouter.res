@@ -29,24 +29,12 @@ external pushState: (Dom.history, @as(json`null`) _, @as("") _, ~href: string) =
 external replaceState: (Dom.history, @as(json`null`) _, @as("") _, ~href: string) => unit =
   "replaceState"
 
-@val external event: 'a = "Event"
-
-@new external makeEventIE11Compatible: string => Dom.event = "Event"
-
-@val @scope("document")
-external createEventNonIEBrowsers: string => Dom.event = "createEvent"
-
-@send
-external initEventNonIEBrowsers: (Dom.event, string, bool, bool) => unit = "initEvent"
-
-let safeMakeEvent = eventName =>
-  if typeof(event) == #function {
-    makeEventIE11Compatible(eventName)
-  } else {
-    let event = createEventNonIEBrowsers("Event")
-    initEventNonIEBrowsers(event, eventName, true, true)
-    event
-  }
+type makeEventOptions = {
+  bubbles?: bool,
+  cancelable?: bool,
+  composed?: bool,
+}
+@new external makeEvent: (string, ~options: makeEventOptions=?) => Dom.event = "Event"
 
 /* This is copied from array.ml. We want to cut dependencies for rescript-react so
  that it's friendlier to use in size-constrained codebases */
@@ -129,7 +117,7 @@ let push = path =>
   | (_, None) => ()
   | (Some(history: Dom.history), Some(window: Dom.window)) =>
     pushState(history, ~href=path)
-    dispatchEvent(window, safeMakeEvent("popstate"))
+    dispatchEvent(window, makeEvent("popstate", ~options={bubbles: true, cancelable: true}))
   }
 
 let replace = path =>
@@ -138,7 +126,7 @@ let replace = path =>
   | (_, None) => ()
   | (Some(history: Dom.history), Some(window: Dom.window)) =>
     replaceState(history, ~href=path)
-    dispatchEvent(window, safeMakeEvent("popstate"))
+    dispatchEvent(window, makeEvent("popstate", ~options={bubbles: true, cancelable: true}))
   }
 
 type url = {
