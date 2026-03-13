@@ -3,9 +3,6 @@
 finalOutput/*.js
 .merlin
 .install
-/lib/bs/
-/lib/js/
-/lib/ocaml/
 /docs/
 *.log
 .bsb.lock
@@ -19,3 +16,6 @@ src/legacy/*.bs.js
 
 # React
 !/src/react/*.js
+
+# ReScript
+lib/

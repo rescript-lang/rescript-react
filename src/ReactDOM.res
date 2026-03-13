@@ -43,7 +43,7 @@ module FormData = {
 
   let getString = (formData, name) => {
     switch formData->getUnsafe(name) {
-    | Some(value) => Js.typeof(value) === "string" ? Some(value) : None
+    | Some(value) => typeof(value) === #string ? Some(value) : None
     | _ => None
     }
   }
@@ -52,7 +52,7 @@ module FormData = {
 
   let getFile = (formData, name) => {
     switch formData->getUnsafe(name) {
-    | Some(value) => Js.typeof(value) === "string" ? None : Some(value->_asFile)
+    | Some(value) => typeof(value) === #string ? None : Some(value->_asFile)
     | _ => None
     }
   }
@@ -60,8 +60,8 @@ module FormData = {
   let getAll = (t, string) => {
     t
     ->getAllUnsafe(string)
-    ->Js.Array2.map(value => {
-      Js.typeof(value) === "string" ? String(value) : File(value->_asFile)
+    ->Array.map(value => {
+      typeof(value) === #string ? String(value) : File(value->_asFile)
     })
   }
 
@@ -82,8 +82,8 @@ type domRef = JsxDOM.domRef
 
 module Ref = {
   type t = domRef
-  type currentDomRef = React.ref<Js.nullable<Dom.element>>
-  type callbackDomRef = Js.nullable<Dom.element> => option<unit => unit>
+  type currentDomRef = React.ref<nullable<Dom.element>>
+  type callbackDomRef = nullable<Dom.element> => option<unit => unit>
 
   external domRef: currentDomRef => domRef = "%identity"
   external callbackDomRef: callbackDomRef => domRef = "%identity"

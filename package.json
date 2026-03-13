@@ -12,8 +12,9 @@
   ],
   "scripts": {
     "build": "rescript build",
-    "start": "rescript build -w",
-    "clean": "rescript clean -with-deps",
+    "start": "rescript watch",
+    "clean": "rescript clean",
+    "format": "rescript format",
     "test": "echo 'tests disabled for now'"
   },
   "keywords": [
@@ -28,12 +29,12 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "rescript": "^11.0.0"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "rescript": "^12.0.0"
   },
   "peerDependencies": {
-    "react": ">=19.1.0",
-    "react-dom": ">=19.1.0"
+    "react": ">=19.2.0",
+    "react-dom": ">=19.2.0"
   }
 }
