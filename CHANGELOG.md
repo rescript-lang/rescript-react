@@ -14,7 +14,7 @@
 
 #### :rocket: New Feature
 
-- Bindings for React 19.2 APIs. https://github.com/rescript-lang/rescript-react/pull/146
+- Bindings for React 19.2 APIs. https://github.com/rescript-lang/rescript-react/pull/149
 
 ## 0.14.1
 
