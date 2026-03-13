@@ -10,6 +10,12 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.14.2
+
+#### :rocket: New Feature
+
+- Bindings for React 19.2 APIs. https://github.com/rescript-lang/rescript-react/pull/146
+
 ## 0.14.1
 
 #### :rocket: New Feature
