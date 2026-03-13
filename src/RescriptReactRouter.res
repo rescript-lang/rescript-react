@@ -29,24 +29,12 @@ external pushState: (Dom.history, @as(json`null`) _, @as("") _, ~href: string) =
 external replaceState: (Dom.history, @as(json`null`) _, @as("") _, ~href: string) => unit =
   "replaceState"
 
-@val external event: 'a = "Event"
-
-@new external makeEventIE11Compatible: string => Dom.event = "Event"
-
-@val @scope("document")
-external createEventNonIEBrowsers: string => Dom.event = "createEvent"
-
-@send
-external initEventNonIEBrowsers: (Dom.event, string, bool, bool) => unit = "initEvent"
-
-let safeMakeEvent = eventName =>
-  if Js.typeof(event) == "function" {
-    makeEventIE11Compatible(eventName)
-  } else {
-    let event = createEventNonIEBrowsers("Event")
-    initEventNonIEBrowsers(event, eventName, true, true)
-    event
-  }
+type makeEventOptions = {
+  bubbles?: bool,
+  cancelable?: bool,
+  composed?: bool,
+}
+@new external makeEvent: (string, ~options: makeEventOptions=?) => Dom.event = "Event"
 
 /* This is copied from array.ml. We want to cut dependencies for rescript-react so
  that it's friendlier to use in size-constrained codebases */
@@ -55,9 +43,9 @@ let arrayToList = a => {
     if i < 0 {
       res
     } else {
-      tolist(i - 1, list{a->Js.Array2.unsafe_get(i), ...res})
+      tolist(i - 1, list{a->Array.getUnsafe(i), ...res})
     }
-  tolist(a->Js.Array2.length - 1, list{})
+  tolist(a->Array.length - 1, list{})
 }
 /* if we ever roll our own parser in the future, make sure you test all url combinations
    e.g. foo.com/?#bar
@@ -72,19 +60,19 @@ let pathParse = str =>
     list{}
   | raw =>
     /* remove the preceeding /, which every pathname seems to have */
-    let raw = raw->Js.String2.sliceToEnd(~from=1)
+    let raw = raw->String.slice(~start=1)
     /* remove the trailing /, which some pathnames might have. Ugh */
-    let raw = switch raw->Js.String2.get(raw->Js.String2.length - 1) {
-    | "/" => raw->Js.String2.slice(~from=0, ~to_=-1)
+    let raw = switch raw->String.getUnsafe(raw->String.length - 1) {
+    | "/" => raw->String.slice(~start=0, ~end=-1)
     | _ => raw
     }
     /* remove search portion if present in string */
-    let raw = switch raw->Js.String2.splitAtMost("?", ~limit=2) {
+    let raw = switch raw->String.splitAtMost("?", ~limit=2) {
     | [path, _] => path
     | _ => raw
     }
 
-    raw->Js.String2.split("/")->Js.Array2.filter(item => item->Js.String2.length != 0)->arrayToList
+    raw->String.split("/")->Array.filter(item => item->String.length != 0)->arrayToList
   }
 let path = (~serverUrlString=?, ()) =>
   switch (serverUrlString, window) {
@@ -102,7 +90,7 @@ let hash = () =>
     | raw =>
       /* remove the preceeding #, which every hash seems to have.
        Why is this even included in location.hash?? */
-      raw->Js.String2.sliceToEnd(~from=1)
+      raw->String.slice(~start=1)
     }
   }
 let searchParse = str =>
@@ -110,7 +98,7 @@ let searchParse = str =>
   | ""
   | "?" => ""
   | raw =>
-    switch raw->Js.String2.splitAtMost("?", ~limit=2) {
+    switch raw->String.splitAtMost("?", ~limit=2) {
     | [_, search] => search
     | _ => ""
     }
@@ -129,7 +117,7 @@ let push = path =>
   | (_, None) => ()
   | (Some(history: Dom.history), Some(window: Dom.window)) =>
     pushState(history, ~href=path)
-    dispatchEvent(window, safeMakeEvent("popstate"))
+    dispatchEvent(window, makeEvent("popstate", ~options={bubbles: true, cancelable: true}))
   }
 
 let replace = path =>
@@ -138,7 +126,7 @@ let replace = path =>
   | (_, None) => ()
   | (Some(history: Dom.history), Some(window: Dom.window)) =>
     replaceState(history, ~href=path)
-    dispatchEvent(window, safeMakeEvent("popstate"))
+    dispatchEvent(window, makeEvent("popstate", ~options={bubbles: true, cancelable: true}))
   }
 
 type url = {

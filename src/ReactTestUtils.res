@@ -1,6 +1,6 @@
-type undefined = Js.undefined<unit>
+type undefined = nullable<unit>
 
-let undefined: undefined = Js.Undefined.empty
+let undefined: undefined = Nullable.undefined
 
 @module("react-dom/test-utils")
 external reactAct: (unit => undefined) => unit = "act"
@@ -14,7 +14,7 @@ let act: (unit => unit) => unit = func => {
 }
 
 @module("react-dom/test-utils")
-external reactActAsync: (unit => Js.Promise.t<'a>) => Js.Promise.t<unit> = "act"
+external reactActAsync: (unit => promise<'a>) => promise<unit> = "act"
 
 let actAsync = func => {
   let reactFunc = () => func()
@@ -80,7 +80,7 @@ module Simulate = {
 external querySelector: (Dom.element, string) => option<Dom.element> = "querySelector"
 
 @send
-external querySelectorAll: (Dom.element, string) => Js.Array.array_like<Dom.element> =
+external querySelectorAll: (Dom.element, string) => Array.arrayLike<Dom.element> =
   "querySelectorAll"
 
 @get external textContent: Dom.element => string = "textContent"
@@ -91,7 +91,7 @@ external createElement: (Dom.document, string) => Dom.element = "createElement"
 @send
 external appendChild: (Dom.element, Dom.element) => Dom.element = "appendChild"
 
-let querySelectorAll = (element, string) => Js.Array.from(querySelectorAll(element, string))
+let querySelectorAll = (element, string) => Array.fromArrayLike(querySelectorAll(element, string))
 
 module DOM = {
   @return(nullable) @get
@@ -102,11 +102,11 @@ module DOM = {
   let findByAllSelector = (element, selector) => querySelectorAll(element, selector)
 
   let findBySelectorAndTextContent = (element, selector, content) =>
-    querySelectorAll(element, selector)->Js.Array2.find(node => node->textContent === content)
+    querySelectorAll(element, selector)->Array.find(node => node->textContent === content)
 
   let findBySelectorAndPartialTextContent = (element, selector, content) =>
-    querySelectorAll(element, selector)->Js.Array2.find(node =>
-      node->textContent->Js.String2.includes(content)
+    querySelectorAll(element, selector)->Array.find(node =>
+      node->textContent->String.includes(content)
     )
 }
 
@@ -130,5 +130,5 @@ let cleanupContainer = (container: ref<option<Dom.element>>, ()) => {
 let getContainer = container =>
   switch container.contents {
   | Some(contents) => contents
-  | None => raise(Not_found)
+  | None => throw(Not_found)
   }

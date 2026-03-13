@@ -1,6 +1,6 @@
 let act: (unit => unit) => unit
 
-let actAsync: (unit => Js.Promise.t<'a>) => Js.Promise.t<unit>
+let actAsync: (unit => promise<'a>) => promise<unit>
 
 @module("react-dom/test-utils")
 external isElement: 'element => bool = "isElement"
