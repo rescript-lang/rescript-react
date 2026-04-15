@@ -9,6 +9,7 @@
 
 | @rescript/react | ReScript                           | ReactJS | Documentation                                                     |
 | --------------- | ---------------------------------- | ------- | ----------------------------------------------------------------- |
+| 0.15.x          | 12.0+                              | 19      |                                                                   |
 | 0.14.x          | 11.0+ (JSX4 + uncurried mode only) | 19      |                                                                   |
 | 0.12.x, 0.13.x  | 11.0+                              | 18      | [Link](https://rescript-lang.org/docs/react/latest/introduction)  |
 | 0.11.0          | 10.1                               | 18      | [Link](https://rescript-lang.org/docs/react/v0.11.0/introduction) |
