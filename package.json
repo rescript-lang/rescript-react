@@ -39,6 +39,6 @@
     "react-dom": ">=19.2.0"
   },
   "dependencies": {
-    "@rescript/webapi": "^0.1.0-experimental-2090589"
+    "@rescript/webapi": "0.1.0-experimental-61b1074"
   }
 }
