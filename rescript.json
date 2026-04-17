@@ -5,7 +5,8 @@
   },
   "sources": [
     {
-      "dir": "src"
+      "dir": "src",
+      "subdirs": true
     }
   ],
   "package-specs": [
@@ -14,5 +15,10 @@
       "in-source": true
     }
   ],
-  "suffix": ".res.js"
+  "suffix": ".res.js",
+  "dependencies": [
+    "@rescript/webapi"
+  ],
+  "dev-dependencies": [],
+  "compiler-flags": []
 }
