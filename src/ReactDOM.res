@@ -36,7 +36,7 @@ module FormData = {
 
   @new external make: unit => t = "FormData"
 
-  @send external append: (t, string, ~filename: string=?) => unit = "append"
+  @send external append: (t, string, string, ~filename: string=?) => unit = "append"
   @send external delete: (t, string) => unit = "delete"
   @return(nullable) @send external getUnsafe: (t, string) => option<'a> = "get"
   @send external getAllUnsafe: (t, string) => array<'a> = "getAll"
@@ -65,8 +65,8 @@ module FormData = {
     })
   }
 
-  @send external set: (string, string) => unit = "set"
-  @send external has: string => bool = "has"
+  @send external set: (t, string, string, ~filename: string=?) => unit = "set"
+  @send external has: (t, string) => bool = "has"
   // @send external keys: t => Iterator.t<string> = "keys";
   // @send external values: t => Iterator.t<value> = "values";
 }
