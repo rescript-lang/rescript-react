@@ -78,7 +78,7 @@ external domElementToObj: Dom.element => {..} = "%identity"
 
 type style = ReactDOMStyle.t
 
-type domRef = JsxDOM.domRef
+type domRef
 
 module Ref = {
   type t = domRef
