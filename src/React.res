@@ -472,4 +472,4 @@ useEffectEvent is a React Hook that lets you extract non-reactive logic from you
 [Read more on the React Documentation](https://react.dev/reference/react/useEffectEvent)
 */
 @module("react")
-external useEffectEvent: (unit => unit) => unit = "useEffectEvent"
+external useEffectEvent: ('event => unit) => 'event => unit = "useEffectEvent"
