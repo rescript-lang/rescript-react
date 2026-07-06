@@ -1,6 +1,11 @@
-## @rescript/react
+## The home of `@rescript/react`, `@rescript/react-dom` and `@rescript/browser-router` 
 
-> The Official [ReScript](https://rescript-lang.org) Bindings for [ReactJS](https://react.dev/)
+This monorepo provides 3 packages:
+- `@rescript/react`: the Official [ReScript](https://rescript-lang.org) Bindings for [ReactJS](https://react.dev/) 
+- `@rescript/react-dom`: the Official [ReScript](https://rescript-lang.org) Bindings for [react-dom](https://react.dev/reference/react-dom)
+- `@rescript/browser-router`: a lightweight web client router based on rescript pattern-matching.
+
+If you want to use react on the web, you now need to install both `@rescript/react` and `@rescript/react-dom` bindings.
 
 - [Introduction](https://rescript-lang.org/docs/react/latest/introduction)
 - [Installation](https://rescript-lang.org/docs/react/latest/installation)
@@ -18,10 +23,8 @@
 ### Development
 
 ```
-npm install
-
-# Starts the ReScript compiler in watch mode
-npm start
+yarn install
+yarn build
 ```
 
 ### Acknowledgements

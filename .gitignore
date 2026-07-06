@@ -19,3 +19,13 @@ src/legacy/*.bs.js
 
 # ReScript
 lib/
+
+# Yarn
+/.pnp.*
+/.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+!/.yarn/versions
+!/.yarn/releases/**

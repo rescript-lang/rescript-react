@@ -1,12 +1,15 @@
 {
-  "name": "rescript-react",
+  "name": "@rescript/browser-router",
   "jsx": {
     "version": 4
   },
+  "sources": [
+    {
+      "dir": "src"
+    }
+  ],
   "dependencies": [
-    "@rescript/react",
-    "@rescript/react-dom",
-    "@rescript/browser-router"
+    "@rescript/react"
   ],
   "package-specs": [
     {

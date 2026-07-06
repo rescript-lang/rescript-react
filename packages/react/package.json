@@ -1,0 +1,30 @@
+{
+  "name": "@rescript/react",
+  "version": "0.15.0",
+  "description": "React bindings for ReScript",
+  "files": [
+    "src/**/*.res",
+    "src/**/*.resi"
+  ],
+  "scripts": {
+    "build": "rescript build",
+    "clean": "rescript clean",
+    "format": "rescript format"
+  },
+  "keywords": [
+    "rescript",
+    "react"
+  ],
+  "author": "Ricky Vetter",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rescript-lang/rescript-react.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
+  "peerDependencies": {
+    "@rescript/runtime": ">=12.0.0",
+    "react": ">=19.2.0"
+  }
+}

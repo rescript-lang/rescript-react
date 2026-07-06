@@ -1,12 +1,15 @@
 {
-  "name": "rescript-react",
+  "name": "@rescript/react-dom",
   "jsx": {
     "version": 4
   },
+  "sources": [
+    {
+      "dir": "src"
+    }
+  ],
   "dependencies": [
-    "@rescript/react",
-    "@rescript/react-dom",
-    "@rescript/browser-router"
+    "@rescript/react"
   ],
   "package-specs": [
     {
