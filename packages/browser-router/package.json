@@ -1,8 +1,9 @@
 {
   "name": "@rescript/browser-router",
   "version": "0.15.0",
-  "description": "Browser router bindings for ReScript React",
+  "description": "A minimalistic web client side router for rescript projects",
   "files": [
+    "rescript.json",
     "src/**/*.res",
     "src/**/*.resi"
   ],

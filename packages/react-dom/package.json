@@ -3,6 +3,7 @@
   "version": "0.15.0",
   "description": "React DOM bindings for ReScript",
   "files": [
+    "rescript.json",
     "src/**/*.res",
     "src/**/*.resi"
   ],
