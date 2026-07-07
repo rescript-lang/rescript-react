@@ -23,6 +23,9 @@
     "url": "git+https://github.com/rescript-lang/rescript-react.git",
     "directory": "packages/react"
   },
+  "dependencies": {
+    "rescript": "^13.0.0-alpha.4"
+  },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "peerDependencies": {
     "@rescript/runtime": ">=12.0.0",

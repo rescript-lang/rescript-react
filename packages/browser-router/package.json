@@ -25,7 +25,8 @@
     "directory": "packages/browser-router"
   },
   "dependencies": {
-    "@rescript/react": "workspace:packages/react"
+    "@rescript/react": "workspace:packages/react",
+    "rescript": "^13.0.0-alpha.4"
   },
   "devDependencies": {
     "@rescript/runtime": ">=12.0.0",
