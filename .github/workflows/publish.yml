@@ -1,10 +1,8 @@
 name: Publish to npm
 
 on:
-  pull_request:
-    branches: [ master ]
-    types: [ closed ]
   push:
+    branches: [ master ]
     tags:
     - 'v*.*.*'
 
@@ -12,19 +10,12 @@ permissions:
   contents: read
   id-token: write
 
-concurrency:
-  group: npm-publish-master
-  cancel-in-progress: false
-
 jobs:
   publish:
-    if: ${{ github.event_name == 'push' || github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v6
-      with:
-        ref: ${{ github.event_name == 'pull_request' && 'master' || github.ref_name }}
 
     - name: Use Node.js
       uses: actions/setup-node@v6
@@ -43,7 +34,7 @@ jobs:
         PACKAGE_NAME=$(node -p "require('./package.json').name")
         BASE_VERSION=$(node -p "require('./package.json').version")
 
-        if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+        if [[ "$GITHUB_REF" == refs/tags/* ]]; then
           if [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "::error::Release tags must match vX.X.X, got $GITHUB_REF_NAME."
             exit 1
