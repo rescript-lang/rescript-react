@@ -1,6 +1,6 @@
 {
   "name": "@rescript/react",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "React bindings for ReScript",
   "files": [
     "README.md",
@@ -32,10 +32,10 @@
     "pkg-pr-new": "^0.0.75",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "rescript": "^12.0.0"
+    "rescript": "^13.0.0-alpha.5"
   },
   "peerDependencies": {
-    "@rescript/runtime": ">=12.0.0",
+    "@rescript/runtime": ">=13.0.0-alpha.5",
     "react": ">=19.2.0",
     "react-dom": ">=19.2.0"
   }
