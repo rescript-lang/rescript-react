@@ -29,6 +29,7 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
+    "pkg-pr-new": "^0.0.75",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "rescript": "^12.0.0"
