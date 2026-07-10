@@ -1,0 +1,73 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+    - 'v*.*.*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Use Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24.x
+        registry-url: https://registry.npmjs.org
+        package-manager-cache: false
+
+    - run: npm ci
+    - run: npm run build
+    - run: npm run test
+
+    - name: Configure publish version
+      id: publish
+      run: |
+        PACKAGE_NAME=$(node -p "require('./package.json').name")
+        BASE_VERSION=$(node -p "require('./package.json').version")
+
+        if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Release tags must match vX.X.X, got $GITHUB_REF_NAME."
+            exit 1
+          fi
+
+          PACKAGE_VERSION="${GITHUB_REF_NAME#v}"
+          if [[ "$PACKAGE_VERSION" != "$BASE_VERSION" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json version $BASE_VERSION."
+            exit 1
+          fi
+
+          DIST_TAG=latest
+        else
+          PACKAGE_VERSION="${BASE_VERSION}-dev.${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
+          npm pkg set version="$PACKAGE_VERSION"
+          DIST_TAG=dev
+        fi
+
+        echo "package_name=$PACKAGE_NAME" >> "$GITHUB_OUTPUT"
+        echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+        echo "dist_tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
+
+        if npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version >/dev/null 2>&1; then
+          echo "already_published=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "already_published=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Publish to npm
+      if: ${{ steps.publish.outputs.already_published == 'false' }}
+      run: npm publish --provenance --access public --tag "${{ steps.publish.outputs.dist_tag }}"
+
+    - name: Skip already published version
+      if: ${{ steps.publish.outputs.already_published == 'true' }}
+      run: |
+        echo "${{ steps.publish.outputs.package_name }}@${{ steps.publish.outputs.package_version }} is already published; skipping npm publish."
