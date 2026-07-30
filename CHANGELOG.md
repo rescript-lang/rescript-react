@@ -10,6 +10,25 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## 0.16.0-beta.1
+
+#### :boom: Breaking Change
+
+- Requires ReScript 13.0.0-alpha.5 or newer.
+- Corrected the `ReactDOM.FormData.append`, `set`, and `has` signatures. The methods now receive the `FormData` value correctly, and `append` and `set` require the value being written. https://github.com/rescript-lang/rescript-react/pull/156
+- Corrected `ReactDOM.useFormStatus` to represent non-pending `data`, `method`, and `action` values as nullable. Its action now accepts one `FormData` argument and preserves synchronous and asynchronous results. https://github.com/rescript-lang/rescript-react/pull/161
+- Corrected `ReactDOMServer.resumeToPipeableStream` to synchronously return its `pipe` and `abort` controller instead of a promise. https://github.com/rescript-lang/rescript-react/pull/161
+
+#### :bug: Bug Fix
+
+- Use ReScript 13's `%component_identity` primitive for component conversion, fixing interface mismatches for components with generic prop types on ReScript 13.0.0-alpha.5 or newer. https://github.com/rescript-lang/rescript-react/pull/159
+- Preserve the complete callback signature returned by `React.useEffectEvent`, including its arguments and return value. https://github.com/rescript-lang/rescript-react/pull/157
+- Added the missing `onAllReady`, `onShellReady`, and `onShellError` options to `ReactDOMServer.resumeToPipeableStream`. https://github.com/rescript-lang/rescript-react/pull/161
+
+#### :house: Internal
+
+- Added automated preview-package publishing with pkg.pr.new and npm publishing for release tags. https://github.com/rescript-lang/rescript-react/pull/158 https://github.com/rescript-lang/rescript-react/pull/160
+
 ## 0.15.0
 
 #### :boom: Breaking Change
