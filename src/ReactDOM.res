@@ -91,7 +91,12 @@ module Ref = {
 
 // Hooks
 
-type formStatusAction = FormData.t => unit
+@unboxed
+type formStatusActionResult =
+  | @as(undefined) Sync
+  | Async(promise<unit>)
+
+type formStatusAction = FormData.t => formStatusActionResult
 
 type formStatus = {
   /** If true, this means the parent <form> is pending submission. Otherwise, false. */
