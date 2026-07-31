@@ -91,22 +91,29 @@ module Ref = {
 
 // Hooks
 
-type formStatus<'state> = {
+@unboxed
+type formStatusActionResult =
+  | @as(undefined) Sync
+  | Async(promise<unit>)
+
+type formStatusAction = FormData.t => formStatusActionResult
+
+type formStatus = {
   /** If true, this means the parent <form> is pending submission. Otherwise, false. */
   pending: bool,
   /** An object implementing the FormData interface that contains the data the parent <form> is submitting. If there is no active submission or no parent <form>, it will be null. */
-  data: FormData.t,
+  data: nullable<FormData.t>,
   /** This represents whether the parent <form> is submitting with either a GET or POST HTTP method. By default, a <form> will use the GET method and can be specified by the method property. */
-  method: [#get | #post],
+  method: nullable<[#get | #post]>,
   /** A reference to the function passed to the action prop on the parent <form>. If there is no parent <form>, the property is null. If there is a URI value provided to the action prop, or no action prop specified, status.action will be null. */
-  action: React.action<'state, FormData.t>,
+  action: nullable<formStatusAction>,
 }
 
 external formAction: React.formAction<FormData.t> => string = "%identity"
 
 /** `useFormStatus` is a Hook that gives you status information of the last form submission. */
 @module("react-dom")
-external useFormStatus: unit => formStatus<'state> = "useFormStatus"
+external useFormStatus: unit => formStatus = "useFormStatus"
 
 // Resource Preloading APIs
 

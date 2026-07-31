@@ -10,6 +10,18 @@ type resumeOptions<'error> = {
   onError?: 'error => unit,
 }
 
+type resumeToPipeableStreamOptions<'error> = {
+  ...resumeOptions<'error>,
+  onAllReady?: unit => unit,
+  onShellReady?: unit => unit,
+  onShellError?: 'error => unit,
+}
+
+type pipeableStream = {
+  pipe: ReactDOMStatic.nodeStream => ReactDOMStatic.nodeStream,
+  abort: unit => unit,
+}
+
 /**
 resume streams a pre-rendered React tree to a Readable Web Stream.
 [Read more on the React Documentation](https://react.dev/reference/react-dom/server/resume)
@@ -29,5 +41,5 @@ resumeToPipeableStream streams a pre-rendered React tree  to a pipeable Node.js 
 external resumeToPipeableStream: (
   React.element,
   ReactDOMStatic.postponedState,
-  ~options: resumeOptions<'error>=?,
-) => promise<ReactDOMStatic.nodeStream> = "resumeToPipeableStream"
+  ~options: resumeToPipeableStreamOptions<'error>=?,
+) => pipeableStream = "resumeToPipeableStream"
