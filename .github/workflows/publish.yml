@@ -71,6 +71,12 @@ jobs:
           exit 1
         fi
 
+        if [[ "$PACKAGE_VERSION" == *-* ]]; then
+          echo "npm_tag=next" >> "$GITHUB_OUTPUT"
+        else
+          echo "npm_tag=latest" >> "$GITHUB_OUTPUT"
+        fi
+
         if npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version >/dev/null 2>&1; then
           echo "already_published=true" >> "$GITHUB_OUTPUT"
         else
@@ -79,7 +85,7 @@ jobs:
 
     - name: Publish package to npm
       if: steps.release.outputs.already_published == 'false'
-      run: npm publish --provenance --access public
+      run: npm publish --provenance --access public --tag "${{ steps.release.outputs.npm_tag }}"
 
     - name: Skip already published version
       if: steps.release.outputs.already_published == 'true'
