@@ -39,15 +39,15 @@ external isCompositeComponentWithType: ('element, React.component<'props>) => bo
 
 module Simulate = {
   @module("react-dom/test-utils") @scope("Simulate")
-  external click: Dom.element => unit = "click"
+  external click: WebAPI.Element.t => unit = "click"
   @module("react-dom/test-utils") @scope("Simulate")
-  external clickWithEvent: (Dom.element, 'event) => unit = "click"
+  external clickWithEvent: (WebAPI.Element.t, 'event) => unit = "click"
   @module("react-dom/test-utils") @scope("Simulate")
-  external change: Dom.element => unit = "change"
+  external change: WebAPI.Element.t => unit = "change"
   @module("react-dom/test-utils") @scope("Simulate")
-  external blur: Dom.element => unit = "blur"
+  external blur: WebAPI.Element.t => unit = "blur"
   @module("react-dom/test-utils") @scope("Simulate")
-  external changeWithEvent: (Dom.element, 'event) => unit = "change"
+  external changeWithEvent: (WebAPI.Element.t, 'event) => unit = "change"
   let changeWithValue = (element, value) => {
     let event = {
       "target": {
@@ -65,37 +65,37 @@ module Simulate = {
     changeWithEvent(element, event)
   }
   @module("react-dom/test-utils") @scope("Simulate")
-  external canPlay: Dom.element => unit = "canPlay"
+  external canPlay: WebAPI.Element.t => unit = "canPlay"
   @module("react-dom/test-utils") @scope("Simulate")
-  external timeUpdate: Dom.element => unit = "timeUpdate"
+  external timeUpdate: WebAPI.Element.t => unit = "timeUpdate"
   @module("react-dom/test-utils") @scope("Simulate")
-  external ended: Dom.element => unit = "ended"
+  external ended: WebAPI.Element.t => unit = "ended"
   @module("react-dom/test-utils") @scope("Simulate")
-  external focus: Dom.element => unit = "focus"
+  external focus: WebAPI.Element.t => unit = "focus"
 }
 
-@val external document: Dom.document = "document"
+@val external document: WebAPI.DOM.document = "document"
 
 @send
-external querySelector: (Dom.element, string) => option<Dom.element> = "querySelector"
+external querySelector: (WebAPI.Element.t, string) => option<WebAPI.Element.t> = "querySelector"
 
 @send
-external querySelectorAll: (Dom.element, string) => Array.arrayLike<Dom.element> =
+external querySelectorAll: (WebAPI.Element.t, string) => Array.arrayLike<WebAPI.Element.t> =
   "querySelectorAll"
 
-@get external textContent: Dom.element => string = "textContent"
-@get external body: Dom.document => option<Dom.element> = "body"
+@get external textContent: WebAPI.Element.t => string = "textContent"
+@get external body: WebAPI.DOM.document => option<WebAPI.Element.t> = "body"
 @send
-external createElement: (Dom.document, string) => Dom.element = "createElement"
-@send external remove: Dom.element => unit = "remove"
+external createElement: (WebAPI.DOM.document, string) => WebAPI.Element.t = "createElement"
+@send external remove: WebAPI.Element.t => unit = "remove"
 @send
-external appendChild: (Dom.element, Dom.element) => Dom.element = "appendChild"
+external appendChild: (WebAPI.Element.t, WebAPI.Element.t) => WebAPI.Element.t = "appendChild"
 
 let querySelectorAll = (element, string) => Array.fromArrayLike(querySelectorAll(element, string))
 
 module DOM = {
   @return(nullable) @get
-  external value: Dom.element => option<string> = "value"
+  external value: WebAPI.Element.t => option<string> = "value"
 
   let findBySelector = (element, selector) => querySelector(element, selector)
 
@@ -110,7 +110,7 @@ module DOM = {
     )
 }
 
-let prepareContainer = (container: ref<option<Dom.element>>, ()) => {
+let prepareContainer = (container: ref<option<WebAPI.Element.t>>, ()) => {
   let containerElement = document->createElement("div")
   switch document->body {
   | Some(body) => body->appendChild(containerElement)->ignore
@@ -119,7 +119,7 @@ let prepareContainer = (container: ref<option<Dom.element>>, ()) => {
   container := Some(containerElement)
 }
 
-let cleanupContainer = (container: ref<option<Dom.element>>, ()) => {
+let cleanupContainer = (container: ref<option<WebAPI.Element.t>>, ()) => {
   switch container.contents {
   | Some(contents) => remove(contents)
   | None => ()

@@ -29,13 +29,15 @@
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
   "devDependencies": {
+    "@rescript/webapi": "0.1.0-alpha-b1d58f9",
     "pkg-pr-new": "^0.0.75",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "rescript": "^13.0.0-alpha.5"
+    "rescript": "^13.0.0-alpha.6"
   },
   "peerDependencies": {
-    "@rescript/runtime": ">=13.0.0-alpha.5",
+    "@rescript/webapi": ">=0.1.0-alpha-b1d58f9",
+    "@rescript/runtime": ">=13.0.0-alpha.6",
     "react": ">=19.2.0",
     "react-dom": ">=19.2.0"
   }
