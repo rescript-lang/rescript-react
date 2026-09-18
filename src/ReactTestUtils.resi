@@ -20,37 +20,41 @@ external isCompositeComponentWithType: ('element, React.component<'props>) => bo
 
 module Simulate: {
   @module("react-dom/test-utils") @scope("Simulate")
-  external click: Dom.element => unit = "click"
+  external click: WebAPI.Element.t => unit = "click"
   @module("react-dom/test-utils") @scope("Simulate")
-  external clickWithEvent: (Dom.element, 'event) => unit = "click"
+  external clickWithEvent: (WebAPI.Element.t, 'event) => unit = "click"
   @module("react-dom/test-utils") @scope("Simulate")
-  external change: Dom.element => unit = "change"
+  external change: WebAPI.Element.t => unit = "change"
   @module("react-dom/test-utils") @scope("Simulate")
-  external blur: Dom.element => unit = "blur"
+  external blur: WebAPI.Element.t => unit = "blur"
   @module("react-dom/test-utils") @scope("Simulate")
-  external changeWithEvent: (Dom.element, 'event) => unit = "change"
-  let changeWithValue: (Dom.element, string) => unit
-  let changeWithChecked: (Dom.element, bool) => unit
+  external changeWithEvent: (WebAPI.Element.t, 'event) => unit = "change"
+  let changeWithValue: (WebAPI.Element.t, string) => unit
+  let changeWithChecked: (WebAPI.Element.t, bool) => unit
   @module("react-dom/test-utils") @scope("Simulate")
-  external canPlay: Dom.element => unit = "canPlay"
+  external canPlay: WebAPI.Element.t => unit = "canPlay"
   @module("react-dom/test-utils") @scope("Simulate")
-  external timeUpdate: Dom.element => unit = "timeUpdate"
+  external timeUpdate: WebAPI.Element.t => unit = "timeUpdate"
   @module("react-dom/test-utils") @scope("Simulate")
-  external ended: Dom.element => unit = "ended"
+  external ended: WebAPI.Element.t => unit = "ended"
   @module("react-dom/test-utils") @scope("Simulate")
-  external focus: Dom.element => unit = "focus"
+  external focus: WebAPI.Element.t => unit = "focus"
 }
 
 module DOM: {
   @return(nullable) @get
-  external value: Dom.element => option<string> = "value"
+  external value: WebAPI.Element.t => option<string> = "value"
 
-  let findBySelector: (Dom.element, string) => option<Dom.element>
-  let findByAllSelector: (Dom.element, string) => array<Dom.element>
-  let findBySelectorAndTextContent: (Dom.element, string, string) => option<Dom.element>
-  let findBySelectorAndPartialTextContent: (Dom.element, string, string) => option<Dom.element>
+  let findBySelector: (WebAPI.Element.t, string) => option<WebAPI.Element.t>
+  let findByAllSelector: (WebAPI.Element.t, string) => array<WebAPI.Element.t>
+  let findBySelectorAndTextContent: (WebAPI.Element.t, string, string) => option<WebAPI.Element.t>
+  let findBySelectorAndPartialTextContent: (
+    WebAPI.Element.t,
+    string,
+    string,
+  ) => option<WebAPI.Element.t>
 }
 
-let prepareContainer: (ref<option<Dom.element>>, unit) => unit
-let cleanupContainer: (ref<option<Dom.element>>, unit) => unit
-let getContainer: ref<option<Dom.element>> => Dom.element
+let prepareContainer: (ref<option<WebAPI.Element.t>>, unit) => unit
+let cleanupContainer: (ref<option<WebAPI.Element.t>>, unit) => unit
+let getContainer: ref<option<WebAPI.Element.t>> => WebAPI.Element.t
