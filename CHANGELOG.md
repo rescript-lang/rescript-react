@@ -10,6 +10,12 @@
 > - :house: [Internal]
 > - :nail_care: [Polish]
 
+## Unreleased
+
+#### :rocket: New Feature
+
+- Add `ReactEvent.Toggle` with typed `oldState`, `newState`, and optional `source` accessors and synthetic-event helpers.
+
 ## 0.16.0-beta.1
 
 #### :boom: Breaking Change

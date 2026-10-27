@@ -470,3 +470,27 @@ module Transition: {
   @get external pseudoElement: t => string = "pseudoElement"
   @get external elapsedTime: t => float = "elapsedTime"
 }
+
+module Toggle: {
+  type tag = JsxEvent.Toggle.tag
+  type t = synthetic<tag>
+  @get external bubbles: t => bool = "bubbles"
+  @get external cancelable: t => bool = "cancelable"
+  @get external currentTarget: t => {..} = "currentTarget"
+  @get external defaultPrevented: t => bool = "defaultPrevented"
+  @get external eventPhase: t => int = "eventPhase"
+  @get external isTrusted: t => bool = "isTrusted"
+  @get external nativeEvent: t => {..} = "nativeEvent"
+  @send external preventDefault: t => unit = "preventDefault"
+  @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
+  @send external stopPropagation: t => unit = "stopPropagation"
+  @send external isPropagationStopped: t => bool = "isPropagationStopped"
+  @get external target: t => {..} = "target"
+  @get external timeStamp: t => float = "timeStamp"
+  @get external type_: t => string = "type"
+  @send external persist: t => unit = "persist"
+  @get external oldState: t => [#closed | #"open"] = "oldState"
+  @get external newState: t => [#closed | #"open"] = "newState"
+  /** The element that triggered the toggle. Available in React 19.3 and later. */
+  @get @return(nullable) external source: t => option<Dom.element> = "source"
+}
