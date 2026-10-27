@@ -33,6 +33,8 @@ let Animation = {};
 
 let Transition = {};
 
+let Toggle = {};
+
 export {
   Synthetic,
   Clipboard,
@@ -50,5 +52,6 @@ export {
   Image,
   Animation,
   Transition,
+  Toggle,
 }
 /* No side effect */
