@@ -39,15 +39,20 @@ external isCompositeComponentWithType: ('element, React.component<'props>) => bo
 
 module Simulate = {
   @module("react-dom/test-utils") @scope("Simulate")
-  external click: Dom.element => unit = "click"
+  external click: WebAPI.DOMTree.element => unit = "click"
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external clickWithEvent: (Dom.element, 'event) => unit = "click"
+  external clickWithEvent: (WebAPI.DOMTree.element, 'event) => unit = "click"
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external change: Dom.element => unit = "change"
+  external change: WebAPI.DOMTree.element => unit = "change"
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external blur: Dom.element => unit = "blur"
+  external blur: WebAPI.DOMTree.element => unit = "blur"
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external changeWithEvent: (Dom.element, 'event) => unit = "change"
+  external changeWithEvent: (WebAPI.DOMTree.element, 'event) => unit = "change"
+
   let changeWithValue = (element, value) => {
     let event = {
       "target": {
@@ -56,6 +61,7 @@ module Simulate = {
     }
     changeWithEvent(element, event)
   }
+
   let changeWithChecked = (element, value) => {
     let event = {
       "target": {
@@ -64,38 +70,51 @@ module Simulate = {
     }
     changeWithEvent(element, event)
   }
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external canPlay: Dom.element => unit = "canPlay"
+  external canPlay: WebAPI.DOMTree.element => unit = "canPlay"
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external timeUpdate: Dom.element => unit = "timeUpdate"
+  external timeUpdate: WebAPI.DOMTree.element => unit = "timeUpdate"
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external ended: Dom.element => unit = "ended"
+  external ended: WebAPI.DOMTree.element => unit = "ended"
+
   @module("react-dom/test-utils") @scope("Simulate")
-  external focus: Dom.element => unit = "focus"
+  external focus: WebAPI.DOMTree.element => unit = "focus"
 }
 
-@val external document: Dom.document = "document"
+@val external document: WebAPI.DOM.document = "document"
+
+@send @return(nullable)
+external querySelector: (WebAPI.DOMTree.element, string) => option<WebAPI.DOMTree.element> =
+  "querySelector"
 
 @send
-external querySelector: (Dom.element, string) => option<Dom.element> = "querySelector"
+external querySelectorAll: (
+  WebAPI.DOMTree.element,
+  string,
+) => Array.arrayLike<WebAPI.DOMTree.element> = "querySelectorAll"
+
+@get external textContent: WebAPI.DOMTree.element => string = "textContent"
+
+@get @return(nullable)
+external body: WebAPI.DOM.document => option<WebAPI.DOMTree.element> = "body"
 
 @send
-external querySelectorAll: (Dom.element, string) => Array.arrayLike<Dom.element> =
-  "querySelectorAll"
+external createElement: (WebAPI.DOM.document, string) => WebAPI.DOMTree.element = "createElement"
 
-@get external textContent: Dom.element => string = "textContent"
-@get external body: Dom.document => option<Dom.element> = "body"
+@send external remove: WebAPI.DOMTree.element => unit = "remove"
+
 @send
-external createElement: (Dom.document, string) => Dom.element = "createElement"
-@send external remove: Dom.element => unit = "remove"
-@send
-external appendChild: (Dom.element, Dom.element) => Dom.element = "appendChild"
+external appendChild: (WebAPI.DOMTree.element, WebAPI.DOMTree.element) => WebAPI.DOMTree.element =
+  "appendChild"
 
 let querySelectorAll = (element, string) => Array.fromArrayLike(querySelectorAll(element, string))
 
 module DOM = {
   @return(nullable) @get
-  external value: Dom.element => option<string> = "value"
+  external value: WebAPI.DOMTree.element => option<string> = "value"
 
   let findBySelector = (element, selector) => querySelector(element, selector)
 
@@ -110,7 +129,7 @@ module DOM = {
     )
 }
 
-let prepareContainer = (container: ref<option<Dom.element>>, ()) => {
+let prepareContainer = (container: ref<option<WebAPI.DOMTree.element>>, ()) => {
   let containerElement = document->createElement("div")
   switch document->body {
   | Some(body) => body->appendChild(containerElement)->ignore
@@ -119,7 +138,7 @@ let prepareContainer = (container: ref<option<Dom.element>>, ()) => {
   container := Some(containerElement)
 }
 
-let cleanupContainer = (container: ref<option<Dom.element>>, ()) => {
+let cleanupContainer = (container: ref<option<WebAPI.DOMTree.element>>, ()) => {
   switch container.contents {
   | Some(contents) => remove(contents)
   | None => ()

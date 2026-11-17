@@ -43,23 +43,33 @@ module Synthetic: {
   type t = synthetic<tag>
   @get external bubbles: synthetic<'a> => bool = "bubbles"
   @get external cancelable: synthetic<'a> => bool = "cancelable"
-  @get
-  external currentTarget: synthetic<'a> => {..} = "currentTarget"
+
+  /** React clears currentTarget after invoking the handler, even after persist(). */
+  @get @return(nullable)
+  external currentTarget: synthetic<'a> => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get
   external defaultPrevented: synthetic<'a> => bool = "defaultPrevented"
+
   @get external eventPhase: synthetic<'a> => int = "eventPhase"
   @get external isTrusted: synthetic<'a> => bool = "isTrusted"
+
   @get
-  external nativeEvent: synthetic<'a> => {..} = "nativeEvent"
+  external nativeEvent: synthetic<'a> => WebAPI.DOM.event = "nativeEvent"
+
   @send
   external preventDefault: synthetic<'a> => unit = "preventDefault"
+
   @send
   external isDefaultPrevented: synthetic<'a> => bool = "isDefaultPrevented"
+
   @send
   external stopPropagation: synthetic<'a> => unit = "stopPropagation"
+
   @send
   external isPropagationStopped: synthetic<'a> => bool = "isPropagationStopped"
-  @get external target: synthetic<'a> => {..} = "target"
+
+  @get external target: synthetic<'a> => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: synthetic<'a> => float = "timeStamp"
   @get external type_: synthetic<'a> => string = "type"
   @send external persist: synthetic<'a> => unit = "persist"
@@ -73,20 +83,25 @@ module Clipboard: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
-  @get external clipboardData: t => {..} = "clipboardData" /* Should return Dom.dataTransfer */
+
+  @get @return(nullable)
+  external clipboardData: t => option<WebAPI.DataTransfer.t> = "clipboardData"
 }
 
 module Composition: {
@@ -94,16 +109,19 @@ module Composition: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -115,16 +133,19 @@ module Keyboard: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -132,8 +153,10 @@ module Keyboard: {
   @get external charCode: t => int = "charCode"
   @get external code: t => string = "code"
   @get external ctrlKey: t => bool = "ctrlKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
+
   @get external key: t => string = "key"
   @get external keyCode: t => int = "keyCode"
   @get external locale: t => string = "locale"
@@ -149,21 +172,25 @@ module Focus: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
+
   @get @return(nullable)
-  external relatedTarget: t => option<{..}> = "relatedTarget" /* Should return Dom.eventTarget */
+  external relatedTarget: t => option<WebAPI.DOM.eventTarget> = "relatedTarget"
 }
 
 module Form: {
@@ -171,16 +198,19 @@ module Form: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -191,16 +221,19 @@ module Mouse: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -210,15 +243,19 @@ module Mouse: {
   @get external clientX: t => int = "clientX"
   @get external clientY: t => int = "clientY"
   @get external ctrlKey: t => bool = "ctrlKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
+
   @get external metaKey: t => bool = "metaKey"
   @get external movementX: t => int = "movementX"
   @get external movementY: t => int = "movementY"
   @get external pageX: t => int = "pageX"
   @get external pageY: t => int = "pageY"
+
   @get @return(nullable)
-  external relatedTarget: t => option<{..}> = "relatedTarget" /* Should return Dom.eventTarget */
+  external relatedTarget: t => option<WebAPI.DOM.eventTarget> = "relatedTarget"
+
   @get external screenX: t => int = "screenX"
   @get external screenY: t => int = "screenY"
   @get external shiftKey: t => bool = "shiftKey"
@@ -230,8 +267,10 @@ module Pointer: {
 
   // Event
   @get external type_: t => string = "type"
-  @get external target: t => {..} = "target"
-  @get external currentTarget: t => {..} = "currentTarget"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
 
   @get external eventPhase: t => int = "eventPhase"
 
@@ -245,14 +284,17 @@ module Pointer: {
   @get external timeStamp: t => float = "timeStamp"
 
   // SyntheticEvent
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
   @send external persist: t => unit = "persist"
 
   // UIEvent
   @get external detail: t => int = "detail"
-  @get external view: t => Dom.window = "view" /* Should return DOMAbstractView/WindowProxy */
+
+  /** None when the native event has no associated view. */
+  @get @return(nullable)
+  external view: t => option<WebAPI.DOM.window> = "view"
 
   // MouseEvent
   @get external screenX: t => int = "screenX"
@@ -268,6 +310,7 @@ module Pointer: {
   @get external shiftKey: t => bool = "shiftKey"
   @get external altKey: t => bool = "altKey"
   @get external metaKey: t => bool = "metaKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
 
@@ -275,10 +318,10 @@ module Pointer: {
   @get external buttons: t => int = "buttons"
 
   @get @return(nullable)
-  external relatedTarget: t => option<{..}> = "relatedTarget" /* Should return Dom.eventTarget */
+  external relatedTarget: t => option<WebAPI.DOM.eventTarget> = "relatedTarget"
 
   // PointerEvent
-  @get external pointerId: t => Dom.eventPointerId = "pointerId"
+  @get external pointerId: t => int = "pointerId"
   @get external width: t => float = "width"
   @get external height: t => float = "height"
   @get external pressure: t => float = "pressure"
@@ -295,16 +338,19 @@ module Selection: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -315,28 +361,33 @@ module Touch: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
   @get external altKey: t => bool = "altKey"
-  @get external changedTouches: t => {..} = "changedTouches" /* Should return Dom.touchList */
+  @get external changedTouches: t => WebAPI.TouchList.t = "changedTouches"
   @get external ctrlKey: t => bool = "ctrlKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
+
   @get external metaKey: t => bool = "metaKey"
   @get external shiftKey: t => bool = "shiftKey"
-  @get external targetTouches: t => {..} = "targetTouches" /* Should return Dom.touchList */
-  @get external touches: t => {..} = "touches" /* Should return Dom.touchList */
+  @get external targetTouches: t => WebAPI.TouchList.t = "targetTouches"
+  @get external touches: t => WebAPI.TouchList.t = "touches"
 }
 
 module UI: {
@@ -344,21 +395,27 @@ module UI: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
   @get external detail: t => int = "detail"
-  @get external view: t => Dom.window = "view" /* Should return DOMAbstractView/WindowProxy */
+
+  /** None when the native event has no associated view. */
+  @get @return(nullable)
+  external view: t => option<WebAPI.DOM.window> = "view"
 }
 
 module Wheel: {
@@ -366,16 +423,19 @@ module Wheel: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -390,16 +450,19 @@ module Media: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -410,16 +473,19 @@ module Image: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -430,16 +496,19 @@ module Animation: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"
@@ -453,16 +522,19 @@ module Transition: {
   type t = synthetic<tag>
   @get external bubbles: t => bool = "bubbles"
   @get external cancelable: t => bool = "cancelable"
-  @get external currentTarget: t => {..} = "currentTarget"
+
+  @get @return(nullable)
+  external currentTarget: t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: t => bool = "defaultPrevented"
   @get external eventPhase: t => int = "eventPhase"
   @get external isTrusted: t => bool = "isTrusted"
-  @get external nativeEvent: t => {..} = "nativeEvent"
+  @get external nativeEvent: t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: t => unit = "preventDefault"
   @send external isDefaultPrevented: t => bool = "isDefaultPrevented"
   @send external stopPropagation: t => unit = "stopPropagation"
   @send external isPropagationStopped: t => bool = "isPropagationStopped"
-  @get external target: t => {..} = "target"
+  @get external target: t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: t => float = "timeStamp"
   @get external type_: t => string = "type"
   @send external persist: t => unit = "persist"

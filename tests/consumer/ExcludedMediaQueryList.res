@@ -1,0 +1,1 @@
+module MediaQueryList = WebAPI.MediaQueryList

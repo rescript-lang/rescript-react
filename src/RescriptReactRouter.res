@@ -1,40 +1,51 @@
 @scope("globalThis")
-external window: option<Dom.window> = "window"
+external window: option<WebAPI.DOM.window> = "window"
 
 @scope("globalThis")
-external history: option<Dom.history> = "history"
+external history: option<WebAPI.History.Types.history> = "history"
 
-@get external location: Dom.window => Dom.location = "location"
+@get external location: WebAPI.DOM.window => WebAPI.Location.t = "location"
 
-/* actually the cb is Dom.event => unit, but let's restrict the access for now */
+/* actually the cb is WebAPI.DOM.event => unit, but let's restrict the access for now */
 @send
-external addEventListener: (Dom.window, string, unit => unit) => unit = "addEventListener"
-
-@send
-external removeEventListener: (Dom.window, string, unit => unit) => unit = "removeEventListener"
+external addEventListener: (WebAPI.DOM.window, string, unit => unit) => unit = "addEventListener"
 
 @send
-external dispatchEvent: (Dom.window, Dom.event) => unit = "dispatchEvent"
-
-@get external pathname: Dom.location => string = "pathname"
-
-@get external hash: Dom.location => string = "hash"
-
-@get external search: Dom.location => string = "search"
+external removeEventListener: (WebAPI.DOM.window, string, unit => unit) => unit =
+  "removeEventListener"
 
 @send
-external pushState: (Dom.history, @as(json`null`) _, @as("") _, ~href: string) => unit = "pushState"
+external dispatchEvent: (WebAPI.DOM.window, WebAPI.DOM.event) => unit = "dispatchEvent"
+
+@get external pathname: WebAPI.Location.t => string = "pathname"
+
+@get external hash: WebAPI.Location.t => string = "hash"
+
+@get external search: WebAPI.Location.t => string = "search"
 
 @send
-external replaceState: (Dom.history, @as(json`null`) _, @as("") _, ~href: string) => unit =
-  "replaceState"
+external pushState: (
+  WebAPI.History.Types.history,
+  @as(json`null`) _,
+  @as("") _,
+  ~href: string,
+) => unit = "pushState"
+
+@send
+external replaceState: (
+  WebAPI.History.Types.history,
+  @as(json`null`) _,
+  @as("") _,
+  ~href: string,
+) => unit = "replaceState"
 
 type makeEventOptions = {
   bubbles?: bool,
   cancelable?: bool,
   composed?: bool,
 }
-@new external makeEvent: (string, ~options: makeEventOptions=?) => Dom.event = "Event"
+
+@new external makeEvent: (string, ~options: makeEventOptions=?) => WebAPI.DOM.event = "Event"
 
 /* This is copied from array.ml. We want to cut dependencies for rescript-react so
  that it's friendlier to use in size-constrained codebases */
@@ -47,6 +58,7 @@ let arrayToList = a => {
     }
   tolist(a->Array.length - 1, list{})
 }
+
 /* if we ever roll our own parser in the future, make sure you test all url combinations
    e.g. foo.com/?#bar
  */
@@ -74,16 +86,18 @@ let pathParse = str =>
 
     raw->String.split("/")->Array.filter(item => item->String.length != 0)->arrayToList
   }
+
 let path = (~serverUrlString=?, ()) =>
   switch (serverUrlString, window) {
   | (None, None) => list{}
   | (Some(serverUrlString), _) => pathParse(serverUrlString)
-  | (_, Some(window: Dom.window)) => pathParse(window->location->pathname)
+  | (_, Some(window: WebAPI.DOM.window)) => pathParse(window->location->pathname)
   }
+
 let hash = () =>
   switch window {
   | None => ""
-  | Some(window: Dom.window) =>
+  | Some(window: WebAPI.DOM.window) =>
     switch window->location->hash {
     | ""
     | "#" => ""
@@ -93,6 +107,7 @@ let hash = () =>
       raw->String.slice(~start=1)
     }
   }
+
 let searchParse = str =>
   switch str {
   | ""
@@ -108,14 +123,14 @@ let search = (~serverUrlString=?, ()) =>
   switch (serverUrlString, window) {
   | (None, None) => ""
   | (Some(serverUrlString), _) => searchParse(serverUrlString)
-  | (_, Some(window: Dom.window)) => searchParse(window->location->search)
+  | (_, Some(window: WebAPI.DOM.window)) => searchParse(window->location->search)
   }
 
 let push = path =>
   switch (history, window) {
   | (None, _)
   | (_, None) => ()
-  | (Some(history: Dom.history), Some(window: Dom.window)) =>
+  | (Some(history: WebAPI.History.Types.history), Some(window: WebAPI.DOM.window)) =>
     pushState(history, ~href=path)
     dispatchEvent(window, makeEvent("popstate", ~options={bubbles: true, cancelable: true}))
   }
@@ -124,7 +139,7 @@ let replace = path =>
   switch (history, window) {
   | (None, _)
   | (_, None) => ()
-  | (Some(history: Dom.history), Some(window: Dom.window)) =>
+  | (Some(history: WebAPI.History.Types.history), Some(window: WebAPI.DOM.window)) =>
     replaceState(history, ~href=path)
     dispatchEvent(window, makeEvent("popstate", ~options={bubbles: true, cancelable: true}))
   }
@@ -165,7 +180,7 @@ let dangerouslyGetInitialUrl = url
 let watchUrl = callback =>
   switch window {
   | None => () => ()
-  | Some(window: Dom.window) =>
+  | Some(window: WebAPI.DOM.window) =>
     let watcherID = () => callback(url())
     addEventListener(window, "popstate", watcherID)
     watcherID
@@ -174,7 +189,7 @@ let watchUrl = callback =>
 let unwatchUrl = watcherID =>
   switch window {
   | None => ()
-  | Some(window: Dom.window) => removeEventListener(window, "popstate", watcherID)
+  | Some(window: WebAPI.DOM.window) => removeEventListener(window, "popstate", watcherID)
   }
 
 let useUrl = (~serverUrl=?, ()) => {

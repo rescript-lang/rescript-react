@@ -7,19 +7,26 @@ module MakeEventWithType = (
 ) => {
   @get external bubbles: Type.t => bool = "bubbles"
   @get external cancelable: Type.t => bool = "cancelable"
-  @get
-  external currentTarget: Type.t => {..} = "currentTarget" /* Should return Dom.eventTarget */
+
+  /** React clears currentTarget after invoking the handler, even after persist(). */
+  @get @return(nullable)
+  external currentTarget: Type.t => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get external defaultPrevented: Type.t => bool = "defaultPrevented"
   @get external eventPhase: Type.t => int = "eventPhase"
   @get external isTrusted: Type.t => bool = "isTrusted"
-  @get external nativeEvent: Type.t => {..} = "nativeEvent" /* Should return Dom.event */
+  @get external nativeEvent: Type.t => WebAPI.DOM.event = "nativeEvent"
   @send external preventDefault: Type.t => unit = "preventDefault"
+
   @send
   external isDefaultPrevented: Type.t => bool = "isDefaultPrevented"
+
   @send external stopPropagation: Type.t => unit = "stopPropagation"
+
   @send
   external isPropagationStopped: Type.t => bool = "isPropagationStopped"
-  @get external target: Type.t => {..} = "target" /* Should return Dom.eventTarget */
+
+  @get external target: Type.t => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: Type.t => float = "timeStamp"
   @get external type_: Type.t => string = "type"
   @send external persist: Type.t => unit = "persist"
@@ -30,24 +37,32 @@ module Synthetic = {
   type t = synthetic<tag>
   @get external bubbles: synthetic<'a> => bool = "bubbles"
   @get external cancelable: synthetic<'a> => bool = "cancelable"
-  @get
-  external currentTarget: synthetic<'a> => {..} =
-    "currentTarget" /* Should return Dom.eventTarget */
+
+  @get @return(nullable)
+  external currentTarget: synthetic<'a> => option<WebAPI.DOM.eventTarget> = "currentTarget"
+
   @get
   external defaultPrevented: synthetic<'a> => bool = "defaultPrevented"
+
   @get external eventPhase: synthetic<'a> => int = "eventPhase"
   @get external isTrusted: synthetic<'a> => bool = "isTrusted"
+
   @get
-  external nativeEvent: synthetic<'a> => {..} = "nativeEvent" /* Should return Dom.event */
+  external nativeEvent: synthetic<'a> => WebAPI.DOM.event = "nativeEvent"
+
   @send
   external preventDefault: synthetic<'a> => unit = "preventDefault"
+
   @send
   external isDefaultPrevented: synthetic<'a> => bool = "isDefaultPrevented"
+
   @send
   external stopPropagation: synthetic<'a> => unit = "stopPropagation"
+
   @send
   external isPropagationStopped: synthetic<'a> => bool = "isPropagationStopped"
-  @get external target: synthetic<'a> => {..} = "target" /* Should return Dom.eventTarget */
+
+  @get external target: synthetic<'a> => WebAPI.DOM.eventTarget = "target"
   @get external timeStamp: synthetic<'a> => float = "timeStamp"
   @get external type_: synthetic<'a> => string = "type"
   @send external persist: synthetic<'a> => unit = "persist"
@@ -60,7 +75,9 @@ module Clipboard = {
   type tag = JsxEvent.Clipboard.tag
   type t = synthetic<tag>
   include MakeEventWithType({type t = t})
-  @get external clipboardData: t => {..} = "clipboardData" /* Should return Dom.dataTransfer */
+
+  @get @return(nullable)
+  external clipboardData: t => option<WebAPI.DataTransfer.t> = "clipboardData"
 }
 
 module Composition = {
@@ -78,8 +95,10 @@ module Keyboard = {
   @get external charCode: t => int = "charCode"
   @get external code: t => string = "code"
   @get external ctrlKey: t => bool = "ctrlKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
+
   @get external key: t => string = "key"
   @get external keyCode: t => int = "keyCode"
   @get external locale: t => string = "locale"
@@ -94,8 +113,9 @@ module Focus = {
   type tag = JsxEvent.Focus.tag
   type t = synthetic<tag>
   include MakeEventWithType({type t = t})
+
   @get @return(nullable)
-  external relatedTarget: t => option<{..}> = "relatedTarget" /* Should return Dom.eventTarget */
+  external relatedTarget: t => option<WebAPI.DOM.eventTarget> = "relatedTarget"
 }
 
 module Form = {
@@ -114,15 +134,19 @@ module Mouse = {
   @get external clientX: t => int = "clientX"
   @get external clientY: t => int = "clientY"
   @get external ctrlKey: t => bool = "ctrlKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
+
   @get external metaKey: t => bool = "metaKey"
   @get external movementX: t => int = "movementX"
   @get external movementY: t => int = "movementY"
   @get external pageX: t => int = "pageX"
   @get external pageY: t => int = "pageY"
+
   @get @return(nullable)
-  external relatedTarget: t => option<{..}> = "relatedTarget" /* Should return Dom.eventTarget */
+  external relatedTarget: t => option<WebAPI.DOM.eventTarget> = "relatedTarget"
+
   @get external screenX: t => int = "screenX"
   @get external screenY: t => int = "screenY"
   @get external shiftKey: t => bool = "shiftKey"
@@ -135,7 +159,10 @@ module Pointer = {
 
   // UIEvent
   @get external detail: t => int = "detail"
-  @get external view: t => Dom.window = "view" /* Should return DOMAbstractView/WindowProxy */
+
+  /** None when the native event has no associated view. */
+  @get @return(nullable)
+  external view: t => option<WebAPI.DOM.window> = "view"
 
   // MouseEvent
   @get external screenX: t => int = "screenX"
@@ -151,6 +178,7 @@ module Pointer = {
   @get external shiftKey: t => bool = "shiftKey"
   @get external altKey: t => bool = "altKey"
   @get external metaKey: t => bool = "metaKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
 
@@ -158,10 +186,10 @@ module Pointer = {
   @get external buttons: t => int = "buttons"
 
   @get @return(nullable)
-  external relatedTarget: t => option<{..}> = "relatedTarget" /* Should return Dom.eventTarget */
+  external relatedTarget: t => option<WebAPI.DOM.eventTarget> = "relatedTarget"
 
   // PointerEvent
-  @get external pointerId: t => Dom.eventPointerId = "pointerId"
+  @get external pointerId: t => int = "pointerId"
   @get external width: t => float = "width"
   @get external height: t => float = "height"
   @get external pressure: t => float = "pressure"
@@ -184,14 +212,16 @@ module Touch = {
   type t = synthetic<tag>
   include MakeEventWithType({type t = t})
   @get external altKey: t => bool = "altKey"
-  @get external changedTouches: t => {..} = "changedTouches" /* Should return Dom.touchList */
+  @get external changedTouches: t => WebAPI.TouchList.t = "changedTouches"
   @get external ctrlKey: t => bool = "ctrlKey"
+
   @send
   external getModifierState: (t, string) => bool = "getModifierState"
+
   @get external metaKey: t => bool = "metaKey"
   @get external shiftKey: t => bool = "shiftKey"
-  @get external targetTouches: t => {..} = "targetTouches" /* Should return Dom.touchList */
-  @get external touches: t => {..} = "touches" /* Should return Dom.touchList */
+  @get external targetTouches: t => WebAPI.TouchList.t = "targetTouches"
+  @get external touches: t => WebAPI.TouchList.t = "touches"
 }
 
 module UI = {
@@ -199,7 +229,10 @@ module UI = {
   type t = synthetic<tag>
   include MakeEventWithType({type t = t})
   @get external detail: t => int = "detail"
-  @get external view: t => Dom.window = "view" /* Should return DOMAbstractView/WindowProxy */
+
+  /** None when the native event has no associated view. */
+  @get @return(nullable)
+  external view: t => option<WebAPI.DOM.window> = "view"
 }
 
 module Wheel = {

@@ -4,6 +4,7 @@
   "description": "React bindings for ReScript",
   "files": [
     "README.md",
+    "MIGRATION.md",
     "CHANGELOG.md",
     "LICENSE",
     "rescript.json",
@@ -15,7 +16,7 @@
     "start": "rescript watch",
     "clean": "rescript clean",
     "format": "rescript format",
-    "test": "echo 'tests disabled for now'"
+    "test": "python3 tests/check-consumer.py"
   },
   "keywords": [
     "rescript",
@@ -28,14 +29,18 @@
     "url": "git+https://github.com/rescript-lang/rescript-react.git"
   },
   "homepage": "https://rescript-lang.org/docs/react/latest/introduction",
+  "dependencies": {
+    "@rescript/webapi": "https://codeload.github.com/rescript-lang/experimental-rescript-webapi/tar.gz/691bc3f20dc5d621d22f5bf9931b4ec086542d5f"
+  },
   "devDependencies": {
     "pkg-pr-new": "^0.0.75",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "rescript": "^13.0.0-alpha.5"
+    "rescript": "13.0.0-alpha.7"
   },
   "peerDependencies": {
-    "@rescript/runtime": ">=13.0.0-alpha.5",
+    "@rescript/runtime": ">=13.0.0-alpha.7",
+    "rescript": ">=13.0.0-alpha.7 <13.0.0",
     "react": ">=19.2.0",
     "react-dom": ">=19.2.0"
   }

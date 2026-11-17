@@ -1,0 +1,1 @@
+module DOMRect = WebAPI.DOMRect

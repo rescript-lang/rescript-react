@@ -3,6 +3,19 @@
   "jsx": {
     "version": 4
   },
+  "dependencies": [
+    {
+      "name": "@rescript/webapi",
+      "features": [
+        "WebAPI.DOMTree",
+        "WebAPI.History",
+        "WebAPI.Location",
+        "WebAPI.Touch",
+        "WebAPI.DataTransfer",
+        "WebAPI.FormData"
+      ]
+    }
+  ],
   "sources": [
     {
       "dir": "src"
