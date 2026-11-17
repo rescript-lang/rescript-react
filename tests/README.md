@@ -11,12 +11,12 @@ The suite checks:
 
 - The published file inventory, including migration documentation.
 - A consumer depending only on React and consumers explicitly selecting WebAPI.
-- Element, ref, style, event, and file type interoperability.
-- Rejection of invalid target, currentTarget, view, and file assumptions.
+- Element, ref, style, event, clipboard, touch, FormData, and file interoperability.
+- Rejection of invalid target, currentTarget, view, file, clipboard, and touch-list assumptions.
 - Excluded WebAPI operations, opt-in feature expansion, and recovery to the
   narrow selection after each build.
 - Compiled JavaScript getter identity and null/undefined conversion, native
-  FormData/File values, and DOM helper/container behavior.
+  FormData/File values, shared form-action/status types, and DOM helper/container behavior.
 
 The Node assertions exercise binding contracts, not browser rendering or
 React's real event dispatch. Fixtures are removed on both success and failure.

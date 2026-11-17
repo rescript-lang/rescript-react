@@ -6,8 +6,10 @@ ReScript 13.0.0-alpha.7 and a compatible `@rescript/runtime`.
 ## Dependency release requirement
 
 The WebAPI dependency is pinned to the immutable source snapshot
-`81ac4eebeae3ff0cc9118e7b4b62323e3cee9729`. Its `DOMTree`, `History`, and
-`Location` features are not yet available together in a published release.
+`691bc3f20dc5d621d22f5bf9931b4ec086542d5f`. Its `DOMTree`, `History`,
+`Location`, `Touch`, `DataTransfer`, and `FormData` feature selection is not
+yet available in a published release. `FileEntries` is included transitively;
+the selection compiles 27 WebAPI source modules.
 Before a production release, replace the snapshot with a published WebAPI
 version containing those features and rerun the packed-consumer tests.
 The compiler peer range follows the snapshot's supported v13 prerelease range;
@@ -50,6 +52,8 @@ modules can depend only on `@rescript/react`.
 | Focus, Mouse, and Pointer `relatedTarget` | `option<WebAPI.DOM.eventTarget>` |
 | UI and Pointer `view` | `option<WebAPI.DOM.window>` |
 | Pointer `pointerId` | `int` |
+| Clipboard `clipboardData` | `option<WebAPI.DataTransfer.t>` |
+| Touch `changedTouches`, `targetTouches`, and `touches` | `WebAPI.TouchList.t` |
 
 The `Synthetic` getters accept all synthetic event families. Synthetic events
 remain React-specific values; they are not native DOM events.
@@ -67,9 +71,16 @@ both null and undefined to `None`.
 Returning a WebAPI type does not enable all its operations. For example,
 select `WebAPI.Event` to use native event operations.
 
-## FormData files
+Clipboard data can be absent on script-created events; match the option before
+using `WebAPI.DataTransfer` operations. Touch lists are not arrays. Use
+`WebAPI.TouchList.item` to retrieve a nullable `WebAPI.Touch.t`.
 
+## FormData and files
+
+`ReactDOM.FormData.t` aliases `WebAPI.FormData.t`, so React form actions and
+status data interoperate directly with WebAPI FormData operations.
 `ReactDOM.FormData.file` aliases `WebAPI.DOM.file`, so files interoperate with
 `WebAPI.File.t` without conversion. Select `WebAPI.File` for file operations.
-The FormData wrapper, its boxed `String`/`File` variants, and form-action
-types retain their existing identities and behavior.
+The React helper names and boxed `String`/`File` return variants retain their
+behavior. Those boxed variants are distinct from WebAPI's unboxed
+`FormDataEntryValue`; do not treat the two value representations as aliases.

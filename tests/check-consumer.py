@@ -79,8 +79,8 @@ def assert_narrow_inventory(fixture):
         if list(library.rglob(f"{module}-WebAPI.cmj")):
             raise RuntimeError(f"Excluded {module} compiler artifact is still present")
     sources = list((library / "src").rglob("*.cmj"))
-    if len(sources) != 15:
-        raise RuntimeError(f"Expected fifteen selective DOM/history/location sources, found {len(sources)}")
+    if len(sources) != 27:
+        raise RuntimeError(f"Expected 27 selective DOM/data sources, found {len(sources)}")
 
 
 def require_build(fixture, description):
@@ -110,7 +110,7 @@ def verify(fixture):
     config = json.loads((fixture / "node_modules/@rescript/react/rescript.json").read_text())
     dependency = next(dep for dep in config["dependencies"] if dep["name"] == "@rescript/webapi")
     write_config(fixture, [dependency])
-    for source in ("Interop.res", "CSSCoreInterop.res", "EventInterop.res", "TestUtilsInterop.res"):
+    for source in ("Interop.res", "CSSCoreInterop.res", "EventInterop.res", "TestUtilsInterop.res", "DataInterop.res"):
         shutil.copy(CONSUMER / source, fixture / "src")
     require_build(fixture, "narrow WebAPI types interoperate with React")
     verify_event_types(fixture)
@@ -146,11 +146,18 @@ def verify_event_types(fixture):
          str(fixture / "src/TestUtilsInterop.res.js")],
         check=True,
     )
+    subprocess.run(
+        ["node", str(CONSUMER / "data-runtime.mjs"),
+         str(fixture / "src/DataInterop.res.js")],
+        check=True,
+    )
     for filename, diagnostic in (
         ("InvalidEventTarget.res", "eventTarget"),
         ("InvalidCurrentTarget.res", "option"),
         ("InvalidView.res", "option"),
         ("InvalidFile.res", "private"),
+        ("InvalidClipboard.res", "option"),
+        ("InvalidTouches.res", "TouchList"),
     ):
         source = fixture / "src" / filename
         shutil.copy(CONSUMER / filename, source)

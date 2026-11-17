@@ -31,9 +31,10 @@ type interoperability, feature selection, and JavaScript binding behavior.
 
 ### WebAPI types
 
-DOM elements, native events, event targets, and FormData files use WebAPI
-types. The library selects `WebAPI.DOMTree`, `WebAPI.History`, and
-`WebAPI.Location`; consumers can enable additional WebAPI features for
+DOM elements, native events, event targets, clipboard data, touch lists, and
+FormData use WebAPI types. The library selects `WebAPI.DOMTree`,
+`WebAPI.History`, `WebAPI.Location`, `WebAPI.Touch`, `WebAPI.DataTransfer`,
+and `WebAPI.FormData`; consumers can enable additional WebAPI features for
 the operations they use.
 
 This prerelease requires ReScript 13.0.0-alpha.7 and pins a WebAPI source

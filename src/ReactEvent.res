@@ -75,7 +75,9 @@ module Clipboard = {
   type tag = JsxEvent.Clipboard.tag
   type t = synthetic<tag>
   include MakeEventWithType({type t = t})
-  @get external clipboardData: t => {..} = "clipboardData" /* Should return Dom.dataTransfer */
+
+  @get @return(nullable)
+  external clipboardData: t => option<WebAPI.DataTransfer.t> = "clipboardData"
 }
 
 module Composition = {
@@ -210,7 +212,7 @@ module Touch = {
   type t = synthetic<tag>
   include MakeEventWithType({type t = t})
   @get external altKey: t => bool = "altKey"
-  @get external changedTouches: t => {..} = "changedTouches" /* Should return Dom.touchList */
+  @get external changedTouches: t => WebAPI.TouchList.t = "changedTouches"
   @get external ctrlKey: t => bool = "ctrlKey"
 
   @send
@@ -218,8 +220,8 @@ module Touch = {
 
   @get external metaKey: t => bool = "metaKey"
   @get external shiftKey: t => bool = "shiftKey"
-  @get external targetTouches: t => {..} = "targetTouches" /* Should return Dom.touchList */
-  @get external touches: t => {..} = "touches" /* Should return Dom.touchList */
+  @get external targetTouches: t => WebAPI.TouchList.t = "targetTouches"
+  @get external touches: t => WebAPI.TouchList.t = "touches"
 }
 
 module UI = {
