@@ -1,10 +1,11 @@
 # Packed consumer checks
 
 Run `npm ci`, `npm run build`, and `npm test` using Node.js 24 and Python 3.
-`npm test` packs the library and installs it into a temporary consumer under
-`node_modules`, using the compiler, runtime, and React versions installed by
+`npm test` packs the library and installs it into a system temporary directory
+outside the checkout, using the compiler, runtime, and React versions installed by
 the root lockfile. It requires registry access (or a populated npm cache).
-No checkout symlinks or precompiled library artifacts are used.
+No checkout symlinks, ancestor dependency fallback, or precompiled library
+artifacts are used.
 
 The suite checks:
 

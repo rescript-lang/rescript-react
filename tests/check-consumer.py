@@ -90,9 +90,23 @@ def require_build(fixture, description):
     print(f"PASS: {description}")
 
 
+def add_direct_webapi(fixture):
+    react = fixture / "node_modules/@rescript/react"
+    manifest = json.loads((react / "package.json").read_text())
+    specifier = manifest["dependencies"]["@rescript/webapi"]
+    run([
+        "npm", "install", "--ignore-scripts", "--no-audit", "--no-fund",
+        "--package-lock=false", f"@rescript/webapi@{specifier}",
+    ], fixture)
+    if (react / "node_modules/@rescript/webapi").exists():
+        raise RuntimeError("React and its consumer installed separate WebAPI copies")
+    print("PASS: matching direct WebAPI dependency deduplicates with React")
+
+
 def verify(fixture):
     require_build(fixture, "downstream consumer builds with only @rescript/react")
     assert_narrow_inventory(fixture)
+    add_direct_webapi(fixture)
     config = json.loads((fixture / "node_modules/@rescript/react/rescript.json").read_text())
     dependency = next(dep for dep in config["dependencies"] if dep["name"] == "@rescript/webapi")
     write_config(fixture, [dependency])
@@ -182,7 +196,7 @@ def verify_broad_consumer(fixture, dependency, broad, filename):
 
 
 def main():
-    with tempfile.TemporaryDirectory(prefix=".webapi-consumer-", dir=ROOT / "node_modules") as path:
+    with tempfile.TemporaryDirectory(prefix="rescript-react-consumer-") as path:
         fixture = Path(path)
         prepare(fixture)
         verify(fixture)
