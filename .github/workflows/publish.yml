@@ -10,6 +10,7 @@ on:
 
 jobs:
   pkg-pr-new:
+    if: github.repository == 'rescript-lang/rescript-react'
     runs-on: ubuntu-latest
 
     steps:

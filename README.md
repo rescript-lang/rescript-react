@@ -25,6 +25,22 @@ npm install
 npm start
 ```
 
+Run `npm ci`, `npm run build`, and `npm test` with Node.js 24 and Python 3.
+The tests install the packed library into a disposable consumer and check
+type interoperability, feature selection, and JavaScript binding behavior.
+
+### WebAPI types
+
+DOM elements, native events, event targets, and FormData files use WebAPI
+types. The library selects `WebAPI.DOMTree`, `WebAPI.History`, and
+`WebAPI.Location`; consumers can enable additional WebAPI features for
+the operations they use.
+
+This prerelease requires ReScript 13.0.0-alpha.7 and pins a WebAPI source
+snapshot while its required features await release. See the
+[migration notes](MIGRATION.md) for public type changes and the dependency
+release requirement.
+
 ### Acknowledgements
 
 This project is the next evolution of the original [reason-react](https://github.com/reasonml/reason-react) bindings.

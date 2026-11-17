@@ -1,0 +1,1 @@
+module Animation = WebAPI.Animation
